@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+/*Contenedor proyectos en curso*/
+.containerProjectCourse{
+    border: 1px solid rgb(64, 153, 226);
+    border-radius: 4px;
+    height: auto;
+    min-width: 600px;
+    margin: 30px 30px 0 30px;
+    background-color: rgba(147, 248, 147, 0.788);
+}
+.containerProject{
+    border: 1px solid rgb(64, 153, 226);
+    /*border-bottom: 1px dashed rgb(203, 231, 255);*/
+    border-radius: 4px;
+    height: auto;
+    margin: 2px;
+    background-color: white;
+}
+.cardProyecto{
+    border-right: 1px dashed rgb(203, 231, 255); 
+    height: 250px;
+}
+.titles{
+    font-size:small;
+    height: 14px;
+    margin: 8px 0 8px 0;
+}
+#listProject{
+    font-weight: bolder;
+    font-size:x-small;
+    list-style: none;
+    padding: 0;
+    margin-left: 10px;
+}
+.persons{
+    height: 140px;
+    background-color: white;
+}
+.listPerson, .listTrimestre{
+    display: inline-flex;
+}
+.itemListPerson{
+    width: 120px;
+    padding: 0px;
+    list-style: none;
+    text-align: center;
+}
+.itemListTrimestre{
+    width: 25%;
+    padding: 0px;
+    list-style: none;
+    text-align: center;
+}
+.person{
+    font-size:x-small;
+}
+.personCode{
+    margin: 0;
+}
+.imagePerson{
+    width: auto;
+    height: 50px;
+    border-radius: 25px;
+}
+.containerSchedule{
+    border-top: 1px dashed rgb(203, 231, 255);
+    border-radius: 4px;
+    height: 120px;
+    background-color: white;
+}
+
+/*Contenedor Proyectos en Backlog*/
+.containerProjectBacklog{
+    border: 1px solid rgb(64, 153, 226);
+    border-radius: 4px;
+    height: auto;
+    min-width: 600px;
+    margin: 0 30px 30px 30px;
+    background-color: rgb(250, 93, 93);
+}
+.containerBacklog{
+    border: 1px solid rgb(64, 153, 226);
+    border-radius: 4px;
+    height: 120px;
+    margin: 2px;
+    background-color: white;
+}
