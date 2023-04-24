@@ -16,7 +16,7 @@ const leerParametros = xlsx.utils.sheet_to_json(worbook.Sheets[parametro]);
 
 app.get('/', function(req, res){
 
-    var html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"><style>*{margin: 0;padding: 0;}.generalContainer{margin: 30px 30px 0 30px;}.containerProjectCourse{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: auto;min-width: 600px;margin: 0px 30px 0 30px;background-color: rgba(147, 248, 147, 0.788);}.containerProject{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: auto;margin: 2px;background-color: white;}.cardProyecto{border-right: 1px dashed rgb(203, 231, 255);height: 250px;}.titles{font-size:small;height: 14px;margin: 8px 0 8px 0;}#listProject{font-weight: bolder;font-size:x-small;list-style: none;padding: 0;margin-left: 10px;}.persons{height: 140px;background-color: white;}.listPerson, .listTrimestre{display: inline-flex;}.itemListPerson{width: 120px;padding: 0px;list-style: none;text-align: center;}.itemListTrimestre{width: 25%;padding: 0px;list-style: none;text-align: center;}.person{font-size:x-small;}.personCode{margin: 0;}.imagePerson{width: auto;height: 50px;border-radius: 25px;}.containerSchedule{border-top: 1px dashed rgb(203, 231, 255);border-radius: 4px;height: 120px;background-color: white;}.containerProjectBacklog{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: auto;min-width: 600px;background-color: rgb(250, 93, 93);}.containerBacklog{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: 120px;margin: 2px;background-color: white;}</style><title>Front01</title></head>';
+    var html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"><style>*{margin: 0;padding: 0;}.generalContainer{margin: 30px 30px 0 30px;}.containerProjectCourse{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: auto;min-width: 600px;margin: 0px 30px 0 30px;background-color: rgba(147, 248, 147, 0.788);}.containerProject{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: auto;margin: 2px;background-color: white;}.cardProyecto{border-right: 1px dashed rgb(203, 231, 255);height: 250px;}.titles{font-size:small;color: rgb(13, 40, 163);height: auto;margin: 8px 0 8px 0;}.subTitles{font-weight: bolder;}#listProject{font-size:x-small;list-style: none;padding: 0;margin-left: 10px;}.persons{height: 140px;background-color: white;}.listPerson, .listTrimestre{display: inline-flex;}.itemListPerson{width: 120px;padding: 0px;list-style: none;text-align: center;}.itemListTrimestre{width: 25%;padding: 0px;list-style: none;text-align: center;}.person{font-size:x-small;}.personCode{margin: 0;}.imagePerson{width: auto;height: 50px;border-radius: 25px;}.containerSchedule{border-top: 1px dashed rgb(203, 231, 255);border-radius: 4px;height: 120px;background-color: white;}.containerProjectBacklog{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: auto;min-width: 600px;background-color: rgb(250, 93, 93);}.containerBacklog{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: 120px;margin: 2px;background-color: white;}</style><title>Front01</title></head>';
     html += '<body><div class="generalContainer"><div class="containerProjectCourse">' + pintarProyecto() + '<div class="containerProjectBacklog">'+ pintarBackLog() +'</div></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script></body></html>'; 
     res.send(html);
 
@@ -31,12 +31,12 @@ app.get('/', function(req, res){
         for(var i=0; i<valores.length; i++){
             //var proyecto = valores[i][1];
             var empleados = valores[i][0];
-            texthtml += '<div class="containerProject row"><div class="cardProyecto col-sm-4"><h2 id="titleProject" class="titles">Proyecto: '+valores[i][1][0]+'</h2><ol id="listProject" class="list"><li>Descripción: '+valores[i][1][1]+'</li><li>Tipo: '+valores[i][1][2]+'</li><li>Scrum: '+valores[i][1][3]+'</li><li>Product Owner: '+valores[i][1][4]+'</li><li>Estado: '+valores[i][1][5]+'</li></ol></div><div class="othersProyecto col-sm-8"><div class="persons row"><h2 class="titles">Personas: </h2><ol class="listPerson">';
+            texthtml += '<div class="containerProject row"><div class="cardProyecto col-sm-4"><h2 id="titleProject" class="titles">'+valores[i][1][0]+'</h2><ol id="listProject" class="list"><li><p class="subTitles">Descripción: </p>'+valores[i][1][1]+'</li><li>Tipo: '+valores[i][1][2]+'</li><li>Scrum: '+valores[i][1][3]+'</li><li>Product Owner: '+valores[i][1][4]+'</li><li>Estado: '+valores[i][1][5]+'</li></ol></div><div class="othersProyecto col-sm-8"><div class="persons row"><h2 class="titles">Personas asociadas: </h2><ol class="listPerson">';
             for(var j=0; j<empleados.length; j++){
                 //var empleado = valores[i][0][j];
                 texthtml += '<li class="itemListPerson"><div class="person"><h5  class="person personCode">'+valores[i][0][j][0]+'</h5><h6  class="person">'+valores[i][0][j][1]+'</h6><img class="imagePerson" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="..."><p class=""><small class="text-muted">'+valores[i][0][j][2]+' / '+valores[i][0][j][3]+' / '+valores[i][0][j][4]+'</small></p></div></li>';
             }
-            texthtml += '</ol></div><div class="containerSchedule row"><h2 class="titles">cronograma: </h2><ol class="listTrimestre"><li class="itemListTrimestre"><div class="person"><h5  class="person personCode">Primer Trimestre</h5><ol><li>'+valores[i][1][6]+'</li><li>'+valores[i][1][7]+'</li></ol></div></li></ol></div></div></div>';
+            texthtml += '</ol></div><div class="containerSchedule row"><h2 class="titles">Cronograma: </h2><ol class="listTrimestre"><li class="itemListTrimestre"><div class="person"><h5  class="person personCode">Periodo en curso</h5><div class="indicadorCronograma" style="display: inline-flex; width: 400px; margin: 8px auto;"><p class="col-3">'+valores[i][1][6]+'</p><progress id="file" max="100" value="70"> 70% </progress><p class="col-3">'+valores[i][1][7]+'</p></div></div></li></ol></div></div></div>';
         }
         return texthtml;
         //console.log('Funciona2');
@@ -47,10 +47,12 @@ app.get('/', function(req, res){
         var texthtml = '';
         const valores = getNewsProyectos();
         for(var i=0; i<valores.length; i++){
-            texthtml += '<div class="containerProject row"><div class="cardProyectoBacklog col-sm-4"><h2 id="titleProject" class="titles">Proyecto: '+valores[i][0]+'</h2><ol id="listProject" class="list"><li>Descripción: '+valores[i][1]+'</li><li>Tipo: '+valores[i][2]+'</li><li>Scrum: '+valores[i][3]+'</li></ol></div><div class="othersProyectoBacklog col-sm-8"><div class="containerScheduleBacklog row"><h2 class="titles">Cronograma: </h2><ol class="listTrimestre"><li class="itemListTrimestre"><div class="person"><h5 class="person personCode">Primer Trimestre</h5><ol><li></li><li></li></ol></div></li></ol></div></div></div>';
+            texthtml += '<div class="containerProject row"><div class="cardProyectoBacklog col-sm-8"><h2 id="titleProject" class="titles">Proyecto: '+valores[i][0]+'</h2><ol id="listProject" class="list"><li>Descripción: '+valores[i][1]+'</li><li>Tipo: '+valores[i][2]+'</li><li>Scrum: '+valores[i][3]+'</li></ol></div><div class="othersProyectoBacklog col-sm-4"><div class="containerScheduleBacklog row"><h2 class="titles">Cronograma: </h2><ol class="listTrimestre"><li class="itemListTrimestre"><div class="person"><h5  class="person personCode">Rango de ejecución</h5><div class="indicadorCronograma" style="display: inline-flex; width: 400px; margin: 8px auto;"><p class="col-3">'+valores[i][4]+'</p><progress id="file" max="100" value="0"> 0% </progress><p class="col-3">'+valores[i][5]+'</p></div></div</li></ol></div></div></div>';
         }
+        
         return texthtml;
     }
+    
 
     /*
     BACK-END
@@ -98,7 +100,7 @@ app.get('/', function(req, res){
         let newProyectos = [];
         for(const itemFila of leerProyectos){
             if(itemFila['Status'] == 'Stock'){
-                newProyectos.push([itemFila['Project ID Name'], itemFila['Description (What & Where)'], itemFila['Normativo'], itemFila['scrum']]);
+                newProyectos.push([itemFila['Project ID Name'], itemFila['Description (What & Where)'], itemFila['Normativo'], itemFila['scrum'], itemFila['Start Date'], itemFila['End date']]);
             }
         }
         return newProyectos;
