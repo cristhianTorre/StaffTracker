@@ -110,17 +110,44 @@ app.get('/', function(req, res){
     function getProyectos(direccion, servicio){
         let proyectos = [];
         let informacion = [];
+        let suma = 0;
         for(const itemFila of leerStaffing){
-            if(itemFila['Servicio'] == servicio && itemFila['Dirección'] == direccion && !(itemFila['Proyecto'] in proyectos)){
-                informacion.push([getEmpleados(itemFila['Proyecto']), consultaInformacionProyecto(itemFila['Proyecto'])]);
-                //console.log(itemFila['Proyecto']);
-                proyectos.push(itemFila['Proyecto']);
+            if(itemFila['Servicio'] == servicio && itemFila['Dirección'] == direccion){
+                if(inArreglo(staffingProject(itemFila['Proyecto']), proyectos)){
+                    informacion.push([getEmpleados(itemFila['Proyecto']), consultaInformacionProyecto(itemFila['Proyecto'])]);
+                    //console.log(itemFila['Proyecto']);
+                    proyectos.push(staffingProject(itemFila['Proyecto']));
+                }else{
+                    suma += 1;
+                }
             }
         }
+        //console.log(suma);
         //console.log(informacion);
         return informacion;
     }
+
+    function staffingProject(proyecto){
+        for(const itemFila of leerStaffing){
+            if(itemFila['Proyecto'] == proyecto){
+                for(const item of leerProyectos){
+                    if(item['Project ID $ Name'] == proyecto){
+                        return item['ID'];
+                    }
+                }
+            }
+        }
+    }
     
+    function inArreglo(proj,arreg){
+        for(var i = 0; i<arreg.length; i++){
+            if(Object.is(arreg[i], proj)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     function getEmpleados(proyecto){
         let empleados = [];
         for(const itemFila of leerStaffing){
