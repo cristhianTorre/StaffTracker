@@ -1,15 +1,22 @@
 {
   "name": "stafftracker",
   "version": "1.0.0",
+  "private": true,
   "description": "lanzador de proyectos",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "debug": "^4.3.4",
     "express": "^4.18.2",
+    "hbs": "^4.2.0",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
     "xlsx": "^0.18.5"
   }
 }

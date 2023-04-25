@@ -1,5 +1,5 @@
-const express = require('express');
-const app = express();
+var express = require('express');
+var router = express.Router();
 const xlsx = require('xlsx');
 const worbook = xlsx.readFile('staffingSystems.xlsx');
 const sheet_name_list = worbook.SheetNames;
@@ -12,14 +12,10 @@ const leerStaffing = xlsx.utils.sheet_to_json(worbook.Sheets[staffing]);
 const leerProyectos = xlsx.utils.sheet_to_json(worbook.Sheets[project]);
 const leerParametros = xlsx.utils.sheet_to_json(worbook.Sheets[parametro]);
 
+router.get('/', function(req, res){
 
-app.use(express.static(__dirname + '/public'));
-app.get('/', function(req, res){
-
-    var html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"><link rel="StyleSheet" href="style.css" type="text/css">';
-    html += '<body><header><nav class="navbar navbar-expand-lg bg-body-tertiary" ><div class="container-fluid"><a class="navbar-brand fw-bold" href="#">Inicio</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav me-auto mb-2 mb-lg-0"><li class="nav-item"><a class="nav-link fw-semibold" href="https://www.youtube.com/@AprendemosJuntos" target="_blank">Youtube</a></li><li class="nav-item"><a class="nav-link fw-semibold" href="https://www.linkedin.com/company/bbva/" target="_blank">Linkedin</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Proyectos Recientes</a><ul class="dropdown-menu"><li><a class="dropdown-item fw-semibold" href="" target="_blank">Proyecto SDATOOL 001</a></li><li><a class="dropdown-item fw-semibold" href="" target="_blank">Proyecto SDATOOL 002</a></li><li><hr class="dropdown-divider"></li><li><a class="dropdown-item fw-semibold" href="#">Proyecto SDATOOL 003</a></li><li><a class="dropdown-item fw-semibold" href="#">Proyecto SDATOOL 004</a></li></ul></li></ul><form class="d-flex" role="search" style="align-items: center;"><input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="height: 25px;"><button class="btn btn-outline-success" type="submit" style="width: auto; padding: 0 5px; height: 25px;">Search</button></form></div></div></nav></header><div class="generalContainer"><div class="containerProjectCourse"><div style="margin: 6px 0 0 15px;"><h4>Proyectos en curso</h4> </div>' + pintarProyecto() + '<div class="containerProjectBacklog"><div style="margin: 6px 0 0 15px;"><h4>Backlog</h4></div>'+ pintarBackLog() +'</div></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script></body></html>'; 
-    res.send(html);
-
+    var html = {proyectos: getProyectos('CORE','Cross/Gestor documental y SSDD'), backlog: getNewsProyectos()};
+    res.render('index', html);
     /*
     FRONT-END
     */
@@ -100,7 +96,7 @@ app.get('/', function(req, res){
         let newProyectos = [];
         for(const itemFila of leerProyectos){
             if(itemFila['Status'] == 'Stock'){
-                newProyectos.push([itemFila['Project ID Name'], itemFila['Description (What & Where)'], itemFila['Normativo'], itemFila['scrum'], itemFila['Start Date'], itemFila['End date']]);
+                newProyectos.push({ProjectIDName: itemFila['Project ID Name'], descripcion: itemFila['Description (What & Where)'], normativo: itemFila['Normativo'], scrum: itemFila['scrum'], fecIni: itemFila['Start Date'], fecFin: itemFila['End date']});
             }
         }
         return newProyectos;
@@ -110,20 +106,15 @@ app.get('/', function(req, res){
     function getProyectos(direccion, servicio){
         let proyectos = [];
         let informacion = [];
-        let suma = 0;
         for(const itemFila of leerStaffing){
             if(itemFila['Servicio'] == servicio && itemFila['Dirección'] == direccion && getStatusFlow(itemFila['Proyecto'])){
                 if(inArreglo(staffingProject(itemFila['Proyecto']), proyectos)){
-                    informacion.push([getEmpleados(itemFila['Proyecto']), consultaInformacionProyecto(itemFila['Proyecto'])]);
+                    informacion.push(Object.assign(consultaInformacionProyecto(itemFila['Proyecto']), {emplo: getEmpleados(itemFila['Proyecto'])}));
                     //console.log(itemFila['Proyecto']);
                     proyectos.push(staffingProject(itemFila['Proyecto']));
-                }else{
-                    suma += 1;
                 }
             }
         }
-        //console.log(suma);
-        //console.log(informacion);
         return informacion;
     }
 
@@ -161,24 +152,17 @@ app.get('/', function(req, res){
         let empleados = [];
         for(const itemFila of leerStaffing){
             if(itemFila['Proyecto'] == proyecto){
-                empleados.push([itemFila['Código'], itemFila['Nombre'], itemFila['Dedicación'], itemFila['TECNOLOGÌA'], itemFila['ROL']]);
+                empleados.push({codigo: itemFila['Código'], nombre: itemFila['Nombre'], dedicacion: itemFila['Dedicación'], tecnologia: itemFila['TECNOLOGÌA'], rol: itemFila['ROL']});
             }
         }
         return empleados;
     }
     
     function consultaInformacionProyecto(proyecto){
-        let informacion = [];
+        let informacion = {};
         for(const itemFila of leerProyectos){
             if(itemFila['Project ID Name'] == proyecto){
-                informacion.push(itemFila['Project ID Name']);
-                informacion.push(itemFila['Description (What & Where)']);
-                informacion.push(itemFila['NORMATIVO']);
-                informacion.push(itemFila['scrum']);
-                informacion.push(itemFila['Project / Product Owner']);
-                informacion.push(itemFila['Status']);
-                informacion.push(itemFila['Start Date']);
-                informacion.push(itemFila['End date']);
+                Object.assign(informacion,{ProjectIDName: itemFila['Project ID Name'], descripcion: itemFila['Description (What & Where)'], normativo: itemFila['NORMATIVO'], scrum: itemFila['scrum'], owner: itemFila['Project / Product Owner'], status: itemFila['Status'], fecIni: itemFila['Start Date'], fecFin: itemFila['End date']});
             }
         }
         return informacion;
@@ -295,10 +279,10 @@ app.get('/', function(req, res){
     }
 });
 
-app.get('/proyectos-elkin', function(req, res){
+router.get('/proyectos-elkin', function(req, res){
     var html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"><style>*{margin: 0;padding: 0;}.generalContainer{margin: 30px 30px 0 30px;}.containerProjectCourse{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: auto;min-width: 600px;margin: 0px 30px 0 30px;background-color: rgba(147, 248, 147, 0.788);}.containerProject{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: auto;margin: 2px;background-color: white;}.cardProyecto{border-right: 1px dashed rgb(203, 231, 255);height: 250px;}.titles{font-size:small;height: 14px;margin: 8px 0 8px 0;}#listProject{font-weight: bolder;font-size:x-small;list-style: none;padding: 0;margin-left: 10px;}.persons{height: 140px;background-color: white;}.listPerson, .listTrimestre{display: inline-flex;}.itemListPerson{width: 120px;padding: 0px;list-style: none;text-align: center;}.itemListTrimestre{width: 25%;padding: 0px;list-style: none;text-align: center;}.person{font-size:x-small;}.personCode{margin: 0;}.imagePerson{width: auto;height: 50px;border-radius: 25px;}.containerSchedule{border-top: 1px dashed rgb(203, 231, 255);border-radius: 4px;height: 120px;background-color: white;}.containerProjectBacklog{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: auto;min-width: 600px;margin: 0 30px 30px 30px;background-color: rgb(250, 93, 93);}.containerBacklog{border: 1px solid rgb(64, 153, 226);border-radius: 4px;height: 120px;margin: 2px;background-color: white;}</style><title>Front01</title></head>';
     html += '<body><div class="generalContainer"><div class="containerProjectCourse">' + pintarProyectoJefe() + '<div class="containerProjectBacklog"><div class="containerBacklog"><h2 id="titleProject" class="titles">Backlog: </h2></div></div></div></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script></body></html>'; 
-    res.send(html);
+    //res.send(html);
 
      /*
     FRONT-END
@@ -397,6 +381,4 @@ app.get('/proyectos-elkin', function(req, res){
 
 });
 
-const server = app.listen(3000, () =>{
-     console.log('Servidor web iniciado')
-})
+module.exports = router;
