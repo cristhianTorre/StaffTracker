@@ -2,35 +2,52 @@
     margin: 0;
     padding: 0;
 }
-/*Contenedor proyectos en curso*/
+header{
+    background-color: #303030d5;
+    width: auto;
+    height: auto;
+}
+.navbar a{
+    color: bisque;
+}
+.dropdown-menu a{
+    color: black;
+}
+.titleContent{
+    text-align: center;
+    margin: 20px 0 20px 0;
+    color: rgb(141, 138, 138);
+    }
+.generalContainer{
+    margin: 30px 30px 0 30px;
+}
 .containerProjectCourse{
     border: 1px solid rgb(64, 153, 226);
-    border-radius: 4px;
-    height: auto;
+    border-radius: 4px;height: auto;
     min-width: 600px;
-    margin: 30px 30px 0 30px;
+    margin: 0px 30px 0 30px;
     background-color: rgba(147, 248, 147, 0.788);
 }
 .containerProject{
     border: 1px solid rgb(64, 153, 226);
-    /*border-bottom: 1px dashed rgb(203, 231, 255);*/
     border-radius: 4px;
     height: auto;
     margin: 2px;
     background-color: white;
 }
 .cardProyecto{
-    border-right: 1px dashed rgb(203, 231, 255); 
-    height: 250px;
+    border-right: 1px dashed rgb(203, 231, 255);
+    height: auto
 }
-.titles{
-    font-size:small;
-    height: 14px;
+.titles{font-size:medium;
+    color: rgb(13, 40, 163);
+    height: auto;
     margin: 8px 0 8px 0;
 }
-#listProject{
+.subTitles{
     font-weight: bolder;
-    font-size:x-small;
+}
+#listProject{font-size:small;
     list-style: none;
     padding: 0;
     margin-left: 10px;
@@ -69,16 +86,12 @@
     border-top: 1px dashed rgb(203, 231, 255);
     border-radius: 4px;
     height: 120px;
-    background-color: white;
-}
-
-/*Contenedor Proyectos en Backlog*/
+    background-color: white;}
 .containerProjectBacklog{
     border: 1px solid rgb(64, 153, 226);
     border-radius: 4px;
     height: auto;
     min-width: 600px;
-    margin: 0 30px 30px 30px;
     background-color: rgb(250, 93, 93);
 }
 .containerBacklog{
