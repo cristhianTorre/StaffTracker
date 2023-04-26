@@ -18,14 +18,20 @@ header{
     margin: 20px 0 20px 0;
     color: rgb(141, 138, 138);
     }
-.generalContainer{
+.generalContainer, .containerDropdowns{
+    margin: 0px 30px 0 30px;
+}
+.containerDropdowns{
     margin: 30px 30px 0 30px;
+}
+.dropdown-menu li{
+    margin-left: 10px;
 }
 .containerProjectCourse{
     border: 1px solid rgb(64, 153, 226);
     border-radius: 4px;height: auto;
     min-width: 600px;
-    margin: 0px 30px 0 30px;
+    margin: 0px 0px 0 0px;
     background-color: rgba(147, 248, 147, 0.788);
 }
 .containerProject{
@@ -33,7 +39,14 @@ header{
     border-radius: 4px;
     height: auto;
     margin: 2px;
+    width: auto;
     background-color: white;
+    display: flex;
+}
+.majorTitles{
+    color: rgb(0, 0, 0);
+    margin: 6px 0 0 15px;
+
 }
 .cardProyecto{
     border-right: 1px dashed rgb(203, 231, 255);
@@ -53,18 +66,15 @@ header{
     margin-left: 10px;
 }
 .persons{
-    height: 140px;
+    height: 1auto;
     background-color: white;
+    padding-bottom: 8px;
+    border-right: 1px dashed rgb(203, 231, 255);
 }
 .listPerson, .listTrimestre{
     display: inline-flex;
 }
-.itemListPerson{
-    width: 120px;
-    padding: 0px;
-    list-style: none;
-    text-align: center;
-}
+
 .itemListTrimestre{
     width: 25%;
     padding: 0px;
@@ -73,6 +83,10 @@ header{
 }
 .person{
     font-size:x-small;
+    width: 120px;
+    padding: 0px;
+    list-style: none;
+    text-align: center;
 }
 .personCode{
     margin: 0;
@@ -85,7 +99,7 @@ header{
 .containerSchedule{
     border-top: 1px dashed rgb(203, 231, 255);
     border-radius: 4px;
-    height: 120px;
+    height: 140px;
     background-color: white;}
 .containerProjectBacklog{
     border: 1px solid rgb(64, 153, 226);
@@ -100,4 +114,44 @@ header{
     height: 120px;
     margin: 2px;
     background-color: white;
+}
+.cardProyectoBacklog{
+    border-right: 1px dashed rgb(203, 231, 255);
+}
+.containerCarousel{
+    height: auto;
+    width: 240px;
+    margin: 0 auto;
+    background-color: rgb(255, 255, 255);
+}
+.listPerson{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+.btn-primary{
+    margin-bottom: 8px;
+    background-color:rgb(206, 204, 204);
+    border-color: rgb(129, 129, 129);
+    color: rgb(92, 92, 92);
+    font-weight: bolder;
+    height: 29px;
+    padding: 2px 12px 2px 12px;
+}
+.btn-secondary{
+    margin-bottom: 8px;
+    background-color:rgb(255, 255, 255);
+    border-color: rgb(129, 129, 129);
+    color: rgb(92, 92, 92);
+    font-weight: bolder;
+}
+
+.horizontal-scrollable{
+    overflow-x: auto;
+    white-space: nowrap;
+    display: inline-flex;
+    float: none;
+    width: 100%;
 }
