@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var hbs = require('hbs')
 const xlsx = require('xlsx');
 const worbook = xlsx.readFile('staffingSystems.xlsx');
 const sheet_name_list = worbook.SheetNames;
@@ -14,7 +15,7 @@ const leerParametros = xlsx.utils.sheet_to_json(worbook.Sheets[parametro]);
 
 router.get('/', function(req, res){
 
-    var html = {proyectos: getProyectos('CORE','Cross/Gestor documental y SSDD'), backlog: getNewsProyectos(), newMembers: nuevosIntegrantes('C797459')};
+    var html = {proyectos: getProyectos('CORE','Cross/Gestor documental y SSDD'), backlog: getNewsProyectos(), newmembers: nuevosIntegrantes('C797459')};
     res.render('index', html);
 
     //Mostrar listado de personas acargo
@@ -22,9 +23,10 @@ router.get('/', function(req, res){
         let nuevos = [];
         for(const itemFila of leerStaff){
             if(itemFila['SUPERIOR'] == codigoJefe){
-                nuevos.push({codigo: itemFila['Código'], nombre: itemFila['Nombre'], dedicacion: estaOcupado(itemFila['Código']), rol: itemFila['ROL'], aso: itemFila['ASO'], apx: itemFila['APX'], cells: itemFila['CELLS'], host: itemFila['HOST'], bluespring: itemFila['BLUESPRING'], python: itemFila['PYTHON'], scala: itemFila['SCALA']});
+                nuevos.push({codigonew: itemFila['Código'], nombrenew: itemFila['Nombre'], dedicacionnew: estaOcupado(itemFila['Código'])*100, tecnologianew: itemFila['TECNOLOGÌA'], rolnew: itemFila['ROL'], aso: itemFila['ASO'], apx: itemFila['APX'], cells: itemFila['CELLS'], host: itemFila['HOST'], bluespring: itemFila['BLUESPRING'], python: itemFila['PYTHON'], scala: itemFila['SCALA']});
             }
         }
+        console.log(nuevos);
         return nuevos;
     }
 
@@ -52,6 +54,7 @@ router.get('/', function(req, res){
                 }
             }
         }
+        console.log(informacion);
         return informacion;
     }
 
@@ -99,7 +102,7 @@ router.get('/', function(req, res){
         let empleados = [];
         for(const itemFila of leerStaffing){
             if(itemFila['Proyecto'] == proyecto){
-                empleados.push({codigo: itemFila['Código'], nombre: itemFila['Nombre'], dedicacion: itemFila['Dedicación'], tecnologia: itemFila['TECNOLOGÌA'], rol: itemFila['ROL']});
+                empleados.push({codigo: itemFila['Código'], nombre: itemFila['Nombre'], dedicacion: itemFila['Dedicación']*100, tecnologia: itemFila['TECNOLOGÌA'], rol: itemFila['ROL']});
             }
         }
         return empleados;
@@ -112,22 +115,6 @@ router.get('/', function(req, res){
                 Object.assign(informacion,{ProjectIDName: itemFila['Project ID Name'], descripcion: itemFila['Description (What & Where)'], normativo: itemFila['NORMATIVO'], scrum: itemFila['scrum'], owner: itemFila['Project / Product Owner'], status: itemFila['Status'], fecIni: itemFila['Start Date'], fecFin: itemFila['End date']});
             }
         }
-        return informacion;
-    }
-    
-    //Obtiene toda la informacion para asignarla en Staffing al agregar el empleado en un nuevo proyecto
-    function getInformacion(codigo){
-        let informacion = [];
-        for(const itemFila of leerStaff){
-            if(itemFila['Código'] == codigo){
-                informacion.push(itemFila['Código']);
-                informacion.push(itemFila['Nombre']);
-                informacion.push(itemFila['Dirección']);
-                informacion.push(itemFila['Servicio']);
-                informacion.push(itemFila['Empresa']);
-            }
-        }
-        console.log(informacion[0]);
         return informacion;
     }
     
