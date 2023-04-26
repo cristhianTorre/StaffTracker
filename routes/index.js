@@ -14,83 +14,20 @@ const leerParametros = xlsx.utils.sheet_to_json(worbook.Sheets[parametro]);
 
 router.get('/', function(req, res){
 
-    var html = {proyectos: getProyectos('CORE','Cross/Gestor documental y SSDD'), backlog: getNewsProyectos()};
+    var html = {proyectos: getProyectos('CORE','Cross/Gestor documental y SSDD'), backlog: getNewsProyectos(), newMembers: nuevosIntegrantes('C797459')};
     res.render('index', html);
-    /*
-    FRONT-END
-    */
 
-    function pintarProyecto(){
-        //console.log('Funciona');
-        var texthtml = '';               
-        const valores = getProyectos('CORE','Cross/Gestor documental y SSDD');
-        for(var i=0; i<valores.length; i++){
-            //var proyecto = valores[i][1];
-            var empleados = valores[i][0];
-            texthtml += '<div class="containerProject row"><div class="cardProyecto col-sm-4"><h2 id="titleProject" class="titles">'+valores[i][1][0]+'</h2><ol id="listProject" class="list"><li><p class="subTitles">Descripción: </p>'+valores[i][1][1]+'</li><li>Tipo: '+valores[i][1][2]+'</li><li>Scrum: '+valores[i][1][3]+'</li><li>Product Owner: '+valores[i][1][4]+'</li><li>Estado: '+valores[i][1][5]+'</li></ol></div><div class="othersProyecto col-sm-8"><div class="persons row"><h2 class="titles">Personas asociadas: </h2><ol class="listPerson">';
-            for(var j=0; j<empleados.length; j++){
-                //var empleado = valores[i][0][j];
-                texthtml += '<li class="itemListPerson"><div class="person"><h5  class="person personCode">'+valores[i][0][j][0]+'</h5><h6  class="person" style="height:24px">'+valores[i][0][j][1]+'</h6><img class="imagePerson" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="..."><p class=""><small class="text-muted">'+(valores[i][0][j][2])*100+'% / '+valores[i][0][j][3]+' / '+valores[i][0][j][4]+'</small></p></div></li>';
-            }
-            texthtml += '</ol></div><div class="containerSchedule row"><h2 class="titles">Cronograma: </h2><ol class="listTrimestre"><li class="itemListTrimestre"><div class="person"><h5  class="person personCode">Periodo en curso</h5><div class="indicadorCronograma" style="display: inline-flex; width: 400px; margin: 8px auto;"><p class="col-3">'+valores[i][1][6]+'</p><progress id="file" max="100" value="70"> 70% </progress><p class="col-3">'+valores[i][1][7]+'</p></div></div></li></ol></div></div></div>';
-        }
-        return texthtml;
-        //console.log('Funciona2');
-        //document.getElementById('contenedorValores').innerHTML = texthtml;
-    }
-
-    function pintarBackLog(){
-        var texthtml = '';
-        const valores = getNewsProyectos();
-        for(var i=0; i<valores.length; i++){
-            texthtml += '<div class="containerProject row"><div class="cardProyectoBacklog col-sm-8"><h2 id="titleProject" class="titles">Proyecto: '+valores[i][0]+'</h2><ol id="listProject" class="list"><li>Descripción: '+valores[i][1]+'</li><li>Tipo: '+valores[i][2]+'</li><li>Scrum: '+valores[i][3]+'</li></ol></div><div class="othersProyectoBacklog col-sm-4"><div class="containerScheduleBacklog row"><h2 class="titles">Cronograma: </h2><ol class="listTrimestre"><li class="itemListTrimestre"><div class="person"><h5  class="person personCode">Rango de ejecución</h5><div class="indicadorCronograma" style="display: inline-flex; width: 400px; margin: 8px auto;"><p class="col-3">'+valores[i][4]+'</p><progress id="file" max="100" value="0"> 0% </progress><p class="col-3">'+valores[i][5]+'</p></div></div</li></ol></div></div></div>';
-        }
-        
-        return texthtml;
-    }
-    
-
-    /*
-    BACK-END
-    */
-
-    //Muestra todos los empleados de un proyecto
-    function consultaEmpleados(codigo){
-        let informacion = [];
+    //Mostrar listado de personas acargo
+    function nuevosIntegrantes(codigoJefe){
+        let nuevos = [];
         for(const itemFila of leerStaff){
-            if(itemFila['Código'] == codigo){
-                informacion.push(itemFila['Código']);
-                informacion.push(itemFila['Nombre']);
-                informacion.push(itemFila['ROL']);
-                informacion.push(itemFila['Empresa']);
-                informacion.push(itemFila['Ubicación']);
-                informacion.push(Math.round(itemFila['ASO']));
-                informacion.push(Math.round(itemFila['APX']));
-                informacion.push(Math.round(itemFila['CELLS']));
-                informacion.push(Math.round(itemFila['HOST']));
-                informacion.push(Math.round(itemFila['BLUESPRING']));
-                informacion.push(Math.round(itemFila['PYTHON']));
-                informacion.push(Math.round(itemFila['SCALA']));
-                console.log(itemFila['Nombre']);
+            if(itemFila['SUPERIOR'] == codigoJefe){
+                nuevos.push({codigo: itemFila['Código'], nombre: itemFila['Nombre'], dedicacion: estaOcupado(itemFila['Código']), rol: itemFila['ROL'], aso: itemFila['ASO'], apx: itemFila['APX'], cells: itemFila['CELLS'], host: itemFila['HOST'], bluespring: itemFila['BLUESPRING'], python: itemFila['PYTHON'], scala: itemFila['SCALA']});
             }
         }
-    
-        informacion.push(consultaProyectos(informacion[0]));
-        console.log(informacion);
-        return informacion;
+        return nuevos;
     }
-    
-    function getLength(documento){
-        var i = 0;
-        for(const item of documento){
-            if(item['Nombre'] !== undefined){
-                i += 1;
-            }
-        }
-        console.log(i);
-        return i;
-    }
-    
+
     //Backlog
     function getNewsProyectos(){
         let newProyectos = [];
@@ -116,6 +53,16 @@ router.get('/', function(req, res){
             }
         }
         return informacion;
+    }
+
+    function estaOcupado(codigo){
+        var suma = 0;
+        for(const itemFila of leerStaffing){
+            if(itemFila['Código'] == codigo){
+                suma += itemFila['Dedicación'];
+            }
+        }
+        return suma;
     }
 
     function getStatusFlow(proyecto){
@@ -168,39 +115,6 @@ router.get('/', function(req, res){
         return informacion;
     }
     
-    //Consulta todos los proyectos asociados a una persona
-    function consultaProyectos(codigo){
-        let proyectos = [];
-        for(const itemFila of leerStaffing){
-            if(itemFila['Código'] == codigo){
-                proyectos.push([itemFila['Proyecto'], itemFila['Dedicación'], itemFila['ROL']]);
-                //console.log(itemFila['Proyecto']);
-            }
-        }
-        //console.log(proyectos);
-        return proyectos;
-    }
-    
-    //Obtener el jefe 
-    function getBoss(codigo) {
-        for(const itemFila of leerStaff){
-            if(itemFila['Código'] == codigo){
-                return itemFila['SUPERIOR'];
-            }
-        }
-        return 'No tiene jefe';
-    }
-    
-    //Obtener el nombre del empleado
-    function getName(codigo){
-        for(const itemFila of leerStaff){
-            if(itemFila['Código'] == codigo){
-                return itemFila['Nombre'];
-            }
-        }
-        return 'No tiene nombre';
-    }
-    
     //Obtiene toda la informacion para asignarla en Staffing al agregar el empleado en un nuevo proyecto
     function getInformacion(codigo){
         let informacion = [];
@@ -217,7 +131,10 @@ router.get('/', function(req, res){
         return informacion;
     }
     
-    
+});
+
+router.post('/', function(req, res){
+
     //Modificar celda en Staffing
     function modifyDedicacion(codigo, proyecto, dedicacion){
         // editar una celda específica en una hoja de Excel 
@@ -284,29 +201,6 @@ router.get('/proyectos-elkin', function(req, res){
     html += '<body><div class="generalContainer"><div class="containerProjectCourse">' + pintarProyectoJefe() + '<div class="containerProjectBacklog"><div class="containerBacklog"><h2 id="titleProject" class="titles">Backlog: </h2></div></div></div></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script></body></html>'; 
     //res.send(html);
 
-     /*
-    FRONT-END
-    */
-
-    function pintarProyectoJefe(){
-        let jefe = 'C797459';
-        var texthtml = '';               
-        const valores = getProyectosJefe(jefe);
-        for(var i=0; i<valores.length; i++){
-            var empleados = valores[i][0];
-            texthtml += '<div class="containerProject row"><div class="cardProyecto col-sm-4"><h2 id="titleProject" class="titles">Proyecto: '+valores[i][1][0]+'</h2><ol id="listProject" class="list"><li>Descripción: '+valores[i][1][1]+'</li><li>Tipo: '+valores[i][1][2]+'</li><li>Scrum: '+valores[i][1][3]+'</li><li>Product Owner: '+valores[i][1][4]+'</li><li>Estado: '+valores[i][1][5]+'</li></ol></div><div class="othersProyecto col-sm-8"><div class="persons row"><h2 class="titles">Personas: </h2><ol class="listPerson">';
-            for(var j=0; j<empleados.length; j++){
-                texthtml += '<li class="itemListPerson"><div class="person"><h5  class="person personCode">'+valores[i][0][j][0]+'</h5><h6  class="person">'+valores[i][0][j][1]+'</h6><img class="imagePerson" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="..."><p class=""><small class="text-muted">'+valores[i][0][j][2]+' / '+valores[i][0][j][3]+' / '+valores[i][0][j][4]+'</small></p></div></li>';
-            }
-            texthtml += '</ol></div><div class="containerSchedule row"><h2 class="titles">cronograma: </h2><ol class="listTrimestre"><li class="itemListTrimestre"><div class="person"><h5  class="person personCode">Primer Trimestre</h5><ol><li>'+valores[i][1][6]+'</li><li>'+valores[i][1][7]+'</li></ol></div></li></ol></div></div></div>';
-        }
-        return texthtml;
-    }
-
-    /*
-    BACK-END
-    */
-
     function getProyectosJefe(jefe){
         let proyectos = [];
         let informacion = [];
@@ -329,6 +223,17 @@ router.get('/proyectos-elkin', function(req, res){
             }
         }
         return 'No tiene jefe';
+    }
+
+    function getLength(documento){
+        var i = 0;
+        for(const item of documento){
+            if(item['Nombre'] !== undefined){
+                i += 1;
+            }
+        }
+        console.log(i);
+        return i;
     }
 
     function staffingProject(proyecto){
