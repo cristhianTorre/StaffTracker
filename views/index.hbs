@@ -48,6 +48,26 @@
             </div>
         </nav>
     </header>
+    <div class="containerDropdowns">
+        <div class="btn-group">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Seleccione una Dirección
+            </button>
+            <ul class="dropdown-menu">
+                <li>Dirección 1</li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Seleccione un Servicio
+            </button>
+            <ul class="dropdown-menu">
+                <li>Dirección 1</li>
+            </ul>
+        </div>
+    </div>
     <div class="generalContainer">
         <div class="containerProjectCourse">
             <div style="margin: 6px 0 0 15px;">
@@ -58,49 +78,97 @@
                 <div class="cardProyecto col-sm-4">
                     <h2 id="titleProject" class="titles">{{ProjectIDName}}</h2>
                     <ol id="listProject" class="list">
-                        <li>
-                            <p class="subTitles">Descripción: </p>{{descripcion}}
-                        </li>
+                        <li>Descripción: {{descripcion}}</li>
                         <li>Tipo: {{normativo}}</li>
                         <li>Scrum: {{scrum}}</li>
                         <li>Product Owner: {{owner}}</li>
                         <li>Estado: {{status}}</li>
                     </ol>
                 </div>
-                <div class="othersProyecto col-sm-8">
-                    <div class="persons row">
-                        <h2 class="titles">Personas asociadas: </h2>
-                        <ol class="listPerson">
-                            {{#each emplo}}
-
-
-
-
-
-                            <li class="itemListPerson">
-                                <div class="person">
-                                    <h5 class="person personCode">{{codigo}}</h5>
-                                    <h6 class="person" style="height:24px">{{nombre}}</h6><img class="imagePerson"
-                                        src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
-                                        class="img-fluid rounded-start" alt="...">
-                                    <p class=""><small class="text-muted">{{dedicacion}}% /
-                                            {{tecnologia}} / {{rol}}</small></p>
+                <div class="persons col-sm-3">
+                    <h2 class="titles">Personas asociadas</h2>
+                    <div class="containerCarousel">
+                        <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false"
+                            data-bs-interval="false">
+                            <div class="carousel-inner">
+                                {{#each emplo}}
+                                <div class="carousel-item {{#if @first }} active {{/if}}">
+                                    <div class="listPerson">
+                                        <div class="personFlow">
+                                            <h5 class="personFlow personCode">{{codigo}}</h5>
+                                            <h6 class="personFlow" style="height:24px">{{nombre}}</h6><img
+                                                class="imagePerson"
+                                                src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
+                                                class="img-fluid rounded-start" alt="...">
+                                            <p class=""><small class="text-muted">{{dedicacion}}% /
+                                                    {{tecnologia}} / {{rol}}</small></p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </li>
-                            {{/each}}
-
-
-                        </ol>
+                                {{/each}}
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" style="background-color: rgb(179, 179, 179);"
+                                    aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" style="background-color:rgb(179, 179, 179);"
+                                    aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="containerSchedule row">
+                </div>
+                <div class="containerSchedule col-sm-5">
+                    <h2 class="titles">Cronograma: </h2>
+                    <ol class="listTrimestre">
+                        <li class="itemListTrimestre">
+                            <div class="personFlow">
+                                <h5 class="personFlow personCode">Periodo en curso</h5>
+                                <div class="indicadorCronograma"
+                                    style="display: inline-flex; width: 400px; margin: 8px auto;">
+                                    <p class="col-3">{{fecIni}}</p>
+                                    <progress id="file" max="100" value="70"> 70% </progress>
+                                    <p class="col-3">{{fecFin}}</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+
+
+
+        <div class="containerProjectBacklog">
+            <div style="margin: 6px 0 0 15px;">
+                <h4>Backlog</h4>
+            </div>
+            {{#each backlog}}
+            <div class="containerProject row">
+                <div class="cardProyectoBacklog col-sm-8">
+                    <h2 id="titleProject" class="titles">Proyecto: {{ProjectIDName}}</h2>
+                    <ol id="listProject" class="list">
+                        <li>Descripción: {{descripcion}}</li>
+                        <li>Tipo: {{normativo}}</li>
+                        <li>Scrum: {{scrum}}</li>
+                    </ol>
+                </div>
+                <div class="othersProyectoBacklog col-sm-4">
+                    <div class="containerScheduleBacklog row">
                         <h2 class="titles">Cronograma: </h2>
                         <ol class="listTrimestre">
                             <li class="itemListTrimestre">
-                                <div class="person">
-                                    <h5 class="person personCode">Periodo en curso</h5>
+                                <div class="personBacklog">
+                                    <h5 class="personBacklog personCode">Rango de ejecución</h5>
                                     <div class="indicadorCronograma"
                                         style="display: inline-flex; width: 400px; margin: 8px auto;">
-                                        <p class="col-3">{{fecIni}}</p><progress id="file" max="100" value="70"> 70%
+                                        <p class="col-3">{{fecIni}}</p><progress id="file" max="100" value="0"> 0%
                                         </progress>
                                         <p class="col-3">{{fecFin}}</p>
                                     </div>
@@ -108,52 +176,62 @@
                             </li>
                         </ol>
                     </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"data-bs-target="#staticBackdrop">Editar</button>
+                        <button class="btn btn-primary" type="button">Enviar</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">                            
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Editar Proyecto en Backlog</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                                            
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group" method="localhost:3000" method="post">
+                                            <span class="input-group-text">Periodo de ejecución</span>
+                                            <input type="text" aria-label="First name" class="form-control" placeholder="Ejm: 1Q 2023">                                                
+                                            <input type="text" aria-label="Last name" class="form-control" placeholder="Ejm: 2Q 2023">                                                
+                                        </div>
+                                        <div class="container">
+                                            <div class="horizontal-scrollable">                                    
+                                                <div class="personBacklog">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary btn-sm dropdown-toggle botonHabilidadMaestra" id="dropdownMenuButton2" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tecnología</button>
+                                                        <ul class="dropdown-menu containerHabilidadLista" aria-labelledby="dropdownMenuButton2">  
+                                                            <li><a class="dropdown-item habilidadLista">ASO: 50%</a></li>
+                                                            <li><a class="dropdown-item habilidadLista">APX: 45%</a></li>
+                                                            <li><a class="dropdown-item habilidadLista">CELL: 89%</a></li>
+                                                            <li><a class="dropdown-item habilidadLista">SCALA: 92%</a></li>
+                                                            <li><a class="dropdown-item habilidadLista">Distribuido: 78%</a></li>                                        
+                                                        </ul>
+                                                    </div>
+                                                    <h5 class="personBacklog personCode">{{codigonew}}</h5>
+                                                    <h6 class="personBacklog" style="height:24px">{{nombrenew}}</h6>
+                                                    <img class="imagePerson" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPerson"><small class="text-muted">{{dedicacionnew}}% </small></p>
+                                                    <p class="descriptionPerson"><small class="text-muted">{{rolnew}}</small></p>
+                                                </div>                                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"data-bs-dismiss="modal">Cerrar</button>                                            
+                                        <button type="button" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
                 </div>
             </div>
             {{/each}}
-
-
-
-
-            <div class="containerProjectBacklog">
-                <div style="margin: 6px 0 0 15px;">
-                    <h4>Backlog</h4>
-                </div>
-                {{#each backlog}}
-                <div class="containerProject row">
-                    <div class="cardProyectoBacklog col-sm-8">
-                        <h2 id="titleProject" class="titles">Proyecto: {{ProjectIDName}}</h2>
-                        <ol id="listProject" class="list">
-                            <li>Descripción: {{descripcion}}</li>
-                            <li>Tipo: {{normativo}}</li>
-                            <li>Scrum: {{scrum}}</li>
-                        </ol>
-                    </div>
-                    <div class="othersProyectoBacklog col-sm-4">
-                        <div class="containerScheduleBacklog row">
-                            <h2 class="titles">Cronograma: </h2>
-                            <ol class="listTrimestre">
-                                <li class="itemListTrimestre">
-                                    <div class="person">
-                                        <h5 class="person personCode">Rango de ejecución</h5>
-                                        <div class="indicadorCronograma"
-                                            style="display: inline-flex; width: 400px; margin: 8px auto;">
-                                            <p class="col-3">{{fecIni}}</p><progress id="file" max="100"
-                                                value="0"> 0% </progress>
-                                            <p class="col-3">{{fecFin}}</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-                {{/each}}
-            </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-            </script>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>
