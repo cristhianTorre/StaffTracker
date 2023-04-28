@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var hbs = require('hbs')
+var hbs = require('hbs');
+const connect = require('connect');
 const xlsx = require('xlsx');
 const worbook = xlsx.readFile('staffingSystems.xlsx');
 const sheet_name_list = worbook.SheetNames;
@@ -23,10 +24,9 @@ router.get('/', function(req, res){
         let nuevos = [];
         for(const itemFila of leerStaff){
             if(itemFila['SUPERIOR'] == codigoJefe){
-                nuevos.push({codigonew: itemFila['Código'], nombrenew: itemFila['Nombre'], dedicacionnew: estaOcupado(itemFila['Código'])*100, tecnologianew: itemFila['TECNOLOGÌA'], rolnew: itemFila['ROL'], aso: itemFila['ASO'], apx: itemFila['APX'], cells: itemFila['CELLS'], host: itemFila['HOST'], bluespring: itemFila['BLUESPRING'], python: itemFila['PYTHON'], scala: itemFila['SCALA']});
+                nuevos.push({codigonew: itemFila['Código'], nombrenew: itemFila['Nombre'], dedicacionnew: estaOcupado(itemFila['Código'])*100, tecnologianew: itemFila['TECNOLOGÌA'], rolnew: itemFila['ROL'], aso: Math.round(itemFila['ASO']), apx: Math.round(itemFila['APX']), cells: Math.round(itemFila['CELLS']), host: Math.round(itemFila['HOST']), bluespring: Math.round(itemFila['BLUESPRING']), python: Math.round(itemFila['PYTHON']), scala: Math.round(itemFila['SCALA'])});
             }
         }
-        console.log(nuevos);
         return nuevos;
     }
 
@@ -35,7 +35,7 @@ router.get('/', function(req, res){
         let newProyectos = [];
         for(const itemFila of leerProyectos){
             if(itemFila['Status'] == 'Stock'){
-                newProyectos.push({ProjectIDName: itemFila['Project ID Name'], descripcion: itemFila['Description (What & Where)'], normativo: itemFila['Normativo'], scrum: itemFila['scrum'], fecIni: itemFila['Start Date'], fecFin: itemFila['End date']});
+                newProyectos.push({ProjectIDName: itemFila['Project ID Name'], descripcion: itemFila['Description (What & Where)'], normativo: itemFila['NORMATIVO'], scrum: itemFila['scrum'], fecIni: itemFila['Start Date'], fecFin: itemFila['End date']});
             }
         }
         return newProyectos;
@@ -49,12 +49,10 @@ router.get('/', function(req, res){
             if(itemFila['Servicio'] == servicio && itemFila['Dirección'] == direccion && getStatusFlow(itemFila['Proyecto'])){
                 if(inArreglo(staffingProject(itemFila['Proyecto']), proyectos)){
                     informacion.push(Object.assign(consultaInformacionProyecto(itemFila['Proyecto']), {emplo: getEmpleados(itemFila['Proyecto'])}));
-                    //console.log(itemFila['Proyecto']);
                     proyectos.push(staffingProject(itemFila['Proyecto']));
                 }
             }
         }
-        console.log(informacion);
         return informacion;
     }
 
