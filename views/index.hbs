@@ -54,8 +54,11 @@
                 aria-expanded="false">
                 Seleccione una Dirección
             </button>
+            
             <ul class="dropdown-menu">
-                <li>Dirección 1</li>
+                {{#each direccion}}
+                <li><button name="service" type="button" style="color: black; background-color: white; border: none;">{{nombre}}</button></li>
+                {{/each}}
             </ul>
         </div>
         <div class="btn-group">
@@ -64,6 +67,12 @@
                 Seleccione un Servicio
             </button>
             <ul class="dropdown-menu">
+                {{#each servicio}}
+                <li>{{nombre}}</li>
+                {{/each}}
+                <li>Dirección 1</li>
+                <li>Dirección 1</li>
+                <li>Dirección 1</li>
                 <li>Dirección 1</li>
             </ul>
         </div>
@@ -195,24 +204,18 @@
                                             <input type="text" aria-label="Last name" class="form-control" placeholder="Ejm: 2Q 2023">                                                
                                         </div>
                                         <div class="container">
-                                            <div class="horizontal-scrollable">                                 
-                                                <div class="personBacklog containerPersonBacklog">
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-secondary btn-sm dropdown-toggle botonHabilidadMaestra" id="dropdownMenuButton2" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tecnología</button>
-                                                        <ul class="dropdown-menu containerHabilidadLista" aria-labelledby="dropdownMenuButton2">  
-                                                            <li><a class="dropdown-item habilidadLista">ASO: 50%</a></li>
-                                                            <li><a class="dropdown-item habilidadLista">APX: 45%</a></li>
-                                                            <li><a class="dropdown-item habilidadLista">CELL: 89%</a></li>
-                                                            <li><a class="dropdown-item habilidadLista">SCALA: 92%</a></li>
-                                                            <li><a class="dropdown-item habilidadLista">Distribuido: 78%</a></li>                                        
-                                                        </ul>
-                                                    </div>
-                                                    <h5 class="personBacklog personCode">{{codigonew}}</h5>
-                                                    <h6 class="personBacklog" style="height:24px">{{nombrenew}}</h6>
-                                                    <img class="imagePerson" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPerson"><small class="text-muted">Disponibilidad: {{dedicacionnew}}% </small></p>
-                                                    <p class="descriptionPerson"><small class="text-muted">{{rolnew}}</small></p>
-                                                </div>                               
+                                            <div class="horizontal-scrollable">
+                                                {{#each nuevos}}
+                                                <div class="person" id="personaCuadro">
+                                                    <h5 class="person personCode">{{codigonew}}</h5>
+                                                    <h6 class="person" style="height:24px">{{nombrenew}}</h6>
+                                                    <img class="imagePerson"
+                                                        src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
+                                                        class="img-fluid rounded-start" alt="...">
+                                                    <p class=""><small class="text-muted">{{dedicacionnew}}% /
+                                                        {{tecnologianew}} / {{rolnew}}</small></p>
+                                                </div>
+                                                {{/each}}
                                             </div>
                                         </div>
                                     </div>
