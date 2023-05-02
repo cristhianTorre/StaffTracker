@@ -202,3 +202,28 @@ header{
     padding: 8px;
 }
 /*<--- Modal Habilidades personas --->*/
+.personHabilidad{
+    font-size:small;
+    width: 120px;
+    padding: 0px;
+    list-style: none;
+    text-align: center;
+}
+.containerPersonHabilidad{
+    margin: 15px;
+}
+.descriptionPersonHabilidad{
+    margin: 0;
+}
+.imagePersonHabilidad{
+    width: 80px;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+.containerChart{
+    
+    justify-content: center;
+    align-items: center;
+}
+
