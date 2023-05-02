@@ -2,13 +2,13 @@
     margin: 0;
     padding: 0;
 }
-/*<--------------------------------Sección Proyectos en Ejecución---------------------------------------------->*/
+/*<-------------------------------// Sección Proyectos en Ejecución //-------------------------------------------->*/
 header{
     background-color: #303030d5;
     width: auto;
     height: auto;
 }
-/*<---------------Sección Navbar----------------->*/
+/*<---Sección Navbar--->*/
 .navbar a{
     color: bisque;
 }
@@ -20,7 +20,7 @@ header{
     margin: 20px 0 20px 0;
     color: rgb(141, 138, 138);
     }
-/*<---Sección Dropdowns (Lista desplegable: Dirección y Servicio)--->*/
+/*<--- Sección Dropdowns (Lista desplegable: Dirección y Servicio) --->*/
 .generalContainer, .containerDropdowns{
     margin: 0px 30px 0 30px;
 }
@@ -30,7 +30,7 @@ header{
 .dropdown-menu li{
     margin-left: 10px;
 }
-/*<----------Sección caracteristicas del proyecto en curso---------->*/
+/*<--- Sección caracteristicas del proyecto en curso --->*/
 .containerProjectCourse{
     border: 1px solid rgb(64, 153, 226);
     border-radius: 4px;height: auto;
@@ -118,7 +118,7 @@ header{
 .listTrimestre{
     display: inline-flex;
 }
-/*<---------------------------------Sección Proyectos en Backlog------------------------------------------------->*/
+/*<---------------- Sección Proyectos en Backlog ----------------->*/
 .containerProjectBacklog{
     border: 1px solid rgb(64, 153, 226);
     border-radius: 4px;
@@ -180,3 +180,25 @@ header{
 .containerPersonBacklog{
     margin: 15px;
 }
+
+
+/*<--------------------------------------// Estilos Estructura Página Personas //-------------------------------->*/
+/*<---Estilos Tarjeta personas--->*/
+.text-right{
+    text-align: right;
+}
+.btn-perfil{
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    font-weight: bolder;
+}
+.btn-correo{
+    background-color: #20c997;
+    color: white;
+    font-weight: bolder;
+}
+#cardContainer{
+    padding: 8px;
+}
+/*<--- Modal Habilidades personas --->*/
