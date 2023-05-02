@@ -294,4 +294,26 @@ router.get('/proyectos-elkin', function(req, res){
 
 });
 
+function save(proyecto){
+    var aspose = aspose || {};
+    aspose.cells = require("aspose.cells");
+    var sampleFile = "staffingSystems.xlsx";
+    var workbook = new aspose.cells.Workbook(sampleFile);
+    for(var i = 2; i<getLength(leerProyectos); i++){
+        workbook.getWorksheets().get(4).getCells().get("H"+i).putValue('Flow');
+    }
+    workbook.save("staffingSystems - copia.xlsx");
+}
+
+function getLength(documento){
+    var i = 0;
+    for(const item of documento){
+        if(item['ProjectIDName'] !== undefined){
+            i += 1;
+        }
+    }
+    console.log(i);
+    return i;
+}
+
 module.exports = router;
