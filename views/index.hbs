@@ -54,8 +54,11 @@
                 aria-expanded="false">
                 Seleccione una Dirección
             </button>
+            
             <ul class="dropdown-menu">
-                <li>Dirección 1</li>
+                {{#each direccion}}
+                <li><button name="service" type="button" style="color: black; background-color: white; border: none;">{{nombre}}</button></li>
+                {{/each}}
             </ul>
         </div>
         <div class="btn-group">
@@ -64,6 +67,12 @@
                 Seleccione un Servicio
             </button>
             <ul class="dropdown-menu">
+                {{#each servicio}}
+                <li>{{nombre}}</li>
+                {{/each}}
+                <li>Dirección 1</li>
+                <li>Dirección 1</li>
+                <li>Dirección 1</li>
                 <li>Dirección 1</li>
             </ul>
         </div>
@@ -203,7 +212,8 @@
                                         </div>
                                         <div class="container">
                                             <div class="horizontal-scrollable">
-                                                <div class="person">
+                                                {{#each nuevos}}
+                                                <div class="person" id="personaCuadro">
                                                     <h5 class="person personCode">{{codigonew}}</h5>
                                                     <h6 class="person" style="height:24px">{{nombrenew}}</h6>
                                                     <img class="imagePerson"
@@ -212,32 +222,7 @@
                                                     <p class=""><small class="text-muted">{{dedicacionnew}}% /
                                                         {{tecnologianew}} / {{rolnew}}</small></p>
                                                 </div>
-                                                <div class="person">
-                                                    <h5 class="person personCode">{{codigonew}}</h5>
-                                                    <h6 class="person" style="height:24px">{{nombrenew}}</h6>
-                                                    <img class="imagePerson"
-                                                        src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
-                                                        class="img-fluid rounded-start" alt="...">
-                                                    <p class=""><small class="text-muted">{{dedicacionnew}}% /
-                                                        {{tecnologianew}} / {{rolnew}}</small></p>
-                                                </div>
-                                                <div class="person">
-                                                    <h5 class="person personCode">{{codigonew}}</h5>
-                                                    <h6 class="person" style="height:24px">{{nombrenew}}</h6>
-                                                    <img class="imagePerson"
-                                                        src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
-                                                        class="img-fluid rounded-start" alt="...">
-                                                    <p class=""><small class="text-muted">{{dedicacionnew}}% /
-                                                        {{tecnologianew}} / {{rolnew}}</small></p>
-                                                </div><div class="person">
-                                                    <h5 class="person personCode">{{codigonew}}</h5>
-                                                    <h6 class="person" style="height:24px">{{nombrenew}}</h6>
-                                                    <img class="imagePerson"
-                                                        src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
-                                                        class="img-fluid rounded-start" alt="...">
-                                                    <p class=""><small class="text-muted">{{dedicacionnew}}% /
-                                                        {{tecnologianew}} / {{rolnew}}</small></p>
-                                                </div>
+                                                {{/each}}
                                             </div>
                                         </div>
 

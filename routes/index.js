@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var hbs = require('hbs');
-const connect = require('connect');
+//const connect = require('connect');
 const xlsx = require('xlsx');
 const worbook = xlsx.readFile('staffingSystems.xlsx');
 const sheet_name_list = worbook.SheetNames;
@@ -16,7 +16,8 @@ const leerParametros = xlsx.utils.sheet_to_json(worbook.Sheets[parametro]);
 
 router.get('/', function(req, res){
 
-    var html = {proyectos: getProyectos('CORE','Cross/Gestor documental y SSDD'), backlog: getNewsProyectos(), newmembers: nuevosIntegrantes('C797459')};
+    var service = req.query.service;
+    var html = {proyectos: getProyectos('CORE','Cross/Gestor documental y SSDD'), backlog: getNewsProyectos(), direccion: getDirecciones(), servicio: getServicios(service)};
     res.render('index', html);
 
     //Mostrar listado de personas acargo
@@ -32,13 +33,13 @@ router.get('/', function(req, res){
 
     //Backlog
     function getNewsProyectos(){
-        let newProyectos = [];
+        let backlog = [];
         for(const itemFila of leerProyectos){
             if(itemFila['Status'] == 'Stock'){
-                newProyectos.push({ProjectIDName: itemFila['Project ID Name'], descripcion: itemFila['Description (What & Where)'], normativo: itemFila['NORMATIVO'], scrum: itemFila['scrum'], fecIni: itemFila['Start Date'], fecFin: itemFila['End date']});
+                backlog.push({ProjectIDName: itemFila['Project ID Name'], descripcion: itemFila['Description (What & Where)'], normativo: itemFila['NORMATIVO'], scrum: itemFila['scrum'], fecIni: itemFila['Start Date'], fecFin: itemFila['End date'], nuevos: nuevosIntegrantes('C797459')});
             }
         }
-        return newProyectos;
+        return backlog;
     }
     
     //Staffing - proyectos con sus respectivos empleados y cronograma
@@ -114,6 +115,28 @@ router.get('/', function(req, res){
             }
         }
         return informacion;
+    }
+
+    function getDirecciones(){
+        let direcciones = [];
+        let ids = [];
+        for(const itemFila of leerParametros){
+            if(inArreglo(itemFila['id'], ids)){
+                direcciones.push({nombre: itemFila['Dirección']});
+                ids.push(itemFila['id']);
+            }
+        }
+        return direcciones;
+    }
+
+    function getServicios(direccion){
+        let servicios = [];
+        for(const itemFila of leerParametros){
+            if(itemFila['Dirección'] == direccion){
+                servicios.push({nombre: itemFila['Servicio']});
+            }
+        }
+        return servicios;
     }
     
 });
