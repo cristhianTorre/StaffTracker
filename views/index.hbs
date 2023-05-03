@@ -188,7 +188,7 @@
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"data-bs-target="#staticBackdrop">Editar</button>
-                        <button class="btn btn-primary" type="button">Enviar</button>
+                        <button class="btn btn-primary" onclick="save({{ProjectIDName}})" type="button">Enviar</button>
                         <!-- Modal -->
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">                            
                             <div class="modal-dialog modal-lg">
@@ -237,7 +237,6 @@
                                 </div>
                             </div>
                         </div>
-                        <button onclick="save({{ProjectIDName}})" class="btn btn-primary" type="button">Enviar</button>
                     </div>
                 </div>
             </div>
