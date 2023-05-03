@@ -22,9 +22,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link fw-semibold"
-                                href="https://www.youtube.com/@AprendemosJuntos" target="_blank">Youtube</a></li>
+                                href="#" target="_blank">Proyectos</a></li>
                         <li class="nav-item"><a class="nav-link fw-semibold"
-                                href="https://www.linkedin.com/company/bbva/" target="_blank">Linkedin</a></li>
+                                href="#" target="_blank">Personas</a></li>
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle fw-semibold" href="#"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">Proyectos Recientes</a>
                             <ul class="dropdown-menu">
@@ -206,9 +206,19 @@
                                         <div class="container">
                                             <div class="horizontal-scrollable">
                                                 {{#each nuevos}}
-                                                <div class="person" id="personaCuadro">
-                                                    <h5 class="person personCode">{{codigonew}}</h5>
-                                                    <h6 class="person" style="height:24px">{{nombrenew}}</h6>
+                                                <div class="personBacklog containerPersonBacklog">
+                                                    <div class="dropdown">
+                                                    <button class="btn btn-secondary btn-sm dropdown-toggle botonHabilidadMaestra" id="dropdownMenuButton2" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tecnología</button>
+                                                        <ul class="dropdown-menu containerHabilidadLista" aria-labelledby="dropdownMenuButton2">  
+                                                            <li><a class="dropdown-item habilidadLista">ASO: 50%</a></li>
+                                                            <li><a class="dropdown-item habilidadLista">APX: 45%</a></li>
+                                                            <li><a class="dropdown-item habilidadLista">CELL: 89%</a></li>
+                                                            <li><a class="dropdown-item habilidadLista">SCALA: 92%</a></li>
+                                                            <li><a class="dropdown-item habilidadLista">Distribuido: 78%</a></li>                                        
+                                                        </ul>
+                                                    </div>
+                                                    <h5 class="personBacklog personCode">{{codigonew}}</h5>
+                                                    <h6 class="personBacklog" style="height:24px">{{nombrenew}}</h6>
                                                     <img class="imagePerson"
                                                         src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
                                                         class="img-fluid rounded-start" alt="...">
@@ -217,6 +227,7 @@
                                                 </div>
                                                 {{/each}}
                                             </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="modal-footer">
