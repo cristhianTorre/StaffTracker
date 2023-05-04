@@ -1,4 +1,9 @@
 const xlsx = require('xlsx');
+const connect = require('./connect');
+const proyectos_json = proyectosBD(connect);
+const staffing_json = staffingBD(connect);
+const staff_json = staffBD(connect);
+const parametros_json = parametrosBD(connect);
 const worbook = xlsx.readFile('staffingSystems.xlsx');
 const sheet_name_list = worbook.SheetNames;
 const parametro = sheet_name_list[0];
@@ -9,6 +14,30 @@ const leerStaff = xlsx.utils.sheet_to_json(worbook.Sheets[staff]);
 const leerStaffing = xlsx.utils.sheet_to_json(worbook.Sheets[staffing]);
 const leerProyectos = xlsx.utils.sheet_to_json(worbook.Sheets[project]);
 const leerParametros = xlsx.utils.sheet_to_json(worbook.Sheets[parametro]);
+
+/*
+Conexion a base de datos y conversion de tablas a json
+*/
+
+function proyectosBD(connection){
+    let consulta = connection.query('SELECT * FROM proyectos');
+    return consulta;
+}
+
+function staffingBD(connection){
+    let consulta = connection.query('SELECT * FROM staffing');
+    return consulta;
+}
+
+function staffBD(connection){
+    let consulta = connection.query('SELECT * FROM staff');
+    return consulta;
+}
+
+function parametrosBD(connection){
+    let consulta = connection.query('SELECT * FROM parametros');
+    return consulta;
+}
 
 //Mostrar listado de personas acargo
 function nuevosIntegrantes(codigoJefe){
