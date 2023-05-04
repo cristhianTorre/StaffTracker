@@ -10,7 +10,6 @@
 </head>
 <body>
     <header>
-<<<<<<< HEAD
         <div id="superiorContainer">
             <h1 id="titleHeader">BBVA</h1>
         </div>
@@ -36,67 +35,6 @@
             <option value="2">Opción Servicio 2</option>
             <option value="3">Opción Servicio 3</option>
         </select>
-=======
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand fw-bold" href="#">Inicio</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link fw-semibold"
-                                href="#" target="_blank">Proyectos</a></li>
-                        <li class="nav-item"><a class="nav-link fw-semibold"
-                                href="#" target="_blank">Personas</a></li>
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle fw-semibold" href="#"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">Proyectos Recientes</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item fw-semibold" href="" target="_blank">Proyecto SDATOOL
-                                        001</a></li>
-                                <li><a class="dropdown-item fw-semibold" href="" target="_blank">Proyecto SDATOOL
-                                        002</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item fw-semibold" href="#">Proyecto SDATOOL 003</a></li>
-                                <li><a class="dropdown-item fw-semibold" href="#">Proyecto SDATOOL 004</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search" style="align-items: center;"><input class="form-control me-2"
-                            type="search" placeholder="Buscar" aria-label="Search" style="height: 25px;"><button
-                            class="btn btn-outline-success" type="submit"
-                            style="width: auto; padding: 0 5px; height: 25px;">Search</button></form>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="containerDropdowns">
-        <form action="/" method="post" role="form">
-            <div class="form-group">
-                <select class="custom-select">
-                    <option>Seleccione una Dirección</option>
-                    {{#each direccion}}
-                    <option name="opcion" type="button" style="color: black; background-color: white; border: none;">
-                        {{nombre}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="custom-select">
-                    <option>Seleccione un Servicio</button>
-                        {{#each opcion}}
-                    <option>{{nombre}}</option>
-                    {{/each}}
-                    <option>Dirección 1</option>
-                    </option>
-                </select>
-            </div>
-        </form>
->>>>>>> master
     </div>
     <div class="generalContainer" style="margin: 12px 50px 0 50px; padding: 0;">
         <div class="containerProjectCourse">
@@ -218,7 +156,6 @@
                                         <h5 class="modal-title" id="staticBackdropLabel">Editar Proyecto en Backlog</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                                            
                                     </div>
-<<<<<<< HEAD
                                     <div class="modal-body">
                                         <div class="input-group" method="localhost:3000" method="post">
                                             <span class="input-group-text">Periodo de ejecución</span>
@@ -246,7 +183,6 @@
                                                         class="img-fluid rounded-start" alt="...">
                                                     <p class=""><small class="text-muted">{{dedicacionnew}}% /
                                                         {{tecnologianew}} / {{rolnew}}</small></p>
-=======
                                     <form action="/" method="post" role="form">
                                         <div class="modal-body">
                                             <div class="form-group">
@@ -256,7 +192,6 @@
                                                         placeholder="Ejm: 1Q 2023">
                                                     <input type="text" aria-label="Last name" class="form-control"
                                                         placeholder="Ejm: 2Q 2023">
->>>>>>> 84f9fe4c67e5a855703e844c363b5b8b0afefdbd
                                                 </div>
                                                 <div class="container">
                                                     <div class="horizontal-scrollable">
@@ -280,20 +215,3 @@
                                                 <button type="button" class="btn btn-primary">Guardar</button>
                                             </div>
                                             
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <button onclick="save('{{ProjectIDName}}')" class="btn btn-primary"
-                            type="button">Enviar</button>
-                    </div>
-                </div>
-            </div>
-            {{/each}}
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
-
-</html>
