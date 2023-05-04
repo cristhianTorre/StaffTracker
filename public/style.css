@@ -2,11 +2,13 @@
     margin: 0;
     padding: 0;
 }
+/*<-------------------------------// Sección Proyectos en Ejecución //-------------------------------------------->*/
 header{
     background-color: #303030d5;
     width: auto;
     height: auto;
 }
+/*<---Sección Navbar--->*/
 .navbar a{
     color: bisque;
 }
@@ -18,6 +20,7 @@ header{
     margin: 20px 0 20px 0;
     color: rgb(141, 138, 138);
     }
+/*<--- Sección Dropdowns (Lista desplegable: Dirección y Servicio) --->*/
 .generalContainer, .containerDropdowns{
     margin: 0px 30px 0 30px;
 }
@@ -27,6 +30,7 @@ header{
 .dropdown-menu li{
     margin-left: 10px;
 }
+/*<--- Sección caracteristicas del proyecto en curso --->*/
 .containerProjectCourse{
     border: 1px solid rgb(64, 153, 226);
     border-radius: 4px;height: auto;
@@ -46,7 +50,6 @@ header{
 .majorTitles{
     color: rgb(0, 0, 0);
     margin: 6px 0 0 15px;
-
 }
 .cardProyecto{
     border-right: 1px dashed rgb(203, 231, 255);
@@ -60,28 +63,19 @@ header{
 .subTitles{
     font-weight: bolder;
 }
-#listProject{font-size:small;
+#listProject{
+    font-size:small;
     list-style: none;
     padding: 0;
     margin-left: 10px;
 }
-.persons{
-    height: 1auto;
-    background-color: white;
-    padding-bottom: 8px;
-    border-right: 1px dashed rgb(203, 231, 255);
+.containerCarousel{
+    height: auto;
+    width: 240px;
+    margin: 0 auto;
+    background-color: rgb(255, 255, 255);
 }
-.listPerson, .listTrimestre{
-    display: inline-flex;
-}
-
-.itemListTrimestre{
-    width: 25%;
-    padding: 0px;
-    list-style: none;
-    text-align: center;
-}
-.person{
+.personFlow{
     font-size:x-small;
     width: 120px;
     padding: 0px;
@@ -96,11 +90,35 @@ header{
     height: 50px;
     border-radius: 25px;
 }
+.listPerson{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+.persons{
+    height: 1auto;
+    background-color: white;
+    padding-bottom: 8px;
+    border-right: 1px dashed rgb(203, 231, 255);
+}
 .containerSchedule{
     border-top: 1px dashed rgb(203, 231, 255);
     border-radius: 4px;
     height: 140px;
-    background-color: white;}
+    background-color: white;
+}
+.itemListTrimestre{
+    width: 25%;
+    padding: 0px;
+    list-style: none;
+    text-align: center;
+}
+.listTrimestre{
+    display: inline-flex;
+}
+/*<---------------- Sección Proyectos en Backlog ----------------->*/
 .containerProjectBacklog{
     border: 1px solid rgb(64, 153, 226);
     border-radius: 4px;
@@ -118,19 +136,6 @@ header{
 .cardProyectoBacklog{
     border-right: 1px dashed rgb(203, 231, 255);
 }
-.containerCarousel{
-    height: auto;
-    width: 240px;
-    margin: 0 auto;
-    background-color: rgb(255, 255, 255);
-}
-.listPerson{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-}
 .btn-primary{
     margin-bottom: 8px;
     background-color:rgb(206, 204, 204);
@@ -147,7 +152,7 @@ header{
     color: rgb(92, 92, 92);
     font-weight: bolder;
 }
-
+/*<---Sección de Modal para Asignar Personas en Proyectos Backlog--->*/
 .horizontal-scrollable{
     overflow-x: auto;
     white-space: nowrap;
@@ -155,7 +160,70 @@ header{
     float: none;
     width: 100%;
 }
-#personaCuadro{
-    
-    background-color: blueviolet;
+.botonHabilidadMaestra{
+    width: 120px;
+    height: auto;
 }
+.containerHabilidadLista, .habilidadLista{
+    font-size:x-small;
+}
+.descriptionPerson{
+    margin: 0;
+}
+.personBacklog{
+    font-size:x-small;
+    width: 120px;
+    padding: 0px;
+    list-style: none;
+    text-align: center;
+}
+.containerPersonBacklog{
+    margin: 15px;
+}
+
+
+/*<--------------------------------------// Estilos Estructura Página Personas //-------------------------------->*/
+/*<---Estilos Tarjeta personas--->*/
+.text-right{
+    text-align: right;
+}
+.btn-perfil{
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    font-weight: bolder;
+}
+.btn-correo{
+    background-color: #20c997;
+    color: white;
+    font-weight: bolder;
+}
+#cardContainer{
+    padding: 8px;
+}
+/*<--- Modal Habilidades personas --->*/
+.personHabilidad{
+    font-size:small;
+    width: 120px;
+    padding: 0px;
+    list-style: none;
+    text-align: center;
+}
+.containerPersonHabilidad{
+    margin: 15px;
+}
+.descriptionPersonHabilidad{
+    margin: 0;
+}
+.imagePersonHabilidad{
+    width: 80px;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+.containerChart{
+    
+    justify-content: center;
+    align-items: center;
+}
+

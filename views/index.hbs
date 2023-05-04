@@ -97,9 +97,9 @@
                                 {{#each emplo}}
                                 <div class="carousel-item {{#if @first }} active {{/if}}">
                                     <div class="listPerson">
-                                        <div class="person">
-                                            <h5 class="person personCode">{{codigo}}</h5>
-                                            <h6 class="person" style="height:24px">{{nombre}}</h6><img
+                                        <div class="personFlow">
+                                            <h5 class="personFlow personCode">{{codigo}}</h5>
+                                            <h6 class="personFlow" style="height:24px">{{nombre}}</h6><img
                                                 class="imagePerson"
                                                 src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
                                                 class="img-fluid rounded-start" alt="...">
@@ -129,8 +129,8 @@
                     <h2 class="titles">Cronograma: </h2>
                     <ol class="listTrimestre">
                         <li class="itemListTrimestre">
-                            <div class="person">
-                                <h5 class="person personCode">Periodo en curso</h5>
+                            <div class="personFlow">
+                                <h5 class="personFlow personCode">Periodo en curso</h5>
                                 <div class="indicadorCronograma"
                                     style="display: inline-flex; width: 400px; margin: 8px auto;">
                                     <p class="col-3">{{fecIni}}</p>
@@ -154,7 +154,7 @@
             </div>
             {{#each backlog}}
             <div class="containerProject row">
-                <div class="cardProyectoBacklog col-sm-8">
+                <div class="cardProyectoBacklog col-sm-7">
                     <h2 id="titleProject" class="titles">Proyecto: {{ProjectIDName}}</h2>
                     <ol id="listProject" class="list">
                         <li>Descripción: {{descripcion}}</li>
@@ -162,13 +162,13 @@
                         <li>Scrum: {{scrum}}</li>
                     </ol>
                 </div>
-                <div class="othersProyectoBacklog col-sm-4">
+                <div class="othersProyectoBacklog col-sm-5">
                     <div class="containerScheduleBacklog row">
                         <h2 class="titles">Cronograma: </h2>
                         <ol class="listTrimestre">
                             <li class="itemListTrimestre">
-                                <div class="person">
-                                    <h5 class="person personCode">Rango de ejecución</h5>
+                                <div class="personBacklog">
+                                    <h5 class="personBacklog personCode">Rango de ejecución</h5>
                                     <div class="indicadorCronograma"
                                         style="display: inline-flex; width: 400px; margin: 8px auto;">
                                         <p class="col-3">{{fecIni}}</p><progress id="file" max="100" value="0"> 0%
@@ -181,20 +181,15 @@
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop">
-                            Editar
-                        </button>
-
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"data-bs-target="#staticBackdrop">Editar</button>
+                        <button class="btn btn-primary" onclick="save({{ProjectIDName}})" type="button">Enviar</button>
                         <!-- Modal -->
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">                            
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="staticBackdropLabel">Editar Proyecto en Backlog</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                                            
                                     </div>
                                     <form action="/" method="post" role="form">
                                         <div class="modal-body">
