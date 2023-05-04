@@ -49,33 +49,27 @@
         </nav>
     </header>
     <div class="containerDropdowns">
-        <div class="btn-group">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Seleccione una Dirección
-            </button>
-            
-            <ul class="dropdown-menu">
-                {{#each direccion}}
-                <li><button name="service" type="button" style="color: black; background-color: white; border: none;">{{nombre}}</button></li>
-                {{/each}}
-            </ul>
-        </div>
-        <div class="btn-group">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Seleccione un Servicio
-            </button>
-            <ul class="dropdown-menu">
-                {{#each servicio}}
-                <li>{{nombre}}</li>
-                {{/each}}
-                <li>Dirección 1</li>
-                <li>Dirección 1</li>
-                <li>Dirección 1</li>
-                <li>Dirección 1</li>
-            </ul>
-        </div>
+        <form action="/" method="post" role="form">
+            <div class="form-group">
+                <select class="custom-select">
+                    <option>Seleccione una Dirección</option>
+                    {{#each direccion}}
+                    <option name="opcion" type="button" style="color: black; background-color: white; border: none;">
+                        {{nombre}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="custom-select">
+                    <option>Seleccione un Servicio</button>
+                        {{#each opcion}}
+                    <option>{{nombre}}</option>
+                    {{/each}}
+                    <option>Dirección 1</option>
+                    </option>
+                </select>
+            </div>
+        </form>
     </div>
     <div class="generalContainer">
         <div class="containerProjectCourse">
@@ -197,6 +191,7 @@
                                         <h5 class="modal-title" id="staticBackdropLabel">Editar Proyecto en Backlog</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                                            
                                     </div>
+<<<<<<< HEAD
                                     <div class="modal-body">
                                         <div class="input-group" method="localhost:3000" method="post">
                                             <span class="input-group-text">Periodo de ejecución</span>
@@ -224,19 +219,47 @@
                                                         class="img-fluid rounded-start" alt="...">
                                                     <p class=""><small class="text-muted">{{dedicacionnew}}% /
                                                         {{tecnologianew}} / {{rolnew}}</small></p>
+=======
+                                    <form action="/" method="post" role="form">
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="input-group" method="localhost:3000" method="post">
+                                                    <span class="input-group-text">Periodo de ejecución</span>
+                                                    <input type="text" aria-label="First name" class="form-control"
+                                                        placeholder="Ejm: 1Q 2023">
+                                                    <input type="text" aria-label="Last name" class="form-control"
+                                                        placeholder="Ejm: 2Q 2023">
+>>>>>>> 84f9fe4c67e5a855703e844c363b5b8b0afefdbd
                                                 </div>
-                                                {{/each}}
+                                                <div class="container">
+                                                    <div class="horizontal-scrollable">
+                                                        {{#each nuevos}}
+                                                        <div class="person" id="personaCuadro">
+                                                            <h5 class="person personCode">{{codigonew}}</h5>
+                                                            <h6 class="person" style="height:24px">{{nombrenew}}</h6>
+                                                            <img class="imagePerson"
+                                                                src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
+                                                                class="img-fluid rounded-start" alt="...">
+                                                            <p class=""><small class="text-muted">{{dedicacionnew}}% /
+                                                                    {{tecnologianew}} / {{rolnew}}</small></p>
+                                                        </div>
+                                                        {{/each}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary">Guardar</button>
                                             </div>
                                             
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"data-bs-dismiss="modal">Cerrar</button>                                            
-                                        <button type="button" class="btn btn-primary">Guardar</button>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                        <button onclick="save('{{ProjectIDName}}')" class="btn btn-primary"
+                            type="button">Enviar</button>
                     </div>
                 </div>
             </div>
