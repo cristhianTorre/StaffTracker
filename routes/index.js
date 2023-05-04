@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var hbs = require('hbs');
 var funciones = require('./funciones');
-//const connect = require('connect');
 
 router.get('/', function(req, res){
 
