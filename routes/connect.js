@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+/*const mysql = require('mysql');
 
 const conexion = mysql.createConnection({
   host: 'localhost',
@@ -7,4 +7,4 @@ const conexion = mysql.createConnection({
   database: 'staffing_project'
 });
 
-module.exports = conexion;
+module.exports = conexion;*/
