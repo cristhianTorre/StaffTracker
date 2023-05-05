@@ -7,6 +7,4 @@ const conexion = mysql.createConnection({
   database: 'staffing_project'
 });
 
-conexion.connect();
-
 module.exports = conexion;
