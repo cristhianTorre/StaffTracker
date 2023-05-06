@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .containerGuia{
+            width: 40%;
+            text-align: justify;
+            margin: 10px auto;
+            border: 2px solid #028484;
+            border-radius: 15px;
+            padding: 15px 30px;
+        }
+        .form-select{
+            display: inline-flex;
+            width: auto;
+            margin: 15px 15px 20px 15px;
+        }
+        .containerProyectosDireccion{
+            margin: 25px 100px;
+        }
+        .containerDiagramaHorizontal, .guiaDiagramaHorizontal{
+            margin: 0px;
+        }
+        .chartHorizontal{
+            width: 100%;
+            height: auto;
+            padding: 0px 40px 0 80px;
+            text-align: center;
+        }
+        .chartRadar{
+            width: 85%;
+            height: auto;
+            padding: 0 80px 0 40px;
+            text-align: center;
+        }
+        #serviciosChart{
+            padding: 0;
+            margin: 0;         
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div id="superiorContainer">
+            <h1 id="titleHeader">BBVA</h1>
+        </div>
+        <div id="menusContainer">
+            <ul id="listMenuContainer">
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Inicio</a></li>
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Proyectos</a></li>
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Crear Proyecto</a></li>
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Personas</a></li>   
+            </ul>
+        </div>
+    </header>
+    <div class="containerGuia">
+        <p>Nota: La gráfica muestra los servicios asociados a la dirección seleccionada, en la cual se incluye los proyectos que se encuentran activos o en progreso en cada uno de ellos.</p>
+    </div>
+    <div class="row containerProyectosDireccion">
+        <!--Diagramas de barras(Servicios)-->
+        <div class="col-6 col-md-6 d-flex align-items-stretch flex-column containerDiagramaHorizontal">
+            <div class="chartHorizontal">       
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected>Seleccione una Dirección</option>
+                    <option value="1">Opción Dirección 1</option>
+                    <option value="2">Opción Dirección 2</option>
+                    <option value="3">Opción Dirección 3</option>
+                </select>
+                <h5 style="margin-bottom: 60px;">Dirección "n"</h5>
+                <canvas id="serviciosChart"></canvas>
+            </div>
+        </div>
+        <!--Diagramas de Carta de Radar(Tecnologías)-->
+        <div class="col-6 col-md-6 d-flex align-items-stretch flex-column guiaDiagramaHorizontal">
+            <div class="chartRadar">
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected>Seleccione un Servicio</option>
+                    <option value="1">Opción Servicio 1</option>
+                    <option value="2">Opción Servicio 2</option>
+                    <option value="3">Opción Servicio 3</option>
+                </select>
+                <h5>Servicio "n"</h5>
+                <canvas id="tecnologiasChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <script>//Script del diagrama de barras horizontal
+    
+    const ctx = document.getElementById('serviciosChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Accounts', 'BPM', 'Gestor Doc. y SSDD', 'Personas y Arq. Host', 'Ventas Asis CAP', 'Loans', 'Payments'],
+                datasets: [{
+                    label: 'Cantidad de Proyectos',
+                    data: [8, 4, 4, 6, 9, 1, 5],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <script>//Script del diagrama de carta de radar
+    
+        const ctx1 = document.getElementById('tecnologiasChart');
+    
+            new Chart(ctx1, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Distribuido',
+                        'ASO',
+                        'APX',
+                        'CELLS',
+                        'Data Servi.',
+                        'Google CP',
+                        'Openweb',
+                        'Mainframe',
+                        'SaaS',
+                        'Salesforce',
+                        
+                    ],
+                    datasets: [{
+                        label: 'Tecnologías',
+                        data: [65, 59, 70, 50, 56, 65, 50, 59, 70, 50, ],
+                        fill: true,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        pointBackgroundColor: 'rgb(255, 99, 132)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(255, 99, 132)',
+                    },{
+                        label: '',
+                        data: [0,],
+                    }]
+                },
+                options: {
+                    elements: {
+                    line: {
+                        borderWidth: 2
+                    }
+                    }
+                },
+            });
+        </script>
+</body>
+</html>
