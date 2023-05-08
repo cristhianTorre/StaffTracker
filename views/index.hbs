@@ -17,10 +17,10 @@
         </div>
         <div id="menusContainer">
             <ul id="listMenuContainer">
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Inicio</a></li>
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Proyectos</a></li>
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Crear Proyecto</a></li>
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Personas</a></li>
-                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Productividad</a></li>
             </ul>
         </div>
     </header>
@@ -212,12 +212,18 @@
                                                                     <input type="text" aria-label="Last name"
                                                                         class="form-control" placeholder="Ejm: 2Q 2023">
                                                                 </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Cerrar</button>
-                                                                <button type="button"
-                                                                    class="btn btn-primary">Guardar</button>
+                                                                <div class="container">
+                                                                    <div class="horizontal-scrollable">
+                                                                        {{#each nuevos}}
+                                                                        <div class="person" id="personaCuadro">
+                                                                            <h5 class="person personCode">{{codigonew}}
+                                                                            </h5>
+                                                                            <h6 class="person" style="height:24px">
+                                                                                {{nombrenew}}</h6>
+                                                                            <img class="imagePerson">
+                                                                        </div>{{/each}}
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </form>
