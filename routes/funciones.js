@@ -13,7 +13,7 @@ const connect = require('./connect');
 
 /*
 Conexion a base de datos y conversion de tablas a json
-
+*/
 
 function proyectosBD(){
     return new Promise((resolve, reject) => {
