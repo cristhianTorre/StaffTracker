@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var hbs = require('hbs');
 var funciones = require('./funciones');
 
 router.get('/', function(req, res){
-
-    var html = {proyectos: funciones.getProyectos('CORE','Cross/Gestor documental y SSDD'), backlog: funciones.getNewsProyectos(), direccion: funciones.getDirecciones()};
-    res.render('index', html);
+    Promise.all([funciones.getProyectos('CORE','Cross/Gestor documental y SSDD'), funciones.getNewsProyectos(), funciones.getDirecciones()]).then((values) => {
+        res.render('index', {proyectos: values[0], backlog: values[1], direccion: values[2]});
+    });
 });
 
 router.post('/', function(req, res){

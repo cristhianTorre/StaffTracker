@@ -1,106 +1,129 @@
-const xlsx = require('xlsx');
+//const xlsx = require('xlsx');
 const connect = require('./connect');
-const proyectos_json = proyectosBD(connect);
-const staffing_json = staffingBD(connect);
-const staff_json = staffBD(connect);
-const parametros_json = parametrosBD(connect);
-const worbook = xlsx.readFile('staffingSystems.xlsx');
-const sheet_name_list = worbook.SheetNames;
-const parametro = sheet_name_list[0];
-const project = sheet_name_list[1];
-const staff = sheet_name_list[2];
-const staffing = sheet_name_list[3];
-const leerStaff = xlsx.utils.sheet_to_json(worbook.Sheets[staff]);
-const leerStaffing = xlsx.utils.sheet_to_json(worbook.Sheets[staffing]);
-const leerProyectos = xlsx.utils.sheet_to_json(worbook.Sheets[project]);
-const leerParametros = xlsx.utils.sheet_to_json(worbook.Sheets[parametro]);
+//const worbook = xlsx.readFile('staffingSystems.xlsx');
+//const sheet_name_list = worbook.SheetNames;
+//const parametro = sheet_name_list[0];
+//const project = sheet_name_list[1];
+//const staff = sheet_name_list[2];
+//const staffing = sheet_name_list[3];
+//const leerStaff = xlsx.utils.sheet_to_json(worbook.Sheets[staff]);
+//const leerStaffing = xlsx.utils.sheet_to_json(worbook.Sheets[staffing]);
+//const leerProyectos = xlsx.utils.sheet_to_json(worbook.Sheets[project]);
+//const leerParametros = xlsx.utils.sheet_to_json(worbook.Sheets[parametro]);
 
 /*
 Conexion a base de datos y conversion de tablas a json
 */
 
-function proyectosBD(connection){
-    let consulta = connection.query('SELECT * FROM proyectos');
-    return consulta;
+function proyectosBD(){
+    return new Promise((resolve, reject) => {
+        connect.conexion.query('SELECT * FROM proyectos',
+            (err, resultados) => {
+                if (err) reject(err);
+                else resolve(resultados);
+            });
+    });
 }
 
-function staffingBD(connection){
-    let consulta = connection.query('SELECT * FROM staffing');
-    return consulta;
+function staffingBD(){
+    return new Promise((resolve, reject) => {
+        connect.conexion.query('SELECT * FROM staffing',
+            (err, resultados) => {
+                if (err) reject(err);
+                else resolve(resultados);
+            });
+    });
 }
 
-function staffBD(connection){
-    let consulta = connection.query('SELECT * FROM staff');
-    return consulta;
+function staffBD(){
+    return new Promise((resolve, reject) => {
+        connect.conexion.query('SELECT * FROM staff',
+            (err, resultados) => {
+                if (err) reject(err);
+                else resolve(resultados);
+            });
+    });
 }
 
-function parametrosBD(connection){
-    let consulta = connection.query('SELECT * FROM parametros');
-    return consulta;
+function parametrosBD(){
+    return new Promise((resolve, reject) => {
+        connect.conexion.query('SELECT * FROM parametros',
+            (err, resultados) => {
+                if (err) reject(err);
+                else resolve(resultados);
+            });
+    });
 }
 
 //Mostrar listado de personas acargo
-function nuevosIntegrantes(codigoJefe){
+async function nuevosIntegrantes(codigoJefe){
+    let leerStaff = await staffBD();
     let nuevos = [];
     for(const itemFila of leerStaff){
-        if(itemFila['SUPERIOR'] == codigoJefe){
-            nuevos.push({codigonew: itemFila['Código'], nombrenew: itemFila['Nombre'], dedicacionnew: estaOcupado(itemFila['Código'])*100, tecnologianew: itemFila['TECNOLOGÌA'], rolnew: itemFila['ROL'], aso: Math.round(itemFila['ASO']), apx: Math.round(itemFila['APX']), cells: Math.round(itemFila['CELLS']), host: Math.round(itemFila['HOST']), bluespring: Math.round(itemFila['BLUESPRING']), python: Math.round(itemFila['PYTHON']), scala: Math.round(itemFila['SCALA'])});
+        if(itemFila['superior'] == codigoJefe){
+            nuevos.push({codigonew: itemFila['codigo'], nombrenew: itemFila['nombre'], dedicacionnew: estaOcupado(itemFila['codigo'])*100, tecnologianew: itemFila['tecnologia'], rolnew: itemFila['rol'], aso: Math.round(itemFila['ASO']), apx: Math.round(itemFila['APX']), cells: Math.round(itemFila['CELLS']), host: Math.round(itemFila['HOST']), bluespring: Math.round(itemFila['BLUESPRING']), python: Math.round(itemFila['PYTHON']), scala: Math.round(itemFila['SCALA'])});
         }
     }
     return nuevos;
 }
 
 //Backlog
-function getNewsProyectos(){
+async function getNewsProyectos(){
+    let leerProyectos = await proyectosBD();
     let backlog = [];
     for(const itemFila of leerProyectos){
-        if(itemFila['Status'] == 'Stock'){
-            backlog.push({ProjectIDName: itemFila['Project ID Name'], descripcion: itemFila['Description (What & Where)'], normativo: itemFila['NORMATIVO'], scrum: itemFila['scrum'], fecIni: itemFila['Start Date'], fecFin: itemFila['End date'], nuevos: nuevosIntegrantes('C797459')});
+        if(itemFila['status'] == 'Stock'){
+            backlog.push({ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final'], nuevos: nuevosIntegrantes('C797459')});
         }
     }
     return backlog;
 }
 
 //Staffing - proyectos con sus respectivos empleados y cronograma
-function getProyectos(direccion, servicio){
+async function getProyectos(direccion, servicio){
+    let leerStaffing = await staffingBD();
     let proyectos = [];
     let informacion = [];
     for(const itemFila of leerStaffing){
-        if(itemFila['Servicio'] == servicio && itemFila['Dirección'] == direccion && getStatusFlow(itemFila['Proyecto'])){
-            if(inArreglo(staffingProject(itemFila['Proyecto']), proyectos)){
-                informacion.push(Object.assign(consultaInformacionProyecto(itemFila['Proyecto']), {emplo: getEmpleados(itemFila['Proyecto'])}));
-                proyectos.push(staffingProject(itemFila['Proyecto']));
+        if(itemFila['servicio'] == servicio && itemFila['direccion'] == direccion && getStatusFlow(itemFila['proyecto'])){
+            if(inArreglo(staffingProject(itemFila['proyecto']), proyectos)){
+                informacion.push(Object.assign(consultaInformacionProyecto(itemFila['proyecto']), {emplo: getEmpleados(itemFila['proyecto'])}));
+                proyectos.push(staffingProject(itemFila['proyecto']));
             }
         }
     }
     return informacion;
 }
 
-function estaOcupado(codigo){
+async function estaOcupado(codigo){
+    let leerStaffing = await staffingBD();
     var suma = 0;
     for(const itemFila of leerStaffing){
-        if(itemFila['Código'] == codigo){
-            suma += itemFila['Dedicación'];
+        if(itemFila['codigo'] == codigo){
+            suma += itemFila['dedicacion'];
         }
     }
     return suma;
 }
 
-function getStatusFlow(proyecto){
+async function getStatusFlow(proyecto){
+    let leerProyectos = await proyectosBD();
     for(const itemFila of leerProyectos){
-        if(itemFila['Project ID Name'] == proyecto && itemFila['Status'] == 'Flow'){
+        if(itemFila['projectidname'] == proyecto && itemFila['status'] == 'Flow'){
             return true;
         }
     }
     return false;
 }
 
-function staffingProject(proyecto){
+async function staffingProject(proyecto){
+    let leerStaffing = await staffingBD();
+    let leerProyectos = await proyectosBD();
     for(const itemFila of leerStaffing){
-        if(itemFila['Proyecto'] == proyecto){
+        if(itemFila['proyecto'] == proyecto){
             for(const item of leerProyectos){
-                if(item['Project ID Name'] == proyecto){
-                    return item['ID'];
+                if(item['projectidname'] == proyecto){
+                    return item['id'];
                 }
             }
         }
@@ -116,32 +139,35 @@ function inArreglo(proj,arreg){
     return true;
 }
 
-function getEmpleados(proyecto){
+async function getEmpleados(proyecto){
+    let leerStaffing = await staffingBD();
     let empleados = [];
     for(const itemFila of leerStaffing){
-        if(itemFila['Proyecto'] == proyecto){
-            empleados.push({codigo: itemFila['Código'], nombre: itemFila['Nombre'], dedicacion: itemFila['Dedicación']*100, tecnologia: itemFila['TECNOLOGÌA'], rol: itemFila['ROL']});
+        if(itemFila['proyecto'] == proyecto){
+            empleados.push({codigo: itemFila['codigo'], nombre: itemFila['nombre'], dedicacion: itemFila['dedicacion']*100, tecnologia: itemFila['tecnologia'], rol: itemFila['rol']});
         }
     }
     return empleados;
 }
 
-function consultaInformacionProyecto(proyecto){
+async function consultaInformacionProyecto(proyecto){
+    let leerProyectos = await proyectosBD();
     let informacion = {};
     for(const itemFila of leerProyectos){
-        if(itemFila['Project ID Name'] == proyecto){
-            Object.assign(informacion,{ProjectIDName: itemFila['Project ID Name'], descripcion: itemFila['Description (What & Where)'], normativo: itemFila['NORMATIVO'], scrum: itemFila['scrum'], owner: itemFila['Project / Product Owner'], status: itemFila['Status'], fecIni: itemFila['Start Date'], fecFin: itemFila['End date']});
+        if(itemFila['projectidname'] == proyecto){
+            Object.assign(informacion,{ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], owner: itemFila['owner'], status: itemFila['status'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final']});
         }
     }
     return informacion;
 }
 
-function getDirecciones(){
+async function getDirecciones(){
+    let leerParametros = await parametrosBD();
     let direcciones = [];
     let ids = [];
     for(const itemFila of leerParametros){
         if(inArreglo(itemFila['id'], ids)){
-            direcciones.push({nombre: itemFila['Dirección']});
+            direcciones.push({nombre: itemFila['direccion']});
             ids.push(itemFila['id']);
         }
     }
@@ -168,16 +194,6 @@ function modifyDedicacion(codigo, proyecto, dedicacion){
     }
     // guardar los datos en un nuevo archivo xlsx
     workbook.save("staffingSystems - copia.xlsx");
-}
-
-function estaOcupado(codigo){
-    var suma = 0;
-    for(const itemFila of leerStaffing){
-        if(itemFila['Código'] == codigo){
-            suma += itemFila['Dedicación'];
-        }
-    }
-    return suma;
 }
 
 
@@ -222,18 +238,19 @@ function save(proyecto){
 function getLength(documento){
     var i = 0;
     for(const item of documento){
-        if(item['ProjectIDName'] !== undefined){
+        if(item['projectidname'] !== undefined){
             i += 1;
         }
     }
     return i;
 }
 
-function getServicios(direccion){
+async function getServicios(direccion){
+    let leerParametros = await parametrosBD();
     let servicios = [];
     for(const itemFila of leerParametros){
-        if(itemFila['Dirección'] == direccion){
-            servicios.push({nombre: itemFila['Servicio']});
+        if(itemFila['direccion'] == direccion){
+            servicios.push({nombre: itemFila['servicio']});
         }
     }
     return servicios;
@@ -261,15 +278,6 @@ function modifyDedicacion(codigo, proyecto, dedicacion){
     workbook.save("staffingSystems - copia.xlsx");
 }
 
-function estaOcupado(codigo){
-    var suma = 0;
-    for(const itemFila of leerStaffing){
-        if(itemFila['Código'] == codigo){
-            suma += itemFila['Dedicación'];
-        }
-    }
-    return suma;
-}
 
 function getProyectosJefe(jefe){
     let proyectos = [];
@@ -286,22 +294,25 @@ function getProyectosJefe(jefe){
 }
 
 //Obtener el jefe 
-function getBoss(codigo) {
+async function getBoss(codigo) {
+    let leerStaff = await staffBD();
     for(const itemFila of leerStaff){
-        if(itemFila['Código'] == codigo){
-            return itemFila['SUPERIOR'];
+        if(itemFila['codigo'] == codigo){
+            return itemFila['superior'];
         }
     }
     return 'No tiene jefe';
 }
 
 
-function staffingProject(proyecto){
+async function staffingProject(proyecto){
+    let leerStaffing = await staffingBD();
+    let leerProyectos = await proyectosBD();
     for(const itemFila of leerStaffing){
-        if(itemFila['Proyecto'] == proyecto){
+        if(itemFila['proyecto'] == proyecto){
             for(const item of leerProyectos){
-                if(item['Project ID Name'] == proyecto){
-                    return item['ID'];
+                if(item['projectidname'] == proyecto){
+                    return item['id'];
                 }
             }
         }
