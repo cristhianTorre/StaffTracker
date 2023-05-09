@@ -37,7 +37,7 @@ function staffingBD(){
 
 function staffBD(){
     return new Promise((resolve, reject) => {
-        connect.conexion.query('SELECT * FROM staff',
+        connect.conexion.query('SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON FROM staff INNER JOIN habilidades ON staff.id = habilidades.id;',
             (err, resultados) => {
                 if (err) reject(err);
                 else resolve(resultados);
@@ -130,7 +130,7 @@ async function staffingProject(proyecto){
     }
 }
 
-function inArreglo(proj,arreg){
+async function inArreglo(proj,arreg){
     for(var i = 0; i<arreg.length; i++){
         if(Object.is(arreg[i], proj)){
             return false;
@@ -235,7 +235,7 @@ function save(proyecto){
     workbook.save("staffingSystems - copia.xlsx");
 }
 
-function getLength(documento){
+async function getLength(documento){
     var i = 0;
     for(const item of documento){
         if(item['projectidname'] !== undefined){
