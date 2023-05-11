@@ -1,12 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var funciones = require('./funciones');
+const connect = require('./connect');
 
 router.get('/', function(req, res){
-    Promise.all([funciones.getProyectos('CORE','Cross/Gestor documental y SSDD'), funciones.getNewsProyectos(), funciones.getDirecciones()]).then((values) => {
-        res.render('index', {proyectos: values[0], backlog: values[1], direccion: values[2]});
-    });
+    var parametros = ['SELECT * FROM parametros',
+    'SELECT * FROM staffing',
+    'SELECT * FROM proyectos',
+    'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON FROM staff INNER JOIN habilidades ON staff.id = habilidades.id'];
+    connect.conexion.query(parametros.join(';'), function (error, results, fields) {
+        if (error) throw error;
+        res.render('index', {proyectos: funciones.getProyectos(JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3])), JSON.parse(JSON.stringify(results[2])),'CORE','Cross/Gestor documental y SSDD'), backlog: funciones.getNewsProyectos(JSON.parse(JSON.stringify(results[2])), JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3]))), direccion: funciones.getDirecciones(JSON.parse(JSON.stringify(results[0])))});
+      });
 });
+
+router.get('/proyectos', function(req, res){
+    let prueba = {proyecto: funciones.proyectosBD, emplo: funciones.staffingBD};
+    res.render('pruebas', prueba);
+})
 
 router.post('/', function(req, res){
     var body = req.body;

@@ -15,88 +15,48 @@ const connect = require('./connect');
 Conexion a base de datos y conversion de tablas a json
 */
 
-function proyectosBD(){
-    return new Promise((resolve, reject) => {
-        connect.conexion.query('SELECT * FROM proyectos',
-            (err, resultados) => {
-                if (err) reject(err);
-                else resolve(resultados);
-            });
-    });
-}
-
-function staffingBD(){
-    return new Promise((resolve, reject) => {
-        connect.conexion.query('SELECT * FROM staffing',
-            (err, resultados) => {
-                if (err) reject(err);
-                else resolve(resultados);
-            });
-    });
-}
-
-function staffBD(){
-    return new Promise((resolve, reject) => {
-        connect.conexion.query('SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON FROM staff INNER JOIN habilidades ON staff.id = habilidades.id;',
-            (err, resultados) => {
-                if (err) reject(err);
-                else resolve(resultados);
-            });
-    });
-}
-
-function parametrosBD(){
-    return new Promise((resolve, reject) => {
-        connect.conexion.query('SELECT * FROM parametros',
-            (err, resultados) => {
-                if (err) reject(err);
-                else resolve(resultados);
-            });
-    });
-}
-
 //Mostrar listado de personas acargo
-async function nuevosIntegrantes(codigoJefe){
-    let leerStaff = await staffBD();
+function nuevosIntegrantes(json, staffing, codigoJefe){
+    let leerStaff = json;
     let nuevos = [];
     for(const itemFila of leerStaff){
         if(itemFila['superior'] == codigoJefe){
-            nuevos.push({codigonew: itemFila['codigo'], nombrenew: itemFila['nombre'], dedicacionnew: estaOcupado(itemFila['codigo'])*100, tecnologianew: itemFila['tecnologia'], rolnew: itemFila['rol'], aso: Math.round(itemFila['ASO']), apx: Math.round(itemFila['APX']), cells: Math.round(itemFila['CELLS']), host: Math.round(itemFila['HOST']), bluespring: Math.round(itemFila['BLUESPRING']), python: Math.round(itemFila['PYTHON']), scala: Math.round(itemFila['SCALA'])});
+            nuevos.push({codigonew: itemFila['codigo'], nombrenew: itemFila['nombre'], dedicacionnew: estaOcupado(staffing, itemFila['codigo'])*100, tecnologianew: itemFila['tecnologia'], rolnew: itemFila['rol'], aso: Math.round(itemFila['ASO']), apx: Math.round(itemFila['APX']), cells: Math.round(itemFila['CELLS']), host: Math.round(itemFila['HOST']), bluespring: Math.round(itemFila['BLUESPRING']), python: Math.round(itemFila['PYTHON']), scala: Math.round(itemFila['SCALA'])});
         }
     }
     return nuevos;
 }
 
 //Backlog
-async function getNewsProyectos(){
-    let leerProyectos = await proyectosBD();
+function getNewsProyectos(json, staffing, staff){
+    let leerProyectos = json;
     let backlog = [];
     for(const itemFila of leerProyectos){
         if(itemFila['status'] == 'Stock'){
-            backlog.push({ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final'], nuevos: nuevosIntegrantes('C797459')});
+            backlog.push({ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final'], nuevos: nuevosIntegrantes(staffing, staff, 'C797459')});
         }
     }
     return backlog;
 }
 
 //Staffing - proyectos con sus respectivos empleados y cronograma
-async function getProyectos(direccion, servicio){
-    let leerStaffing = await staffingBD();
+function getProyectos(json, staff, proyecto, direccion, servicio){
+    let leerStaffing = json;
     let proyectos = [];
     let informacion = [];
     for(const itemFila of leerStaffing){
-        if(itemFila['servicio'] == servicio && itemFila['direccion'] == direccion && getStatusFlow(itemFila['proyecto'])){
-            if(inArreglo(staffingProject(itemFila['proyecto']), proyectos)){
-                informacion.push(Object.assign(consultaInformacionProyecto(itemFila['proyecto']), {emplo: getEmpleados(itemFila['proyecto'])}));
-                proyectos.push(staffingProject(itemFila['proyecto']));
+        if(itemFila['servicio'] == servicio && itemFila['direccion'] == direccion && getStatusFlow(proyecto, itemFila['proyecto'])){
+            if(inArreglo(staffingProject(json, staff, itemFila['proyecto']), proyectos)){
+                informacion.push(Object.assign(consultaInformacionProyecto(proyecto, itemFila['proyecto']), {emplo: getEmpleados(json, itemFila['proyecto'])}));
+                proyectos.push(staffingProject(json, staff, itemFila['proyecto']));
             }
         }
     }
     return informacion;
 }
 
-async function estaOcupado(codigo){
-    let leerStaffing = await staffingBD();
+function estaOcupado(json, codigo){
+    let leerStaffing = json;
     var suma = 0;
     for(const itemFila of leerStaffing){
         if(itemFila['codigo'] == codigo){
@@ -106,8 +66,8 @@ async function estaOcupado(codigo){
     return suma;
 }
 
-async function getStatusFlow(proyecto){
-    let leerProyectos = await proyectosBD();
+function getStatusFlow(json, proyecto){
+    let leerProyectos = json;
     for(const itemFila of leerProyectos){
         if(itemFila['projectidname'] == proyecto && itemFila['status'] == 'Flow'){
             return true;
@@ -116,9 +76,9 @@ async function getStatusFlow(proyecto){
     return false;
 }
 
-async function staffingProject(proyecto){
-    let leerStaffing = await staffingBD();
-    let leerProyectos = await proyectosBD();
+function staffingProject(json1, json2, proyecto){
+    let leerStaffing = json1;
+    let leerProyectos = json2;
     for(const itemFila of leerStaffing){
         if(itemFila['proyecto'] == proyecto){
             for(const item of leerProyectos){
@@ -130,7 +90,7 @@ async function staffingProject(proyecto){
     }
 }
 
-async function inArreglo(proj,arreg){
+function inArreglo(proj,arreg){
     for(var i = 0; i<arreg.length; i++){
         if(Object.is(arreg[i], proj)){
             return false;
@@ -139,8 +99,8 @@ async function inArreglo(proj,arreg){
     return true;
 }
 
-async function getEmpleados(proyecto){
-    let leerStaffing = await staffingBD();
+function getEmpleados(json, proyecto){
+    let leerStaffing = json;
     let empleados = [];
     for(const itemFila of leerStaffing){
         if(itemFila['proyecto'] == proyecto){
@@ -150,19 +110,19 @@ async function getEmpleados(proyecto){
     return empleados;
 }
 
-async function consultaInformacionProyecto(proyecto){
-    let leerProyectos = await proyectosBD();
+function consultaInformacionProyecto(json, proyecto){
+    let leerProyectos = json;
     let informacion = {};
     for(const itemFila of leerProyectos){
         if(itemFila['projectidname'] == proyecto){
-            Object.assign(informacion,{ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], owner: itemFila['owner'], status: itemFila['status'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final']});
+            Object.assign(informacion,{projectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], owner: itemFila['owner'], status: itemFila['status'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final']});
         }
     }
     return informacion;
 }
 
-async function getDirecciones(){
-    let leerParametros = await parametrosBD();
+function getDirecciones(json){
+    let leerParametros = json;
     let direcciones = [];
     let ids = [];
     for(const itemFila of leerParametros){
@@ -200,7 +160,7 @@ function modifyDedicacion(codigo, proyecto, dedicacion){
 //Asignar persona a un proyecto
 function asignarPersona(codigo, proyecto, dedicacion, rol, tecnologia, comentarios){
     //Agregar la validacion la dedicacion
-    var ocupacion = estaOcupado(codigo);
+    var ocupacion = estaOcupado(staffing, codigo);
     if(ocupacion < 0.9 && ocupacion + dedicacion <= 1){
         var aspose = aspose || {};
         aspose.cells = require("aspose.cells");
@@ -245,8 +205,8 @@ async function getLength(documento){
     return i;
 }
 
-async function getServicios(direccion){
-    let leerParametros = await parametrosBD();
+function getServicios(json, direccion){
+    let leerParametros = json;
     let servicios = [];
     for(const itemFila of leerParametros){
         if(itemFila['direccion'] == direccion){
@@ -294,8 +254,8 @@ function getProyectosJefe(jefe){
 }
 
 //Obtener el jefe 
-async function getBoss(codigo) {
-    let leerStaff = await staffBD();
+function getBoss(json, codigo) {
+    let leerStaff = json;
     for(const itemFila of leerStaff){
         if(itemFila['codigo'] == codigo){
             return itemFila['superior'];
@@ -305,9 +265,9 @@ async function getBoss(codigo) {
 }
 
 
-async function staffingProject(proyecto){
-    let leerStaffing = await staffingBD();
-    let leerProyectos = await proyectosBD();
+function staffingProject(json1, json2, proyecto){
+    let leerStaffing =  json1;
+    let leerProyectos = json2;
     for(const itemFila of leerStaffing){
         if(itemFila['proyecto'] == proyecto){
             for(const item of leerProyectos){
