@@ -1,5 +1,5 @@
 //const xlsx = require('xlsx');
-const connect = require('./connect');
+//const connect = require('./connect');
 //const worbook = xlsx.readFile('staffingSystems.xlsx');
 //const sheet_name_list = worbook.SheetNames;
 //const parametro = sheet_name_list[0];
@@ -33,7 +33,7 @@ function getNewsProyectos(json, staffing, staff){
     let backlog = [];
     for(const itemFila of leerProyectos){
         if(itemFila['status'] == 'Stock'){
-            backlog.push({ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final'], nuevos: nuevosIntegrantes(staffing, staff, 'C797459')});
+            backlog.push({ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final'], nuevos: nuevosIntegrantes(staff, staffing, 'C797459')});
         }
     }
     return backlog;
@@ -127,7 +127,7 @@ function getDirecciones(json){
     let ids = [];
     for(const itemFila of leerParametros){
         if(inArreglo(itemFila['id'], ids)){
-            direcciones.push({nombre: itemFila['direccion']});
+            direcciones.push({id: itemFila['id'],nombre: itemFila['direccion']});
             ids.push(itemFila['id']);
         }
     }
