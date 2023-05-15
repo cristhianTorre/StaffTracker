@@ -10,7 +10,7 @@ router.get('/', function(req, res){
     'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON FROM staff INNER JOIN habilidades ON staff.id = habilidades.id'];
     connect.conexion.query(parametros.join(';'), function (error, results, fields) {
         if (error) throw error;
-        res.render('index', {proyectos: funciones.getProyectos(JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3])), JSON.parse(JSON.stringify(results[2])),'CORE','Cross/Gestor documental y SSDD'), backlog: funciones.getNewsProyectos(JSON.parse(JSON.stringify(results[2])), JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3]))), direccion: funciones.getDirecciones(JSON.parse(JSON.stringify(results[0])))});
+        res.render('index', {direccion: funciones.getDirecciones(JSON.parse(JSON.stringify(results[0]))), servicio: funciones.getServicios(JSON.parse(JSON.stringify(results[0])))});
       });
 });
 
@@ -19,17 +19,32 @@ router.get('/proyectos', function(req, res){
     res.render('pruebas', prueba);
 });
 
-router.post('/', function(req, res){
-    var body = req.body;
-    var codigo = body.codigo;
-    var proyecto = body.proyecto;
-    var dedicacion = body.dedicacion;
-    var res_option = {opcion: funciones.getServicios(body.opcion)}
-    res.render('index', res_option);
+router.post('/index', function(req, res){
+    //'CORE' 'Cross/Gestor documental y SSDD'
+    var direccionNueva = req.body.direccion;
+    var servicioNueva = req.body.servicio; 
+    console.log(direccionNueva, servicioNueva);
+    var parametros = ['SELECT * FROM parametros',
+    'SELECT * FROM staffing',
+    'SELECT * FROM proyectos',
+    'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON FROM staff INNER JOIN habilidades ON staff.id = habilidades.id'];
+    connect.conexion.query(parametros.join(';'), function (error, results, fields) {
+        if (error) throw error;
+        res.render('index', {proyectos: funciones.getProyectos(JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3])), JSON.parse(JSON.stringify(results[2])), direccionNueva, servicioNueva), backlog: funciones.getNewsProyectos(JSON.parse(JSON.stringify(results[2])), JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3]))), direccion: funciones.getDirecciones(JSON.parse(JSON.stringify(results[0]))), servicio: funciones.getServicios(JSON.parse(JSON.stringify(results[0])))});
+      });
+});
+
+router.post('/actualizar', function(req, res){
+    var id = parseInt(req.body.id);
+    var consulta = 'UPDATE proyectos SET status="Flow" WHERE id="primaria"'+ id;
+    connect.conexion.query(consulta, function (error, results, fields) {
+        if (error) throw error;
+        console.log("Funciona");
+    });
 });
 
 router.get('/personas', function(req, res){
-    var consulta = 'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON FROM staff INNER JOIN habilidades ON staff.id = habilidades.id WHERE direccion = "CORE" and servicio = "Cross/Gestor documental y SSDD"';
+    var consulta = 'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON, SUM(staffing.dedicacion)*100 as dedicacion FROM staff INNER JOIN habilidades ON staff.id = habilidades.id INNER JOIN staffing ON staffing.nombre = staff.nombre WHERE staff.direccion = "CORE" and staff.servicio = "Cross/Gestor documental y SSDD" GROUP BY staff.nombre';
     connect.conexion.query(consulta, function (error, results, fields) {
         if (error) throw error;
         res.render('personas', {persona: JSON.parse(JSON.stringify(results))});

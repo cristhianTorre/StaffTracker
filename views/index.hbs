@@ -22,19 +22,24 @@
             </ul>
         </div>
     </header>
-    <div class="containerDropdowns">       
-        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-            <option selected>Seleccione una Dirección</option>
-            {{#each direccion}}
-            <option value="{{id}}">{{nombre}}</option>
-            {{/each}}
-        </select>
-        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-            <option selected>Seleccione un Servicio</option>
-            <option value="1">Opción Servicio 1</option>
-            <option value="2">Opción Servicio 2</option>
-            <option value="3">Opción Servicio 3</option>
-        </select>
+    <div class="containerDropdowns">
+        <form method="post" action="/index">
+            <label for="direccion">Dirección</label>       
+            <select name="direccion" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>Seleccione una Dirección</option>
+                {{#each direccion}}
+                <option id="{{id}}" value="{{nombre}}">{{nombre}}</option>
+                {{/each}}
+            </select>
+            <label for="servicio">Servicio</label>
+            <select name="servicio" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>Seleccione un Servicio</option>
+                {{#each servicio}}
+                <option id="{{id}}" value="{{nombre}}">{{nombre}}</option>
+                {{/each}}
+            </select>
+            <input type="submit" value="Buscar">
+        </form>
     </div>
     <div class="generalContainer" style="margin: 12px 50px 0 50px; padding: 0;">
         <div class="containerProjectCourse">
@@ -106,7 +111,7 @@
                 <h4>Backlog</h4>
             </div>
             {{#each backlog}}
-            <div class="containerProject row">
+            <div class="containerProject row" name="proyecto" id="{{id}}">
                 <div class="cardProyectoBacklog col-sm-7">
                     <h2 id="titleProject" class="titles">Proyecto: {{ProjectIDName}}</h2>
                     <ol id="listProject" class="list">
@@ -138,7 +143,7 @@
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             Editar
                         </button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             Enviar
                         </button>
                         <!-- Modal modificar caracteristicas Backlog-->
@@ -182,7 +187,7 @@
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary">Guardar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
                                 </div>
                             </div>
                             </div>
