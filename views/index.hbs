@@ -65,7 +65,7 @@
                                             <h5 class="personFlow personCode">{{codigo}}</h5>
                                             <h6 class="personFlow" style="height:24px">{{nombre}}</h6>
                                             <img class="imagePerson" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                            <p class=""><small class="text-muted">{{dedicacion}}% / {{tecnologia}} / {{rol}}</small></p>
+                                            <p class="othersContainer"><small class="text-muted">{{dedicacion}}% / {{tecnologia}} / {{rol}}</small></p>
                                         </div>                    
                                     </div>
                                 </div>
@@ -106,8 +106,8 @@
                 <h4>Backlog</h4>
             </div>
             {{#each backlog}}
-            <div class="containerProject row">
-                <div class="cardProyectoBacklog col-sm-7">
+            <div class="containerProjectBack row">
+                <div class="cardProyectoBacklog vertical-scrollable col-sm-7">
                     <h2 id="titleProject" class="titles">Proyecto: {{ProjectIDName}}</h2>
                     <ol id="listProject" class="list">
                         <li>Descripción: {{descripcion}}</li>

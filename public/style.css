@@ -84,24 +84,27 @@ body{
 }
 .containerCarousel{
     height: auto;
-    width: 240px;
+    max-width: auto;
     margin: 0 auto;
     background-color: rgb(255, 255, 255);
 }
 .personFlow{
     font-size:x-small;
-    width: 120px;
+    max-width: auto;
     padding: 0px;
     list-style: none;
     text-align: center;
+}
+.othersContainer{
+    margin-top: 15px;
 }
 .personCode{
     margin: 0;
 }
 .imagePerson{
     width: auto;
-    height: 50px;
-    border-radius: 25px;
+    height: 60px;
+    border-radius: 50%;
 }
 .listPerson{
     display: flex;
@@ -148,6 +151,15 @@ body{
 }
 .cardProyectoBacklog{
     border-right: 1px dashed rgb(203, 231, 255);
+}
+.containerProjectBack{
+    border: 1px solid rgb(64, 153, 226);
+    border-radius: 4px;
+    height: 160px;
+    margin: 2px;
+    width: auto;
+    background-color: white;
+    display: flex;
 }
 .btn-primary{
     margin-bottom: 8px;
