@@ -44,11 +44,13 @@ function getProyectos(json, staff, proyecto, direccion, servicio){
     let leerStaffing = json;
     let proyectos = [];
     let informacion = [];
+    let diagramapersonas = [];
     for(const itemFila of leerStaffing){
-        if(itemFila['servicio'] == servicio && itemFila['direccion'] == direccion && getStatusFlow(proyecto, itemFila['proyecto'])){
-            if(inArreglo(staffingProject(json, staff, itemFila['proyecto']), proyectos)){
-                informacion.push(Object.assign(consultaInformacionProyecto(proyecto, itemFila['proyecto']), {emplo: getEmpleados(json, itemFila['proyecto'])}));
-                proyectos.push(staffingProject(json, staff, itemFila['proyecto']));
+        if(itemFila['Servicio'] == servicio && itemFila['Dirección'] == direccion && getStatusFlow(itemFila['Proyecto'])){
+            if(inArreglo(staffingProject(itemFila['Proyecto']), proyectos)){
+                informacion.push(Object.assign(consultaInformacionProyecto(itemFila['Proyecto']), {emplo: getEmpleados(itemFila['Proyecto'])}, /*{diamTecno: diagramaTecnoPersonas(itemFila['Proyecto'])}*/));
+                proyectos.push(staffingProject(itemFila['Proyecto']));
+                diagramapersonas.push(staffingProject(itemFila['Proyecto']));
             }
         }
     }
@@ -278,6 +280,35 @@ function staffingProject(json1, json2, proyecto){
         }
     }
 }
-
+/*
+function diagramaTecnoPersonas(proyecto){
+    let diagramapersonas = [];
+    for(const itemFila of leerStaffing){
+        if(itemFila['Proyecto'] == proyecto){
+            diagramapersonas.push(
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['ASO', 'APX', 'CELLS', 'HOST', 'BLUESPRING', 'PYTHON', 'SCALA'],
+                        datasets: [{
+                            label: 'Desarrollo Tecnologías',
+                            data: [75, 99, 50, 25, 80, 40, 32],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                })
+            );
+        }
+    }
+    
+    return diagramapersonas;
+}*/
 
 module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios};
