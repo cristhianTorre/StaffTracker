@@ -33,7 +33,7 @@ function getNewsProyectos(json, staffing, staff){
     let backlog = [];
     for(const itemFila of leerProyectos){
         if(itemFila['status'] == 'Stock'){
-            backlog.push({ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final'], nuevos: nuevosIntegrantes(staff, staffing, 'C797459')});
+            backlog.push({id: itemFila['id'], ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final'], nuevos: nuevosIntegrantes(staff, staffing, 'C797459')});
         }
     }
     return backlog;
@@ -128,9 +128,9 @@ function getDirecciones(json){
     let direcciones = [];
     let ids = [];
     for(const itemFila of leerParametros){
-        if(inArreglo(itemFila['id'], ids)){
-            direcciones.push({id: itemFila['id'],nombre: itemFila['direccion']});
-            ids.push(itemFila['id']);
+        if(inArreglo(itemFila['id_direccion'], ids)){
+            direcciones.push({id: itemFila['id_direccion'],nombre: itemFila['direccion']});
+            ids.push(itemFila['id_direccion']);
         }
     }
     return direcciones;
@@ -197,7 +197,7 @@ function save(proyecto){
     workbook.save("staffingSystems - copia.xlsx");
 }
 
-async function getLength(documento){
+function getLength(documento){
     var i = 0;
     for(const item of documento){
         if(item['projectidname'] !== undefined){
@@ -207,13 +207,11 @@ async function getLength(documento){
     return i;
 }
 
-function getServicios(json, direccion){
+function getServicios(json){
     let leerParametros = json;
     let servicios = [];
     for(const itemFila of leerParametros){
-        if(itemFila['direccion'] == direccion){
-            servicios.push({nombre: itemFila['servicio']});
-        }
+        servicios.push({nombre: itemFila['servicio'], id: itemFila['id']});
     }
     return servicios;
 }
