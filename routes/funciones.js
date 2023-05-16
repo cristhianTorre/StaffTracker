@@ -72,6 +72,7 @@ function getStatusFlow(json, proyecto){
     let leerProyectos = json;
     for(const itemFila of leerProyectos){
         if(itemFila['projectidname'] == proyecto && itemFila['status'] == 'Flow'){
+            console.log(proyecto);
             return true;
         }
     }

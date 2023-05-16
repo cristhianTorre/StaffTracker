@@ -35,11 +35,16 @@ router.post('/index', function(req, res){
 });
 
 router.post('/actualizar', function(req, res){
-    var id = parseInt(req.body.id);
-    var consulta = 'UPDATE proyectos SET status="Flow" WHERE id="primaria"'+ id;
-    connect.conexion.query(consulta, function (error, results, fields) {
+    var id = req.body.proyecto;
+    var parametros = ['SELECT * FROM parametros',
+    'SELECT * FROM staffing',
+    'SELECT * FROM proyectos',
+    'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON FROM staff INNER JOIN habilidades ON staff.id = habilidades.id',
+    'UPDATE proyectos SET status="Flow" WHERE id="'+ id +'"'];
+    connect.conexion.query(parametros.join(';'), function (error, results, fields) {
         if (error) throw error;
         console.log("Funciona");
+        res.render('index', {proyectos: funciones.getProyectos(JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3])), JSON.parse(JSON.stringify(results[2])), direccionNueva, servicioNueva), backlog: funciones.getNewsProyectos(JSON.parse(JSON.stringify(results[2])), JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3]))), direccion: funciones.getDirecciones(JSON.parse(JSON.stringify(results[0]))), servicio: funciones.getServicios(JSON.parse(JSON.stringify(results[0])))});
     });
 });
 
