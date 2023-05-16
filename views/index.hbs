@@ -18,7 +18,7 @@
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Inicio</a></li>
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Proyectos</a></li>
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Crear Proyecto</a></li>
-                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Personas</a></li>   
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="personas">Personas</a></li>   
             </ul>
         </div>
     </header>
@@ -111,7 +111,7 @@
                 <h4>Backlog</h4>
             </div>
             {{#each backlog}}
-            <div class="containerProject row" name="proyecto" id="{{id}}">
+            <div class="containerProject row">
                 <div class="cardProyectoBacklog col-sm-7">
                     <h2 id="titleProject" class="titles">Proyecto: {{ProjectIDName}}</h2>
                     <ol id="listProject" class="list">
@@ -143,9 +143,12 @@
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             Editar
                         </button>
-                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            Enviar
-                        </button>
+                        <form method="post" action="/actualizar">
+                            <input type="hidden" id="{{id}}" value="{{id}}" name="proyecto">
+                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                Enviar
+                            </button>
+                        </form>
                         <!-- Modal modificar caracteristicas Backlog-->
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
