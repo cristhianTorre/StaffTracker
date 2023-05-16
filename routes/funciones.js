@@ -54,7 +54,6 @@ function getProyectos(json, staff, proyecto, direccion, servicio){
             }
         }
     }
-    console.log(proyectos);
     return informacion;
 }
 
