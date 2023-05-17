@@ -22,19 +22,24 @@
             </ul>
         </div>
     </header>
-    <div class="containerDropdowns">       
-        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-            <option selected>Seleccione una Dirección</option>
-            <option value="1">Opción Dirección 1</option>
-            <option value="2">Opción Dirección 2</option>
-            <option value="3">Opción Dirección 3</option>
-        </select>
-        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-            <option selected>Seleccione un Servicio</option>
-            <option value="1">Opción Servicio 1</option>
-            <option value="2">Opción Servicio 2</option>
-            <option value="3">Opción Servicio 3</option>
-        </select>
+    <div class="containerDropdowns">
+        <form method="post" action="/personas">
+            <label for="direccion">Dirección</label>       
+            <select name="direccion" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>Seleccione una Dirección</option>
+                {{#each direccion}}
+                <option id="{{id_direccion}}" value="{{direccion}}">{{direccion}}</option>
+                {{/each}}
+            </select>
+            <label for="servicio">Servicio</label>
+            <select name="servicio" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>Seleccione un Servicio</option>
+                {{#each servicio}}
+                <option id="{{id}}" value="{{servicio}}">{{servicio}}</option>
+                {{/each}}
+            </select>
+            <input type="submit" value="Buscar">
+        </form>
     </div>
     <div class="card-body pb-0" style="padding: 12px 50px 0 50px;">
         <div class="row">            
