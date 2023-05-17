@@ -66,4 +66,25 @@ router.post('/personas', function(req, res){
     });
 });
 
+router.post('/guardar', function(req, res){
+    var personas = req.body.persona;
+    var dedicaciones = req.body.dedicacion;
+    var tecnologias = req.body.tecnologia;
+    var fechai = req.body.fechaIni;
+    var fechaf = req.body.fechaFin;
+    var id = req.body.proyecto;
+    var update = 'UPDATE proyectos SET fecha_inicial="'+fechai+'", fecha_final="'+fechaf+'" WHERE id="'+ id +'"';
+    for(var i = 0; i<personas.length; i++){
+        var insert = 'INSERT INTO `staffing`(`id`, `codigo`, `nombre`, `direccion`, `servicio`, `empresa`, `proyecto`, `dedicacion`, `rol`, `tecnologia`) VALUES (null,"'+personas[i].codigo+'","'+personas[i].nombre+'","'+personas[i].direccion+'","'+personas[i].servicio+'","'+personas[i].empresa+'","'+personas[i].proyecto+'","'+dedicaciones[i]+'","'+personas[i].rol+'","'+tecnologias[i]+'")';
+        connect.conexion.query(insert, function(error, results, fields){
+            if (error) throw error;
+            console.log('Funciona');
+        });
+    }
+    connect.conexion.query(update, function(error, results, fields){
+        if (error) throw error;
+        console.log('FUNCIONA');
+    });
+});
+
 module.exports = router;
