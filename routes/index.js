@@ -31,6 +31,8 @@ router.post('/', function(req, res){
 
 router.post('/actualizar', function(req, res){
     var id = req.body.proyecto;
+    var direccionNueva = req.body.direccion || 'CORE';
+    var servicioNueva = req.body.servicio || 'Cross/Gestor documental y SSDD';
     var parametros = ['SELECT * FROM parametros',
     'SELECT * FROM staffing',
     'SELECT * FROM proyectos',
@@ -43,8 +45,19 @@ router.post('/actualizar', function(req, res){
     });
 });
 
-router.get('/personas', function(req, res){
-    var consulta = 'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON, SUM(staffing.dedicacion)*100 as dedicacion FROM staff INNER JOIN habilidades ON staff.id = habilidades.id INNER JOIN staffing ON staffing.nombre = staff.nombre WHERE staff.direccion = "CORE" and staff.servicio = "Cross/Gestor documental y SSDD" GROUP BY staff.nombre';
+router.get('/personas', function(req,res){
+    var seleccion = ['SELECT id_direccion, direccion FROM parametros GROUP BY id_direccion',
+                    'SELECT id, servicio FROM parametros'];
+    connect.conexion.query(seleccion.join(';'), function (error, results, fields) {
+        if (error) throw error;
+        res.render('personas', {direccion: JSON.parse(JSON.stringify(results[0])), servicio:JSON.parse(JSON.stringify(results[1]))});
+    });
+});
+
+router.post('/personas', function(req, res){
+    var direccion = req.body.direccion;
+    var servicio = req.body.servicio;
+    var consulta = 'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON, SUM(staffing.dedicacion)*100 as dedicacion FROM staff INNER JOIN habilidades ON staff.id = habilidades.id INNER JOIN staffing ON staffing.nombre = staff.nombre WHERE staff.direccion = "'+direccion+'" and staff.servicio = "'+servicio+'" GROUP BY staff.nombre';
     connect.conexion.query(consulta, function (error, results, fields) {
         if (error) throw error;
         res.render('personas', {persona: JSON.parse(JSON.stringify(results))});
