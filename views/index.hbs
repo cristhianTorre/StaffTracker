@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="StyleSheet" href="style.css" type="text/css">
 </head>
+
 <body>
     <header>
         <div id="superiorContainer">
@@ -17,13 +19,14 @@
             <ul id="listMenuContainer">
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="inicio">Inicio</a></li>
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Proyectos</a></li>
-                <li class=""><a class="nav-link fw-semibold titleMenus" href="personas">Personas</a></li>   
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Crear Proyecto</a></li>
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="personas">Personas</a></li>
             </ul>
         </div>
     </header>
     <div class="containerDropdowns">
-        <form method="post" action="/index">
-            <label for="direccion">Dirección</label>       
+        <form method="post" action="/">
+            <label for="direccion">Dirección</label>
             <select name="direccion" class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <option selected>Seleccione una Dirección</option>
                 {{#each direccion}}
@@ -60,27 +63,35 @@
                 <div class="persons col-sm-3">
                     <h2 class="titles">Personas Asociadas</h2>
                     <div class="containerCarousel">
-                        <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
+                        <div id="carouselExampleControlsNoTouching{{id}}" class="carousel slide" data-bs-touch="false"
+                            data-bs-interval="false">
                             <div class="carousel-inner">
                                 {{#each emplo}}
                                 <div class="carousel-item {{#if @first}} active {{/if}}">
-                                    <div class="listPerson">                    
+                                    <div class="listPerson">
                                         <div class="personFlow">
                                             <h5 class="personFlow personCode">{{codigo}}</h5>
                                             <h6 class="personFlow" style="height:24px">{{nombre}}</h6>
-                                            <img class="imagePerson" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                            <p class="othersContainer"><small class="text-muted">{{dedicacion}}% / {{tecnologia}} / {{rol}}</small></p>
-                                        </div>                    
+                                            <img class="imagePerson"
+                                                src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
+                                                class="img-fluid rounded-start" alt="...">
+                                            <p class=""><small class="text-muted">{{dedicacion}}% / {{tecnologia}} /
+                                                    {{rol}}</small></p>
+                                        </div>
                                     </div>
                                 </div>
                                 {{/each}}
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon"  style="background-color: rgb(179, 179, 179);" aria-hidden="true"></span>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleControlsNoTouching{{id}}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" style="background-color: rgb(179, 179, 179);"
+                                    aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" style="background-color:rgb(179, 179, 179);" aria-hidden="true"></span>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleControlsNoTouching{{id}}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" style="background-color:rgb(179, 179, 179);"
+                                    aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
@@ -102,9 +113,9 @@
                         </li>
                     </ol>
                 </div>
-            </div>            
+            </div>
+            {{/each}}
         </div>
-        {{/each}}
         <div class="containerProjectBacklog">
             <div class="majorTitles">
                 <h4>Backlog</h4>
@@ -136,71 +147,94 @@
                             </li>
                         </ol>
                     </div>
-                    
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">                        
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
                             Editar
                         </button>
                         <form method="post" action="/actualizar">
                             <input type="hidden" id="{{id}}" value="{{id}}" name="proyecto">
-                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">
                                 Enviar
                             </button>
                         </form>
                         <!-- Modal modificar caracteristicas Backlog-->
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Editar Proyecto en Backlog</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">                                    
-                                    <div class="input-group">
-                                        <span class="input-group-text">Periodo de ejecución</span>
-                                        <input type="text" aria-label="First name" class="form-control" placeholder="Ejm: 1Q 2023">
-                                        <input type="text" aria-label="Last name" class="form-control" placeholder="Ejm: 2Q 2023">
-                                    </div>                                    
-                                    <div class="container ">
-                                        <div class="horizontal-scrollable">
-                                            {{#each nuevos}}                    
-                                            <div class="personBacklog containerPersonBacklog">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-secondary btn-sm dropdown-toggle botonHabilidadMaestra" id="dropdownMenuButton2" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tecnología</button>
-                                                    <ul class="dropdown-menu containerHabilidadLista" aria-labelledby="dropdownMenuButton2">  
-                                                        <li><a class="dropdown-item habilidadLista">ASO: {{aso}}%</a></li>
-                                                        <li><a class="dropdown-item habilidadLista">APX: {{apx}}%</a></li>
-                                                        <li><a class="dropdown-item habilidadLista">CELL: {{cells}}%</a></li>
-                                                        <li><a class="dropdown-item habilidadLista">SCALA: {{scala}}%</a></li>
-                                                        <li><a class="dropdown-item habilidadLista">Distribuido: 78%</a></li>                                        
-                                                    </ul>
-                                                </div>
-                                                <h5 class="personBacklog personCode">{{codigonew}}</h5>
-                                                <h6 class="personBacklog" style="height:auto;">{{nombrenew}}</h6>
-                                                <img class="imagePerson" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                <p class="descriptionPerson"><small class="text-muted">Disponibilidad: {{dedicacionnew}}%</small></p>
-                                                <p class="descriptionPerson"><small class="text-muted">{{rolnew}}</small></p>
+                                <form method="post" action="/guardar">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Editar Proyecto en Backlog
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Periodo de ejecución</span>
+                                                <input type="text" aria-label="First name" class="form-control"
+                                                    placeholder="Ejm: 1Q 2023" name="fechaIni">
+                                                <input type="text" aria-label="Last name" class="form-control"
+                                                    placeholder="Ejm: 2Q 2023" name="fechaFin">
                                             </div>
-                                            {{/each}}                                                                                                                        
+                                            <div class="container ">
+                                                <div class="horizontal-scrollable">
+                                                    {{#each nuevos}}
+                                                    <div class="personBacklog containerPersonBacklog">
+                                                        <div class="dropdown">
+                                                            <select
+                                                                class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                                                <option class="dropdown-item habilidadLista">ASO:
+                                                                        {{aso}}%</option>
+                                                                <option class="dropdown-item habilidadLista">APX:
+                                                                        {{apx}}%</option>
+                                                                <option class="dropdown-item habilidadLista">CELL:
+                                                                        {{cells}}%</option>
+                                                                <option class="dropdown-item habilidadLista">SCALA:
+                                                                        {{scala}}%</option>
+                                                                <option class="dropdown-item habilidadLista">Distribuido:
+                                                                        78%</option>
+                                                            </select>
+                                                        </div>
+                                                        <h5 class="personBacklog personCode">{{codigonew}}</h5>
+                                                        <h6 class="personBacklog" style="height:auto;">{{nombrenew}}
+                                                        </h6>
+                                                        <img class="imagePerson"
+                                                            src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
+                                                            class="img-fluid rounded-start" alt="...">
+                                                        <p class="descriptionPerson"><small
+                                                                class="text-muted">Disponibilidad:
+                                                                {{dedicacionnew}}%</small></p>
+                                                        <p class="descriptionPerson"><small
+                                                                class="text-muted">{{rolnew}}</small></p>
+                                                    </div>
+                                                    {{/each}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
                                         </div>
                                     </div>
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-                                </div>
+                                </form>
                             </div>
-                            </div>
-                        </div>                        
-                    </div>                    
-                </div>                
-            </div> 
-            {{/each}}           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

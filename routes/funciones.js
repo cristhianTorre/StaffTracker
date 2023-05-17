@@ -46,11 +46,12 @@ function getProyectos(json, staff, proyecto, direccion, servicio){
     let informacion = [];
     let diagramapersonas = [];
     for(const itemFila of leerStaffing){
-        if(itemFila['Servicio'] == servicio && itemFila['Dirección'] == direccion && getStatusFlow(itemFila['Proyecto'])){
-            if(inArreglo(staffingProject(itemFila['Proyecto']), proyectos)){
-                informacion.push(Object.assign(consultaInformacionProyecto(itemFila['Proyecto']), {emplo: getEmpleados(itemFila['Proyecto'])}, /*{diamTecno: diagramaTecnoPersonas(itemFila['Proyecto'])}*/));
-                proyectos.push(staffingProject(itemFila['Proyecto']));
-                diagramapersonas.push(staffingProject(itemFila['Proyecto']));
+        if(itemFila['servicio'] == servicio && itemFila['direccion'] == direccion && getStatusFlow(proyecto, itemFila['proyecto'])){
+            //console.log(itemFila['proyecto']);
+            if(!(proyectos.includes(itemFila['proyecto']))){
+                //console.log(itemFila['proyecto']);
+                informacion.push(Object.assign(consultaInformacionProyecto(proyecto, itemFila['proyecto']), {emplo: getEmpleados(json, itemFila['proyecto'])}));
+                proyectos.push(itemFila['proyecto']);
             }
         }
     }
@@ -72,7 +73,6 @@ function getStatusFlow(json, proyecto){
     let leerProyectos = json;
     for(const itemFila of leerProyectos){
         if(itemFila['projectidname'] == proyecto && itemFila['status'] == 'Flow'){
-            console.log(proyecto);
             return true;
         }
     }
@@ -82,6 +82,7 @@ function getStatusFlow(json, proyecto){
 function staffingProject(json1, json2, proyecto){
     let leerStaffing = json1;
     let leerProyectos = json2;
+    console.log(proyecto);
     for(const itemFila of leerStaffing){
         if(itemFila['proyecto'] == proyecto){
             for(const item of leerProyectos){
@@ -118,7 +119,7 @@ function consultaInformacionProyecto(json, proyecto){
     let informacion = {};
     for(const itemFila of leerProyectos){
         if(itemFila['projectidname'] == proyecto){
-            Object.assign(informacion,{projectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], owner: itemFila['owner'], status: itemFila['status'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final']});
+            Object.assign(informacion,{id: itemFila['id'], projectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], owner: itemFila['owner'], status: itemFila['status'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final']});
         }
     }
     return informacion;
@@ -137,76 +138,6 @@ function getDirecciones(json){
     return direcciones;
 }
 
-//Modificar celda en Staffing
-function modifyDedicacion(codigo, proyecto, dedicacion){
-    // editar una celda específica en una hoja de Excel 
-    var aspose = aspose || {};
-    // crear un objeto de la clase Cells.
-    aspose.cells = require("aspose.cells");
-    // instancia la clase secundaria WorkBook con un archivo XLSX 
-    var sampleFile = "staffingSystems - copia.xlsx";
-    var workbook = new aspose.cells.Workbook(sampleFile);
-    // Acceda al libro de trabajo, obtenga las celdas llamando al método getCells () y llame al método putValue (cadena) para actualizar una celda específica (B2) de la hoja de Excel 
-    for(var i = 2; i<100; i++){
-        //console.log(console.log(workbook.getWorksheets().get(i).getCells().get("A"+i).getValue()));
-        if(workbook.getWorksheets().get(3).getCells().get("A"+i).getValue()==codigo && workbook.getWorksheets().get(3).getCells().get("G"+i).getValue() == proyecto){
-            //console.log(workbook.getWorksheets().get(3).getCells().get("H"+ide).getValue());
-            workbook.getWorksheets().get(3).getCells().get("H"+i).putValue(dedicacion);
-            //console.log(workbook.getWorksheets().get(3).getCells().get("H"+ide).getValue());
-        }
-    }
-    // guardar los datos en un nuevo archivo xlsx
-    workbook.save("staffingSystems - copia.xlsx");
-}
-
-
-//Asignar persona a un proyecto
-function asignarPersona(codigo, proyecto, dedicacion, rol, tecnologia, comentarios){
-    //Agregar la validacion la dedicacion
-    var ocupacion = estaOcupado(staffing, codigo);
-    if(ocupacion < 0.9 && ocupacion + dedicacion <= 1){
-        var aspose = aspose || {};
-        aspose.cells = require("aspose.cells");
-        var sampleFile = "staffingSystems - copia.xlsx";
-        var workbook = new aspose.cells.Workbook(sampleFile);
-        var lista = getInformacion(codigo);
-        i = getLength(leerStaffing) + 2;
-        workbook.getWorksheets().get(3).getCells().get("A"+i).putValue(lista[0]); 
-        workbook.getWorksheets().get(3).getCells().get("B"+i).putValue(lista[1]);
-        workbook.getWorksheets().get(3).getCells().get("C"+i).putValue(lista[2]);
-        workbook.getWorksheets().get(3).getCells().get("D"+i).putValue(lista[3]);
-        workbook.getWorksheets().get(3).getCells().get("E"+i).putValue(lista[4]);
-        workbook.getWorksheets().get(3).getCells().get("G"+i).putValue(proyecto);
-        workbook.getWorksheets().get(3).getCells().get("H"+i).putValue(dedicacion);
-        workbook.getWorksheets().get(3).getCells().get("I"+i).putValue(rol);
-        workbook.getWorksheets().get(3).getCells().get("J"+i).putValue(tecnologia);
-        workbook.getWorksheets().get(3).getCells().get("K"+i).putValue(comentarios);
-        workbook.save("staffingSystems - copia.xlsx");
-    }else{
-        console.log("Este empleado está ocupado");
-    }
-}
-
-function save(proyecto){
-    var aspose = aspose || {};
-    aspose.cells = require("aspose.cells");
-    var sampleFile = "staffingSystems.xlsx";
-    var workbook = new aspose.cells.Workbook(sampleFile);
-    for(var i = 2; i<getLength(leerProyectos); i++){
-        workbook.getWorksheets().get(4).getCells().get("H"+i).putValue('Flow');
-    }
-    workbook.save("staffingSystems - copia.xlsx");
-}
-
-function getLength(documento){
-    var i = 0;
-    for(const item of documento){
-        if(item['projectidname'] !== undefined){
-            i += 1;
-        }
-    }
-    return i;
-}
 
 function getServicios(json){
     let leerParametros = json;
@@ -215,28 +146,6 @@ function getServicios(json){
         servicios.push({nombre: itemFila['servicio'], id: itemFila['id']});
     }
     return servicios;
-}
-
-//Modificar celda en Staffing
-function modifyDedicacion(codigo, proyecto, dedicacion){
-    // editar una celda específica en una hoja de Excel 
-    var aspose = aspose || {};
-    // crear un objeto de la clase Cells.
-    aspose.cells = require("aspose.cells");
-    // instancia la clase secundaria WorkBook con un archivo XLSX 
-    var sampleFile = "staffingSystems - copia.xlsx";
-    var workbook = new aspose.cells.Workbook(sampleFile);
-    // Acceda al libro de trabajo, obtenga las celdas llamando al método getCells () y llame al método putValue (cadena) para actualizar una celda específica (B2) de la hoja de Excel 
-    for(var i = 2; i<100; i++){
-        //console.log(console.log(workbook.getWorksheets().get(i).getCells().get("A"+i).getValue()));
-        if(workbook.getWorksheets().get(3).getCells().get("A"+i).getValue()==codigo && workbook.getWorksheets().get(3).getCells().get("G"+i).getValue() == proyecto){
-            //console.log(workbook.getWorksheets().get(3).getCells().get("H"+ide).getValue());
-            workbook.getWorksheets().get(3).getCells().get("H"+i).putValue(dedicacion);
-            //console.log(workbook.getWorksheets().get(3).getCells().get("H"+ide).getValue());
-        }
-    }
-    // guardar los datos en un nuevo archivo xlsx
-    workbook.save("staffingSystems - copia.xlsx");
 }
 
 

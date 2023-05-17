@@ -14,16 +14,11 @@ router.get('/', function(req, res){
       });
 });
 
-router.get('/proyectos', function(req, res){
-    let prueba = {proyecto: funciones.proyectosBD, emplo: funciones.staffingBD};
-    res.render('pruebas', prueba);
-});
 
-router.post('/index', function(req, res){
+router.post('/', function(req, res){
     //'CORE' 'Cross/Gestor documental y SSDD'
     var direccionNueva = req.body.direccion;
     var servicioNueva = req.body.servicio; 
-    console.log(direccionNueva, servicioNueva);
     var parametros = ['SELECT * FROM parametros',
     'SELECT * FROM staffing',
     'SELECT * FROM proyectos',
