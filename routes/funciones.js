@@ -1,19 +1,4 @@
-//const xlsx = require('xlsx');
-//const connect = require('./connect');
-//const worbook = xlsx.readFile('staffingSystems.xlsx');
-//const sheet_name_list = worbook.SheetNames;
-//const parametro = sheet_name_list[0];
-//const project = sheet_name_list[1];
-//const staff = sheet_name_list[2];
-//const staffing = sheet_name_list[3];
-//const leerStaff = xlsx.utils.sheet_to_json(worbook.Sheets[staff]);
-//const leerStaffing = xlsx.utils.sheet_to_json(worbook.Sheets[staffing]);
-//const leerProyectos = xlsx.utils.sheet_to_json(worbook.Sheets[project]);
-//const leerParametros = xlsx.utils.sheet_to_json(worbook.Sheets[parametro]);
 
-/*
-Conexion a base de datos y conversion de tablas a json
-*/
 
 //Mostrar listado de personas acargo
 function nuevosIntegrantes(json, staffing, codigoJefe){
