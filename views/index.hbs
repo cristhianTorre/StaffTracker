@@ -44,20 +44,20 @@
         </form>
     </div>
     <div class="generalContainer" style="margin: 12px 50px 0 50px; padding: 0;">
+        <div class="majorTitlesFlow">
+            <h4 class="titleMajorFlow">Flow</h4>
+        </div>
         <div class="containerProjectCourse">
-            <div class="majorTitles">
-                <h4>Proyectos en Curso</h4>
-            </div>
             {{#each proyectos}}
             <div class="containerProject row">
                 <div class="cardProyecto col-sm-4">
                     <h2 id="titleProject" class="titles">{{projectIDName}}</h2>
-                    <ol id="listProject" class="list">
-                        <li>Descripción: {{descripcion}}</li>
-                        <li>Tipo: {{normativo}}</li>
-                        <li>Scrum: {{scrum}}</li>
-                        <li>Product Owner: {{owner}}</li>
-                        <li>Estado: {{status}}</li>
+                    <ol id="listProject" class="list scrollVertical">
+                        <li><b>Descripción: </b>{{descripcion}}</li>
+                        <li><b>Tipo: </b>{{normativo}}</li>
+                        <li><b>Scrum: </b>{{scrum}}</li>
+                        <li><b>Product Owner: </b>{{owner}}</li>
+                        <li><b>Estado: </b>{{status}}</li>
                     </ol>
                 </div>
                 <div class="persons col-sm-3">
@@ -116,18 +116,18 @@
             </div>
             {{/each}}
         </div>
+        <div class="majorTitlesBacklog">
+            <h4 class="titleMajorBacklog">Backlog</h4>
+        </div>
         <div class="containerProjectBacklog">
-            <div class="majorTitles">
-                <h4>Backlog</h4>
-            </div>
             {{#each backlog}}
             <div class="containerProject row">
                 <div class="cardProyectoBacklog col-sm-7">
                     <h2 id="titleProject" class="titles">Proyecto: {{ProjectIDName}}</h2>
-                    <ol id="listProject" class="list">
-                        <li>Descripción: {{descripcion}}</li>
-                        <li>Tipo: {{normativo}}</li>
-                        <li>Scrum: {{scrum}}</li>
+                    <ol id="listProject" class="list scrollVertical">
+                        <li><b>Descripción: </b>{{descripcion}}</li>
+                        <li><b>Tipo: </b>{{normativo}}</li>
+                        <li><b>Scrum: </b>{{scrum}}</li>
                     </ol>
                 </div>
                 <div class="othersProyectoBacklog col-sm-5">

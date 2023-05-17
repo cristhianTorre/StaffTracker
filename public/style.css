@@ -2,6 +2,9 @@
     margin: 0;
     padding: 0;
 }
+b{
+    color: rgb(10, 26, 99);
+}
 /*<-------------------------------// Sección Proyectos en Ejecución //-------------------------------------------->*/
 /*<--- Sección Header --->*/
 header{
@@ -49,7 +52,7 @@ body{
     border-radius: 4px;height: auto;
     min-width: 600px;
     margin: 0px 0px 0 0px;
-    background-color: rgba(147, 248, 147, 0.788);
+    background-color: #028484;
 }
 .containerProject{
     border: 1px solid rgb(64, 153, 226);
@@ -60,15 +63,32 @@ body{
     background-color: white;
     display: flex;
 }
-.majorTitles{
-    color: rgb(0, 0, 0);
-    margin: 6px 0 0 15px;
+.majorTitlesFlow{
+    border: 1px solid rgb(64, 153, 226);
+    border-radius: 4px;
+    width: 120px;
+    background-color: #028484;
+    color: rgb(255, 255, 255);
+    margin: 0;
+    text-align: center;
+}
+.titleMajorFlow{
+    margin: 0;
+    padding: 5px;
 }
 .cardProyecto{
     border-right: 1px dashed rgb(203, 231, 255);
     height: auto
 }
-.titles{font-size:medium;
+.scrollVertical{
+    width:auto;
+    height:100px;
+    overflow:scroll;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+.titles{
+    font-size:medium;
     color: rgb(13, 40, 163);
     height: auto;
     margin: 8px 0 8px 0;
@@ -160,6 +180,20 @@ body{
     width: auto;
     background-color: white;
     display: flex;
+}
+.majorTitlesBacklog{
+    border: 1px solid  rgb(247, 62, 62);
+    border-radius: 4px;
+    width: 120px;
+    background-color:  rgb(250, 93, 93);
+    color: rgb(255, 255, 255);
+    margin: 0;
+    text-align: center;
+    margin-top: 10px;
+}
+.titleMajorBacklog{
+    margin: 0;
+    padding: 5px;
 }
 .btn-primary{
     margin-bottom: 8px;
