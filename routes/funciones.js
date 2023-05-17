@@ -173,35 +173,6 @@ function staffingProject(json1, json2, proyecto){
         }
     }
 }
-/*
-function diagramaTecnoPersonas(proyecto){
-    let diagramapersonas = [];
-    for(const itemFila of leerStaffing){
-        if(itemFila['Proyecto'] == proyecto){
-            diagramapersonas.push(
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['ASO', 'APX', 'CELLS', 'HOST', 'BLUESPRING', 'PYTHON', 'SCALA'],
-                        datasets: [{
-                            label: 'Desarrollo Tecnologías',
-                            data: [75, 99, 50, 25, 80, 40, 32],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                })
-            );
-        }
-    }
-    
-    return diagramapersonas;
-}*/
+
 
 module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios};
