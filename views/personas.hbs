@@ -42,9 +42,9 @@
         </form>
     </div>
     <div class="card-body pb-0" style="padding: 12px 50px 0 50px;">
-        <div class="row">            
+        <div class="row"> 
+            {{#each persona}}           
             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column" id="cardContainer">
-                {{#each persona}}
                 <div class="card bg-light d-flex flex-fill">
                     <div class="card-header text-muted border-bottom-0">
                         C802211
@@ -134,8 +134,8 @@
                         </div>
                     </div>
                 </div>
-                {{/each}}
             </div>
+            {{/each}}
         </div>
     </div>
     

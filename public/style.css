@@ -231,6 +231,7 @@ body{
 }
 #cardContainer{
     padding: 8px;
+    display: inline-flex;
 }
 .imgHabilidadPersona{
     height: auto;
