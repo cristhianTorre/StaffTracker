@@ -180,6 +180,7 @@
                                                     placeholder="Ejm: 1Q 2023" name="fechaIni">
                                                 <input type="text" aria-label="Last name" class="form-control"
                                                     placeholder="Ejm: 2Q 2023" name="fechaFin">
+                                                <input type="hidden" name="proyecto" value="{{ProjectIDName}}">
                                             </div>
                                             <div class="container ">
                                                 <div class="horizontal-scrollable">
@@ -189,15 +190,15 @@
                                                             <select
                                                                 name="asignar" class="form-select form-select-sm" aria-label=".form-select-sm example">
                                                                 <option class="dropdown-item habilidadLista">Seleccione una habilidad</option>
-                                                                <option value='{valores:[codigo:{{codigonew}}, habilidad:"ASO"]}' class="dropdown-item habilidadLista">ASO:
+                                                                <option value="ASO" class="dropdown-item habilidadLista">ASO:
                                                                         {{aso}}%</option>
-                                                                <option value='{valores:[codigo:{{codigonew}}, habilidad:"APX"]}' class="dropdown-item habilidadLista">APX:
+                                                                <option value="APX" class="dropdown-item habilidadLista">APX:
                                                                         {{apx}}%</option>
-                                                                <option value='{valores:[codigo:{{codigonew}}, habilidad:"CELLS"]}' class="dropdown-item habilidadLista">CELL:
+                                                                <option value="CELLS" class="dropdown-item habilidadLista">CELL:
                                                                         {{cells}}%</option>
-                                                                <option value='{valores:[codigo:{{codigonew}}, habilidad:"SCALA"]}' class="dropdown-item habilidadLista">SCALA:
+                                                                <option value="SCALA" class="dropdown-item habilidadLista">SCALA:
                                                                         {{scala}}%</option>
-                                                                <option value='{valores:[codigo:{{codigonew}}, habilidad:"Distribuido"]}' class="dropdown-item habilidadLista">Distribuido:
+                                                                <option value="Distribuido" class="dropdown-item habilidadLista">Distribuido:
                                                                         78%</option>
                                                             </select>
                                                         </div>
@@ -213,7 +214,12 @@
                                                         <p class="descriptionPerson"><small
                                                                 class="text-muted">{{rolnew}}</small></p>
                                                         <input name="dedicacion" type="text" placeholder="Ejm: 0.5">
-                                                        <input name="persona" type="hidden" value='{codigo:"{{codigonew}}", nombre:"{{nombrenew}}", direccion:"{{direccion}}", servicio:"{{servicio}}", empresa:"{{empresa}}", proyecto:"{{ProjectIDName}}", rol:"{{rol}}"}'>
+                                                        <input name="codigo" type="hidden" value="{{codigonew}}">
+                                                        <input name="nombre" type="hidden" value="{{nombrenew}}">
+                                                        <input name="direccion" type="hidden" value="{{direccion}}">
+                                                        <input name="servicio" type="hidden" value="{{servicio}}">
+                                                        <input name="empresa" type="hidden" value="{{empresa}}">
+                                                        <input name="rol" type="hidden" value="{{rolnew}}">
                                                     </div>
                                                     {{/each}}
                                                 </div>
