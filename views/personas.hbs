@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Personas Equipos</title>
 </head>
-<body>    
+
+<body>
     <header>
         <div id="superiorContainer">
             <h1 id="titleHeader">BBVA</h1>
@@ -18,13 +21,13 @@
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="inicio">Inicio</a></li>
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="/">Proyectos</a></li>
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="/">Crear Proyecto</a></li>
-                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Personas</a></li>   
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Personas</a></li>
             </ul>
         </div>
     </header>
-    <div class="containerDropdowns">       
+    <div class="containerDropdowns">
         <form method="post" action="/personas">
-            <label for="direccion">Dirección</label>       
+            <label for="direccion">Dirección</label>
             <select name="direccion" class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <option selected>Seleccione una Dirección</option>
                 {{#each direccion}}
@@ -42,90 +45,106 @@
         </form>
     </div>
     <div class="card-body pb-0" style="padding: 12px 50px 0 50px;">
-        <div class="row"> 
-            {{#each persona}}           
+        <div class="row">
+            {{#each persona}}
             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column" id="cardContainer">
                 <div class="card bg-light d-flex flex-fill">
                     <div class="card-header text-muted border-bottom-0">
-                        C802211
+                        {{codigo}}
                     </div>
                     <div class="card-body pt-0">
                         <div class="row">
                             <div class="col-7">
                                 <h6 class="lead"><b>{{nombre}}</b></h6>
-                                <p class="text-muted text-sm"><b>{{rol}}</b> / {{tecnologia}}</p> 
-                                <p class="text-muted text-sm">Habilidades</p>                              
+                                <p class="text-muted text-sm"><b>{{rol}}</b> / {{tecnologia}}</p>
+                                <p class="text-muted text-sm">Habilidades</p>
                                 <ul class="ml-4 mb-0 fa-ul text-muted">
                                     <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>
                                         Ubicación: BBVA, DG, Bogotá</li>
-                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone:
+                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>
+                                        Phone:
                                         + 57 - 3001239876</li>
                                 </ul>
                             </div>
                             <div class="col-5 text-center">
-                                <img src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?" alt="user-avatar" class="img-circle img-fluid imgHabilidadPersona" style="border-radius: 50%;">
+                                <img src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?"
+                                    alt="user-avatar" class="img-circle img-fluid imgHabilidadPersona"
+                                    style="border-radius: 50%;">
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="text-right">
                             <!-- Button Ver Correo: Modal -->
-                            <button type="button" class="btn btn-sm btn-correo" data-bs-toggle="modal" data-bs-target="#staticBotonCorreo">
+                            <button type="button" class="btn btn-sm btn-correo" data-bs-toggle="modal"
+                                data-bs-target="#staticBotonCorreo{{id}}">
                                 Correo
                             </button>
                             <!-- Modal Mostrar Correo Corporativo Persona-->
-                            <div class="modal fade" id="staticBotonCorreo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="staticBotonCorreo{{id}}" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true">
                                 <div class="modal-dialog modal-md">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="staticBackdropLabel">Correo Corporativo</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body row ">                                          
+                                        <div class="modal-body row ">
                                             <div class="item-copy">
-                                                <input class="textoCopiar" value="employee@bbva.com"/>
+                                                <input class="textoCopiar" value="employee@bbva.com" />
                                                 <button class="btnCopiar btn-sm">Copy</button>
-                                            </div>                                          
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> 
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Button Ver Perfil: Modal -->
-                            <button type="button" class="btn btn-sm btn-perfil" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <button type="button" class="btn btn-sm btn-perfil" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop{{id}}">
                                 Ver Perfil
                             </button>
                             <!-- Modal Mostrar Habilidades Personas-->
-                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="staticBackdrop{{id}}" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{id}}"
+                                aria-hidden="true">
                                 <div class="modal-dialog modal-md">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Descripción Persona</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h5 class="modal-title" id="staticBackdropLabel{{id}}">Descripción Persona</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body row">                                            
+                                        <div class="modal-body row">
                                             <div class="container col-sm-4">
                                                 <div class="personHabilidad containerPersonHabilidad">
                                                     <h5 class="personHabilidad personCode">{{codigo}}</h5>
-                                                    <h6 class="personHabilidad" style="height:auto; margin-bottom: 20px;">{{nombre}}</h6>
-                                                    <img class="imagePersonHabilidad" src="{{imagen}}" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonHabilidad"><small class="text-muted">Disponibilidad: {{dedicacion}}%</small></p>
-                                                    <p class="descriptionPersonHabilidad"><small class="text-muted">{{rol}}</small></p>
+                                                    <h6 class="personHabilidad"
+                                                        style="height:auto; margin-bottom: 20px;">{{nombre}}</h6>
+                                                    <img class="imagePersonHabilidad" src="{{imagen}}"
+                                                        class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonHabilidad"><small
+                                                            class="text-muted">Disponibilidad: {{dedicacion}}%</small>
+                                                    </p>
+                                                    <p class="descriptionPersonHabilidad"><small
+                                                            class="text-muted">{{rol}}</small></p>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-8 ">                                                
+                                            <div class="col-sm-8 ">
                                                 <div class="" style="margin-top: 50px;">
-                                                    <canvas id="myChart" ></canvas>
+                                                    <canvas id="myChart"></canvas>
                                                 </div>
                                             </div>
-                    
+
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
                                             <button type="button" class="btn btn-primary">Guardar</button>
                                         </div>
                                     </div>
@@ -138,9 +157,11 @@
             {{/each}}
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>   
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
     <!--// Script diagrama de barras habilidades y/o tecnologías personas// -->
     <script>
@@ -167,17 +188,18 @@
     <!--// Script boton / input de copiar texto // -->
     <script>
         var btnCopiar = document.querySelector('.btnCopiar');
-            btnCopiar.addEventListener('click', function (event) {
-                var copiado = document.querySelector('.textoCopiar');
-                copiado.select();
-                try {
-                    var retorno = document.execCommand('copy');
-                    var mensagem = retorno ? 'copiado!' : 'ops!';
-                    alert(mensagem);
-                } catch (err) {
-                    alert('Ups, Este navegador no cuenta con soporte Crtl+C.');
-                }
-            });
+        btnCopiar.addEventListener('click', function (event) {
+            var copiado = document.querySelector('.textoCopiar');
+            copiado.select();
+            try {
+                var retorno = document.execCommand('copy');
+                var mensagem = retorno ? 'copiado!' : 'ops!';
+                alert(mensagem);
+            } catch (err) {
+                alert('Ups, Este navegador no cuenta con soporte Crtl+C.');
+            }
+        });
     </script>
 </body>
+
 </html>
