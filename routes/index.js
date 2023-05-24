@@ -121,8 +121,9 @@ router.post('/login', function(req, res, next) {
     req.session.mail=req.body.mail;
 });
 
-router.get('/logout', function(req, res, next) {
+router.post('/logout', function(req, res, next) {
     req.session.destroy();
+    res.render('login');
 });
 
 module.exports = router;
