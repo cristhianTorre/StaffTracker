@@ -95,4 +95,34 @@ router.post('/guardar', function(req, res){
     });
 });
 
+router.get('/eliminar', function(req,res){
+    var id = req.body.id;
+    connect.conexion.query("delete from staffing where id=?",[id],function(err,rows,fields){
+
+        if(!!err)
+        {
+          console.log('Error' ,+err);
+        }
+        else
+        {
+          console.log("Empleado eliminado");
+          return res.redirect('/');
+        }
+    
+      });
+
+});
+
+router.get('/login', function(req, res, next) {
+    res.render('login');      
+});
+
+router.post('/login', function(req, res, next) {
+    req.session.mail=req.body.mail;
+});
+
+router.get('/logout', function(req, res, next) {
+    req.session.destroy();
+});
+
 module.exports = router;
