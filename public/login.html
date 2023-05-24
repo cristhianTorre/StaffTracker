@@ -11,31 +11,23 @@
 </head>
 <body>
     <header>
-        <form method="post" action="/login">
-            Ingrese correo:
-            <input type="mail" name="mail" size="50">
-            <br>
-            Ingrese contraseña:
-            <input type="password" name="clave" size="20">
-            <br>
-            <input type="submit" value="Ingresar">
-        </form>
     </header>
-    
-    <form method="post" action="/login">
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-            <input type="email" id="form2Example1" class="form-control" name="mail"/>
-            <label class="form-label" for="form2Example1">Email address</label>
-        </div>
+    <div class="form-label" style="margin: 10% 30% 30% 30%; box-sizing: border-box; border-radius: 5px; border:#4AB2B2 5px solid;">
+        <form method="post" action="/login" style="border-color:#4AB2B2; padding:10px; margin: 5px 5px 5px 5px; box-sizing: border-box; border-radius: 5px;">
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <input type="email" id="form2Example1" class="form-control" name="mail" placeholder="EJ: O001111"/>
+                <label class="form-label" for="form2Example1">Código</label>
+            </div>
 
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <input type="password" id="form2Example2" class="form-control" name="clave"/>
-            <label class="form-label" for="form2Example2">Password</label>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
-    </form>
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <input type="password" id="form2Example2" class="form-control" name="clave"/>
+                <label class="form-label" for="form2Example2">Contraseña</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mb-4" style="color:white; border-color:#4AB2B2; background-color:#4A68B2;">Sign in</button>
+        </form>
+    </div>
     
 </body>
 </html>
