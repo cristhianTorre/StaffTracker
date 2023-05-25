@@ -25,11 +25,10 @@ function getNewsProyectos(json, staffing, staff){
 }
 
 //Staffing - proyectos con sus respectivos empleados y cronograma
-function getProyectos(json, staff, proyecto, direccion, servicio){
+function getProyectos(json, proyecto, direccion, servicio){
     let leerStaffing = json;
     let proyectos = [];
     let informacion = [];
-    let diagramapersonas = [];
     for(const itemFila of leerStaffing){
         if(itemFila['servicio'] == servicio && itemFila['direccion'] == direccion && getStatusFlow(proyecto, itemFila['proyecto'])){
             //console.log(itemFila['proyecto']);
@@ -172,6 +171,14 @@ function staffingProject(json1, json2, proyecto){
             }
         }
     }
+}
+
+function progreso(fechaini, fechafin){
+    let convertirini = Date.parse(fechaini);
+    let convertirfin = Date.parse(fechafin);
+    let hoy = Date.now();
+    let porcentaje = (1-((convertirfin-hoy-convertirini)/(convertirfin-convertirini)))*100;
+    return Math.round(porcentaje);
 }
 
 
