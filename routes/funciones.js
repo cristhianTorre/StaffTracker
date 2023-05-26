@@ -18,7 +18,7 @@ function getNewsProyectos(json, staffing, staff){
     let backlog = [];
     for(const itemFila of leerProyectos){
         if(itemFila['status'] == 'Stock'){
-            backlog.push({id: itemFila['id'], ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final'], nuevos: nuevosIntegrantes(staff, staffing, 'C797459')});
+            backlog.push({id: itemFila['id'], ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: conversion_fecha_inicial(itemFila['fecha_inicial']), fecFin: conversion_fecha_final(itemFila['fecha_final']), nuevos: nuevosIntegrantes(staff, staffing, 'C797459')});
         }
     }
     return backlog;
@@ -103,7 +103,7 @@ function consultaInformacionProyecto(json, proyecto){
     let informacion = {};
     for(const itemFila of leerProyectos){
         if(itemFila['projectidname'] == proyecto){
-            Object.assign(informacion,{id: itemFila['id'], projectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], owner: itemFila['owner'], status: itemFila['status'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final']});
+            Object.assign(informacion,{id: itemFila['id'], projectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], owner: itemFila['owner'], status: itemFila['status'], fecIni: conversion_fecha_inicial(itemFila['fecha_inicial']), fecFin: conversion_fecha_final(itemFila['fecha_final']), progreso: progreso(conversion_fecha_inicial(itemFila['fecha_inicial']), conversion_fecha_final(itemFila['fecha_final']))});
         }
     }
     return informacion;
@@ -173,11 +173,36 @@ function staffingProject(json1, json2, proyecto){
     }
 }
 
+function conversion_fecha_inicial(cuartil){
+    if(cuartil[0] == "1"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/01/01";
+    }else if(cuartil[0] == "2"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/04/01";
+    }else if(cuartil[0] == "3"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/07/01";
+    }else if(cuartil[0] == "4"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/10/01";
+    }
+}
+
+function conversion_fecha_final(cuartil){
+    if(cuartil[0] == "1"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/03/31";
+    }else if(cuartil[0] == "2"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/06/30";
+    }else if(cuartil[0] == "3"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/09/30";
+    }else if(cuartil[0] == "4"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/12/31";
+    }
+}
+
 function progreso(fechaini, fechafin){
-    let convertirini = Date.parse(fechaini);
-    let convertirfin = Date.parse(fechafin);
-    let hoy = Date.now();
-    let porcentaje = (1-((convertirfin-hoy-convertirini)/(convertirfin-convertirini)))*100;
+    let convertirini = new Date(fechaini).getTime();
+    let convertirfin = new Date(fechafin).getTime();
+    let tiempoTranscurrido = Date.now();
+    let hoy = new Date(tiempoTranscurrido).getTime();
+    let porcentaje = ((hoy-convertirini)/(convertirfin-convertirini))*100;
     return Math.round(porcentaje);
 }
 

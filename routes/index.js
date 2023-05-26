@@ -111,6 +111,10 @@ router.get('/eliminar', function (req, res) {
 
 });
 
+router.get('/inicio', function (req, res) {
+    res.render('inicio');
+});
+
 router.get('/login', function (req, res, next) {
     res.render('login');
 });
