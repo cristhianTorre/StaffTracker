@@ -124,20 +124,19 @@ router.post('/login', function (req, res, next) {
     var clave = req.body.clave;
     var credencial = 'SELECT codigo, password FROM usuarios where codigo=? AND password=?';
     connect.conexion.query(credencial, [codigo, clave], function (error, results, fields) {
-        if (!!err) {
-            console.log('Error', +err);
+        if (!!error) {
+            console.log('Error', +error);
         }
-        else if (results[0] == null) {
+        else if (results[0].codigo == undefined) {
             console.log("Usted no está registrado");
         }
-        else if (results[1] == null) {
+        else if (results[0].password == undefined) {
             console.log("Contraseña invalida");
         } else
         {
             req.session.mail = req.body.mail;
             return res.redirect('/');
         }
-
     });
 });
 
