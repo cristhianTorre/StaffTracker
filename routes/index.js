@@ -3,20 +3,27 @@ var router = express.Router();
 var funciones = require('./funciones');
 const connect = require('./connect');
 
-router.get('/', function (req, res) {
+router.get('/', function(req, res){
+    return res.redirect('/login');
+});
+
+router.get('/proyectos', function (req, res) {
+    var jefe = req.session.codigo;
     var parametros = ['SELECT * FROM parametros',
         'SELECT * FROM staffing',
         'SELECT * FROM proyectos',
-        'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON FROM staff INNER JOIN habilidades ON staff.id = habilidades.id'];
-    connect.conexion.query(parametros.join(';'), function (error, results, fields) {
+        'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON FROM staff INNER JOIN habilidades ON staff.id = habilidades.id',
+        'SELECT direccion, servicio FROM staff WHERE codigo =?'];
+    connect.conexion.query(parametros.join(';'), [jefe], function (error, results, fields) {
         if (error) throw error;
-        res.render('index', { direccion: funciones.getDirecciones(JSON.parse(JSON.stringify(results[0]))), servicio: funciones.getServicios(JSON.parse(JSON.stringify(results[0]))) });
+        res.render('index', { proyectos: funciones.getProyectos(JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[2])), results[4][0].direccion, results[4][0].servicio), backlog: funciones.getNewsProyectos(JSON.parse(JSON.stringify(results[2])), JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3])), jefe), direccion: funciones.getDirecciones(JSON.parse(JSON.stringify(results[0]))), servicio: funciones.getServicios(JSON.parse(JSON.stringify(results[0])))});
     });
 });
 
 
-router.post('/', function (req, res) {
+router.post('/proyectos', function (req, res) {
     //'CORE' 'Cross/Gestor documental y SSDD'
+    var jefe = req.session.codigo;
     var direccionNueva = req.body.direccion;
     var servicioNueva = req.body.servicio;
     var parametros = ['SELECT * FROM parametros',
@@ -25,7 +32,7 @@ router.post('/', function (req, res) {
         'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON FROM staff INNER JOIN habilidades ON staff.id = habilidades.id'];
     connect.conexion.query(parametros.join(';'), function (error, results, fields) {
         if (error) throw error;
-        res.render('index', { proyectos: funciones.getProyectos(JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[2])), direccionNueva, servicioNueva), backlog: funciones.getNewsProyectos(JSON.parse(JSON.stringify(results[2])), JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3]))), direccion: funciones.getDirecciones(JSON.parse(JSON.stringify(results[0]))), servicio: funciones.getServicios(JSON.parse(JSON.stringify(results[0]))) });
+        res.render('index', { proyectos: funciones.getProyectos(JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[2])), direccionNueva, servicioNueva), backlog: funciones.getNewsProyectos(JSON.parse(JSON.stringify(results[2])), JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3])), jefe), direccion: funciones.getDirecciones(JSON.parse(JSON.stringify(results[0]))), servicio: funciones.getServicios(JSON.parse(JSON.stringify(results[0]))) });
     });
 });
 
@@ -46,11 +53,13 @@ router.post('/actualizar', function (req, res) {
 });
 
 router.get('/personas', function (req, res) {
+    var jefe = req.session.codigo;
     var seleccion = ['SELECT id_direccion, direccion FROM parametros GROUP BY id_direccion',
-        'SELECT id, servicio FROM parametros'];
+        'SELECT id, servicio FROM parametros',
+        'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON, SUM(staffing.dedicacion)*100 as dedicacion FROM staff INNER JOIN habilidades ON staff.id = habilidades.id INNER JOIN staffing ON staffing.nombre = staff.nombre WHERE staff.superior = "' + jefe + '" GROUP BY staff.nombre'];
     connect.conexion.query(seleccion.join(';'), function (error, results, fields) {
         if (error) throw error;
-        res.render('personas', { direccion: JSON.parse(JSON.stringify(results[0])), servicio: JSON.parse(JSON.stringify(results[1])) });
+        res.render('personas', { direccion: JSON.parse(JSON.stringify(results[0])), servicio: JSON.parse(JSON.stringify(results[1])), persona: JSON.parse(JSON.stringify(results[2])) });
     });
 });
 
@@ -59,7 +68,7 @@ router.post('/personas', function (req, res) {
     var servicio = req.body.servicio;
     var consulta = ['SELECT id_direccion, direccion FROM parametros GROUP BY id_direccion',
         'SELECT id, servicio FROM parametros',
-        'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON, SUM(staffing.dedicacion)*100 as dedicacion FROM staff INNER JOIN habilidades ON staff.id = habilidades.id INNER JOIN staffing ON staffing.nombre = staff.nombre WHERE staff.direccion = "' + direccion + '" and staff.servicio = "' + servicio + '" GROUP BY staff.nombre'];
+        'SELECT staff.*, ASO, APX, CELLS, HOST, BLUESPRING, SCALA, PYTHON, SUM(staffing.dedicacion)*100 as dedicacion FROM staff INNER JOIN habilidades ON staff.id = habilidades.id INNER JOIN staffing ON staffing.nombre = staff.nombre WHERE staff.superior = "' + direccion + '" and staff.servicio = "' + servicio + '" GROUP BY staff.nombre'];
     connect.conexion.query(consulta.join(';'), function (error, results, fields) {
         if (error) throw error;
         res.render('personas', { direccion: JSON.parse(JSON.stringify(results[0])), servicio: JSON.parse(JSON.stringify(results[1])), persona: JSON.parse(JSON.stringify(results[2])) });
@@ -104,7 +113,7 @@ router.get('/eliminar', function (req, res) {
         }
         else {
             console.log("Empleado eliminado");
-            return res.redirect('/');
+            return res.redirect('/proyectos');
         }
 
     });
@@ -112,7 +121,11 @@ router.get('/eliminar', function (req, res) {
 });
 
 router.get('/inicio', function (req, res) {
-    res.render('inicio');
+    var consulta = ['SELECT id_direccion, direccion FROM parametros GROUP BY id_direccion',
+                    'SELECT id, servicio FROM parametros'];
+    connect.conexion.query(consulta.join(';'), function(error, results, fields){
+        res.render('inicio', {direccion: JSON.parse(JSON.stringify(results[0])), servicio: JSON.parse(JSON.stringify(results[1]))});
+    });
 });
 
 router.get('/login', function (req, res, next) {
@@ -134,8 +147,8 @@ router.post('/login', function (req, res, next) {
             console.log("Contraseña invalida");
         } else
         {
-            req.session.mail = req.body.mail;
-            return res.redirect('/');
+            req.session.codigo = req.body.codigo;
+            return res.redirect('/inicio');
         }
     });
 });

@@ -13,12 +13,12 @@ function nuevosIntegrantes(json, staffing, codigoJefe){
 }
 
 //Backlog
-function getNewsProyectos(json, staffing, staff){
+function getNewsProyectos(json, staffing, staff, jefe){
     let leerProyectos = json;
     let backlog = [];
     for(const itemFila of leerProyectos){
         if(itemFila['status'] == 'Stock'){
-            backlog.push({id: itemFila['id'], ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: conversion_fecha_inicial(itemFila['fecha_inicial']), fecFin: conversion_fecha_final(itemFila['fecha_final']), nuevos: nuevosIntegrantes(staff, staffing, 'C797459')});
+            backlog.push({id: itemFila['id'], ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: conversion_fecha_inicial(itemFila['fecha_inicial']), fecFin: conversion_fecha_final(itemFila['fecha_final']), nuevos: nuevosIntegrantes(staff, staffing, jefe)});
         }
     }
     return backlog;
