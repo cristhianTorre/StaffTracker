@@ -16,8 +16,9 @@
         <div id="menusContainer">
             <ul id="listMenuContainer">
                 <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Inicio</a></li>
-                <li class=""><a class="nav-link fw-semibold titleMenus" href="/">Proyectos</a></li>
-                <li class=""><a class="nav-link fw-semibold titleMenus" href="personas">Personas</a></li>   
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="/proyectos">Proyectos</a></li>
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="personas">Personas</a></li>
+                <li class="" style="padding: 0px 0px 0px 250px"><img src="image/cerrar-sesion.png" style="width:auto; height:20px"><a href="login" style="color:white;">Cerrar sesión</a></li>   
             </ul>
         </div>
     </header>
@@ -36,9 +37,9 @@
             <div class="chartHorizontal">       
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example">
                     <option selected>Seleccione una Dirección</option>
-                    <option value="1">Opción Dirección 1</option>
-                    <option value="2">Opción Dirección 2</option>
-                    <option value="3">Opción Dirección 3</option>
+                    {{#each direccion}}
+                    <option value="{{id_direccion}}">{{direccion}}</option>
+                    {{/each}}
                 </select>
                 <h5 style="margin-bottom: 60px;">Dirección "n"</h5>
                 <canvas id="serviciosChart"></canvas>
@@ -49,9 +50,9 @@
             <div class="chartRadar">
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example">
                     <option selected>Seleccione un Servicio</option>
-                    <option value="1">Opción Servicio 1</option>
-                    <option value="2">Opción Servicio 2</option>
-                    <option value="3">Opción Servicio 3</option>
+                    {{#each servicio}}
+                    <option value="{{id}}">{{servicio}}</option>
+                    {{/each}}
                 </select>
                 <h5>Servicio "n"</h5>
                 <canvas id="tecnologiasChart"></canvas>
