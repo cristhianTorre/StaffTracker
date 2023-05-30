@@ -25,25 +25,6 @@
             </ul>
         </div>
     </header>
-    <div class="containerDropdowns">
-        <form method="post" action="/personas">
-            <label for="direccion">Dirección</label>
-            <select name="direccion" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option selected>Seleccione una Dirección</option>
-                {{#each direccion}}
-                <option id="{{id_direccion}}" value="{{direccion}}">{{direccion}}</option>
-                {{/each}}
-            </select>
-            <label for="servicio">Servicio</label>
-            <select name="servicio" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option selected>Seleccione un Servicio</option>
-                {{#each servicio}}
-                <option id="{{id}}" value="{{servicio}}">{{servicio}}</option>
-                {{/each}}
-            </select>
-            <input type="submit" value="Buscar">
-        </form>
-    </div>
     <div class="card-body pb-0" style="padding: 12px 50px 0 50px;">
         <div class="row">
             {{#each persona}}
@@ -78,7 +59,7 @@
                             <!-- Button Ver Correo: Modal -->
                             <button type="button" class="btn btn-sm btn-correo" data-bs-toggle="modal"
                                 data-bs-target="#staticBotonCorreo{{id}}">
-                                Correo
+                                Proyectos
                             </button>
                             <!-- Modal Mostrar Correo Corporativo Persona-->
                             <div class="modal fade" id="staticBotonCorreo{{id}}" data-bs-backdrop="static"
@@ -87,15 +68,27 @@
                                 <div class="modal-dialog modal-md">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Correo Corporativo</h5>
+                                            <h5 class="modal-title" id="staticBackdropLabel">Proyectos</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body row ">
-                                            <div class="item-copy">
-                                                <input class="textoCopiar" value="employee@bbva.com" />
-                                                <button class="btnCopiar btn-sm">Copy</button>
-                                            </div>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Proyecto</th>
+                                                        <th scope="col">Dedicación</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each proyectos}}
+                                                    <tr>
+                                                        <td>{{proyecto}}</td>
+                                                        <td>{{dedicacion}}</td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
