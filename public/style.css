@@ -360,3 +360,12 @@ body{
     padding: 0;
     margin: 0;         
 }
+
+/*<--------------------------------------// Estilos Estructura login //-------------------------------->*/
+.scrollVerticalProyectos{
+    width:auto;
+    height:200px;
+    overflow:scroll;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}

@@ -6,30 +6,29 @@ function nuevosIntegrantes(json, staffing, codigoJefe){
     let nuevos = [];
     for(const itemFila of leerStaff){
         if(itemFila['superior'] == codigoJefe){
-            nuevos.push({codigonew: itemFila['codigo'], nombrenew: itemFila['nombre'], dedicacionnew: estaOcupado(staffing, itemFila['codigo'])*100, tecnologianew: itemFila['tecnologia'], rolnew: itemFila['rol'], aso: Math.round(itemFila['ASO']), apx: Math.round(itemFila['APX']), cells: Math.round(itemFila['CELLS']), host: Math.round(itemFila['HOST']), bluespring: Math.round(itemFila['BLUESPRING']), python: Math.round(itemFila['PYTHON']), scala: Math.round(itemFila['SCALA'])});
+            nuevos.push({codigonew: itemFila['codigo'], nombrenew: itemFila['nombre'], dedicacionnew: estaOcupado(staffing, itemFila['codigo'])*100, direccion: itemFila['direccion'], servicio: itemFila['servicio'], empresa: itemFila['empresa'], tecnologianew: itemFila['tecnologia'], rolnew: itemFila['rol'], aso: Math.round(itemFila['ASO']), apx: Math.round(itemFila['APX']), cells: Math.round(itemFila['CELLS']), host: Math.round(itemFila['HOST']), bluespring: Math.round(itemFila['BLUESPRING']), python: Math.round(itemFila['PYTHON']), scala: Math.round(itemFila['SCALA'])});
         }
     }
     return nuevos;
 }
 
 //Backlog
-function getNewsProyectos(json, staffing, staff){
+function getNewsProyectos(json, staffing, staff, jefe){
     let leerProyectos = json;
     let backlog = [];
     for(const itemFila of leerProyectos){
         if(itemFila['status'] == 'Stock'){
-            backlog.push({id: itemFila['id'], ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final'], nuevos: nuevosIntegrantes(staff, staffing, 'C797459')});
+            backlog.push({id: itemFila['id'], ProjectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], fecIni: conversion_fecha_inicial(itemFila['fecha_inicial']), fecFin: conversion_fecha_final(itemFila['fecha_final']), nuevos: nuevosIntegrantes(staff, staffing, jefe)});
         }
     }
     return backlog;
 }
 
 //Staffing - proyectos con sus respectivos empleados y cronograma
-function getProyectos(json, staff, proyecto, direccion, servicio){
+function getProyectos(json, proyecto, direccion, servicio){
     let leerStaffing = json;
     let proyectos = [];
     let informacion = [];
-    let diagramapersonas = [];
     for(const itemFila of leerStaffing){
         if(itemFila['servicio'] == servicio && itemFila['direccion'] == direccion && getStatusFlow(proyecto, itemFila['proyecto'])){
             //console.log(itemFila['proyecto']);
@@ -104,7 +103,7 @@ function consultaInformacionProyecto(json, proyecto){
     let informacion = {};
     for(const itemFila of leerProyectos){
         if(itemFila['projectidname'] == proyecto){
-            Object.assign(informacion,{id: itemFila['id'], projectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], owner: itemFila['owner'], status: itemFila['status'], fecIni: itemFila['fecha_inicial'], fecFin: itemFila['fecha_final']});
+            Object.assign(informacion,{id: itemFila['id'], projectIDName: itemFila['projectidname'], descripcion: itemFila['descripcion'], normativo: itemFila['normativo'], scrum: itemFila['scrum'], owner: itemFila['owner'], status: itemFila['status'], fecIni: conversion_fecha_inicial(itemFila['fecha_inicial']), fecFin: conversion_fecha_final(itemFila['fecha_final']), progreso: progreso(conversion_fecha_inicial(itemFila['fecha_inicial']), conversion_fecha_final(itemFila['fecha_final']))});
         }
     }
     return informacion;
@@ -173,35 +172,39 @@ function staffingProject(json1, json2, proyecto){
         }
     }
 }
-/*
-function diagramaTecnoPersonas(proyecto){
-    let diagramapersonas = [];
-    for(const itemFila of leerStaffing){
-        if(itemFila['Proyecto'] == proyecto){
-            diagramapersonas.push(
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['ASO', 'APX', 'CELLS', 'HOST', 'BLUESPRING', 'PYTHON', 'SCALA'],
-                        datasets: [{
-                            label: 'Desarrollo Tecnologías',
-                            data: [75, 99, 50, 25, 80, 40, 32],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                })
-            );
-        }
+
+function conversion_fecha_inicial(cuartil){
+    if(cuartil[0] == "1"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/01/01";
+    }else if(cuartil[0] == "2"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/04/01";
+    }else if(cuartil[0] == "3"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/07/01";
+    }else if(cuartil[0] == "4"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/10/01";
     }
-    
-    return diagramapersonas;
-}*/
+}
+
+function conversion_fecha_final(cuartil){
+    if(cuartil[0] == "1"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/03/31";
+    }else if(cuartil[0] == "2"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/06/30";
+    }else if(cuartil[0] == "3"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/09/30";
+    }else if(cuartil[0] == "4"){
+        return cuartil.substring(cuartil.length - 4, cuartil.length) + "/12/31";
+    }
+}
+
+function progreso(fechaini, fechafin){
+    let convertirini = new Date(fechaini).getTime();
+    let convertirfin = new Date(fechafin).getTime();
+    let tiempoTranscurrido = Date.now();
+    let hoy = new Date(tiempoTranscurrido).getTime();
+    let porcentaje = ((hoy-convertirini)/(convertirfin-convertirini))*100;
+    return Math.round(porcentaje);
+}
+
 
 module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios};
