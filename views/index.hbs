@@ -166,14 +166,22 @@
                                                         placeholder="Ejm: 2Q 2023" name="fechaFin">
                                                     <input type="hidden" name="proyecto" value="{{ProjectIDName}}">
                                                 </div>
-                                                <div class="container ">
-                                                    <div class="horizontal-scrollable">
+                                                <div class="container">
+                                                    <select id="principal" class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="updateSelect()">
+                                                        <option class="dropdown-item habilidadLista">Habilidad</option>
+                                                        <option value="ASO" class="dropdown-item habilidadLista">ASO</option>
+                                                        <option value="APX" class="dropdown-item habilidadLista">APX</option>
+                                                        <option value="CELLS" class="dropdown-item habilidadLista">CELL</option>
+                                                        <option value="SCALA" class="dropdown-item habilidadLista">SCALA</option>
+                                                        <option value="Distribuido" class="dropdown-item habilidadLista">Distribuido</option>
+                                                    </select>
+                                                    <div class="horizontal-scrollable" id="cambios">
                                                         {{#each nuevos}}
-                                                        <div class="personBacklog containerPersonBacklog">
+                                                        <div class="personBacklog containerPersonBacklog" style="background-color: {{color}};">
                                                             <div class="dropdown">
                                                                 <select
-                                                                    name="asignar" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                                                    <option class="dropdown-item habilidadLista">Seleccione una habilidad</option>
+                                                                    name="asignar" class="form-select form-select-sm" aria-label=".form-select-sm example" style="width:178px;">
+                                                                    <option class="dropdown-item habilidadLista">Habilidad</option>
                                                                     <option value="ASO" class="dropdown-item habilidadLista">ASO:
                                                                             {{aso}}%</option>
                                                                     <option value="APX" class="dropdown-item habilidadLista">APX:
@@ -187,7 +195,7 @@
                                                                 </select>
                                                             </div>
                                                             <h5 class="personBacklog personCode">{{codigonew}}</h5>
-                                                            <h6 class="personBacklog" style="height:auto;">{{nombrenew}}
+                                                            <h6 class="personBacklog" style="height:auto; justify-content: center;">{{nombrenew}}
                                                             </h6>
                                                             <img class="imagePerson"
                                                                 src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50"
@@ -207,6 +215,27 @@
                                                         </div>
                                                         {{/each}}
                                                     </div>
+                                                    <script>
+                                                        function updateSelect() {
+                                                            var select1 = document.getElementById("principal");
+                                                            var selectedValue = select1.value;
+                                                            let arreglo = document.getElementById("cambios").getElementsByClassName("form-select form-select-sm");
+                                                            for(let item = 0; item < arreglo.length; item++){
+                                                                let select2 = arreglo[item];
+                                                                if (selectedValue === "ASO") {
+                                                                    select2.value = "ASO";
+                                                                } else if (selectedValue === "APX") {
+                                                                    select2.value = "APX";
+                                                                } else if (selectedValue === "CELLS") {
+                                                                    select2.value = "CELLS";
+                                                                } else if (selectedValue === "SCALA") {
+                                                                    select2.value = "SCALA";
+                                                                } else if (selectedValue === "Distribuido") {
+                                                                    select2.value = "Distribuido";
+                                                                }
+                                                            }
+                                                        }
+                                                    </script>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

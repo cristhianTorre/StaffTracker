@@ -6,7 +6,7 @@ function nuevosIntegrantes(json, staffing, codigoJefe){
     let nuevos = [];
     for(const itemFila of leerStaff){
         if(itemFila['superior'] == codigoJefe){
-            nuevos.push({codigonew: itemFila['codigo'], nombrenew: itemFila['nombre'], dedicacionnew: 100 - estaOcupado(staffing, itemFila['codigo'])*100, direccion: itemFila['direccion'], servicio: itemFila['servicio'], empresa: itemFila['empresa'], tecnologianew: itemFila['tecnologia'], rolnew: itemFila['rol'], aso: Math.round(itemFila['ASO']), apx: Math.round(itemFila['APX']), cells: Math.round(itemFila['CELLS']), host: Math.round(itemFila['HOST']), bluespring: Math.round(itemFila['BLUESPRING']), python: Math.round(itemFila['PYTHON']), scala: Math.round(itemFila['SCALA'])});
+            nuevos.push({codigonew: itemFila['codigo'], nombrenew: itemFila['nombre'], dedicacionnew: 100 - estaOcupado(staffing, itemFila['codigo'])*100, color: obtenerColor(100 - estaOcupado(staffing, itemFila['codigo'])*100), direccion: itemFila['direccion'], servicio: itemFila['servicio'], empresa: itemFila['empresa'], tecnologianew: itemFila['tecnologia'], rolnew: itemFila['rol'], aso: Math.round(itemFila['ASO']), apx: Math.round(itemFila['APX']), cells: Math.round(itemFila['CELLS']), host: Math.round(itemFila['HOST']), bluespring: Math.round(itemFila['BLUESPRING']), python: Math.round(itemFila['PYTHON']), scala: Math.round(itemFila['SCALA'])});
         }
     }
     return nuevos;
@@ -219,5 +219,14 @@ function obtenerProyectos(staffing, principal){
     return principal;
 }
 
+function obtenerColor(porcentaje){
+    if(porcentaje <=  0){
+        return '#F6775C';
+    }else if(porcentaje < 40){
+        return '#F6DC5C';
+    }else{
+        return '#5CF6A7';
+    }
+}
 
 module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos};
