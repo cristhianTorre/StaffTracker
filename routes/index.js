@@ -157,4 +157,26 @@ router.post('/logout', function (req, res, next) {
     res.render('login');
 });
 
+router.post('/direccion', function (req,res,next) {
+    var direccion = req.body.direccion;
+    var consulta = ['SELECT id_direccion, direccion FROM parametros GROUP BY id_direccion',
+                    'SELECT id, servicio FROM parametros',
+                    'SELECT count(proyecto) as `cantidades`, servicio FROM `staffing` WHERE direccion=? GROUP BY servicio ORDER BY servicio'];
+    connect.conexion.query(consulta.join(';'), [direccion], function (error, results, fields){
+        if (error) throw error;
+        const json = JSON.parse(JSON.stringify(results[2]));
+        let service = [];
+        let servicio ='';
+        let cantidad = [];
+        for(const item of json){
+            servicio += '"'+item['servicio']+'"'+',';
+            service.push(item['servicio']);
+            cantidad.push(item['cantidades']);
+        }
+        const cadena = servicio.substring(servicio.length-1,']');
+        let anexar = '<!doctype html><html><head></head><body><canvas id="serviciosChart"></canvas><script>const ctx = document.getElementById("serviciosChart");new Chart(ctx, {type: "bar", data: {labels: ['+cadena+'], datasets: [{label: "Cantidad de Proyectos",data: ['+cantidad.toString()+'],backgroundColor: ["rgba(255, 99, 132, 0.2)","rgba(255, 159, 64, 0.2)","rgba(255, 205, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(54, 162, 235, 0.2)","rgba(153, 102, 255, 0.2)","rgba(201, 203, 207, 0.2)"],borderColor: ["rgb(255, 99, 132)","rgb(255, 159, 64)","rgb(255, 205, 86)","rgb(75, 192, 192)","rgb(54, 162, 235)","rgb(153, 102, 255)","rgb(201, 203, 207)"],borderWidth: 1}]},options: {indexAxis: "y",scales: {y: {beginAtZero: true}}}});</script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script></body></html>';
+        res.render("inicio", {servicios:service, cantidades:cantidad, direccion: JSON.parse(JSON.stringify(results[0])), servicio: JSON.parse(JSON.stringify(results[1]))});
+    });
+});
+
 module.exports = router;

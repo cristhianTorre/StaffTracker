@@ -177,7 +177,7 @@
                                                     </select>
                                                     <div class="horizontal-scrollable" id="cambios">
                                                         {{#each nuevos}}
-                                                        <div class="personBacklog containerPersonBacklog" style="background-color: {{color}};">
+                                                        <div class="personBacklog containerPersonBacklog" id="contenedor" style="background-color: {{color}};">
                                                             <div class="dropdown">
                                                                 <select
                                                                     name="asignar" class="form-select form-select-sm" aria-label=".form-select-sm example" style="width:178px;">
@@ -235,6 +235,19 @@
                                                                 }
                                                             }
                                                         }
+                                                    </script>
+                                                    <script>
+                                                        function ocultarColor(){
+                                                            let arreglo = document.getElementById("contenedor").getElementsByClassName("personBacklog containerPersonBacklog");
+                                                            for(let item = 0; item < arreglo.length; item++){
+                                                                if(arreglo[item].style.backgroundColor == '#F6775C'){
+                                                                    let selects = arreglo[item].getElementById("cambios").getElementsByClassName("form-select form-select-sm");
+                                                                    selects[itemFila].disabled=true;
+		                                                        }
+                                                            }
+                                                        }
+
+                                                        ocultarColor();
                                                     </script>
                                                 </div>
                                             </div>

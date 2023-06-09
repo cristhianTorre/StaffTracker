@@ -229,4 +229,123 @@ function obtenerColor(porcentaje){
     }
 }
 
+function getQuartilHoy(){
+    const tiempoTranscurrido = Date.now();
+    const hoy = new Date(tiempoTranscurrido);
+    const year = hoy.getFullYear();
+    const mes = hoy.getMonth();
+    if(mes < 4){
+        return "1Q "+year.toString();
+    }else if(mes < 7){
+        return "2Q "+year.toString();
+    }else if(mes < 10){
+        return "3Q "+year.toString();
+    }else{
+        return "4Q "+year.toString();
+    }
+}
+
+function entreCuartiles(inicio, fin, cuartil){
+    let listadoCuartiles = obtenerListadoCuartiles(inicio, fin);
+    if(listadoCuartiles.includes(cuartil)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function obtenerListadoCuartiles(inicio, fin){
+    let yearIni = parseInt(inicio.substring(inicio.length - 4, inicio.length));
+    let cuartilIni = parseInt(inicio[0]);
+    let listadoCuartiles = [inicio];
+    while(true){
+        if(listadoCuartiles.includes(fin)){
+            break;
+        }else if(cuartilIni == 4){
+            cuartilIni = 1;
+            yearIni += 1;
+        }else{
+            cuartilIni += 1;
+        }
+        listadoCuartiles.push(cuartilIni.toString()+"Q "+yearIni.toString());
+    }
+    return listadoCuartiles;
+}
+
+function obtenerSextoCuartil(cuartil){
+    const valorCuartil = parseInt(cuartil[0]);
+    const year = parseInt(valorCuartil.substring(valorCuartil.length - 4, valorCuartil.length));
+    const cuartilSexto = '';
+    const yearNew = '';
+    switch(cuartil){
+        case 1:
+            cuartilSexto = '2';
+            yearNew = (year + 1).toString();
+            break;
+        case 2:
+            cuartilSexto = '3';
+            yearNew = (year + 1).toString();
+            break;
+        case 3:
+            cuartilSexto = '4';
+            yearNew = (year + 1).toString();
+            break;
+        case 4:
+            cuartilSexto = '1';
+            yearNew = (year + 2).toString();
+            break;
+    }
+    const fecha = cuartilSexto+"Q "+yearNew;
+    return fecha;
+}
+
+function obtenerOcupacionByQuartil(staffing, proyectos, codigo, cuartil){
+    //const cuartilHoy = getQuartilHoy();
+    const fecha = obtenerSextoCuartil(cuartil);
+    let listado = obtenerListadoCuartiles(cuartil, fecha);
+    let ocupacionCuartiles = [0,0,0,0,0,0];
+    for(const itemFila of staffing){
+        if(itemFila['codigo'] == codigo){
+            for(const item of proyectos){
+                if(item['projectidname'] == itemFila['proyecto']){
+                    for(var i = 0; i<listado.length; i++){
+                        if(entreCuartiles(item['fecha_inicial'], item['fecha_final'], listado[i])){
+                            ocupacionCuartiles[i] += itemFila['dedicacion'];
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return ocupacionCuartiles;
+}
+
+function obtenerTercerQuartil(cuartil){
+    const valorCuartil = parseInt(cuartil[0]);
+    const year = parseInt(valorCuartil.substring(valorCuartil.length - 4, valorCuartil.length));
+    const cuartilSexto = '';
+    const yearNew = '';
+    switch(cuartil){
+        case 1:
+            cuartilSexto = '2';
+            yearNew = (year - 1).toString();
+            break;
+        case 2:
+            cuartilSexto = '3';
+            yearNew = (year - 1).toString();
+            break;
+        case 3:
+            cuartilSexto = '4';
+            yearNew = (year - 1).toString();
+            break;
+        case 4:
+            cuartilSexto = '1';
+            yearNew = year.toString();
+            break;
+    }
+    const fecha = cuartilSexto+"Q "+yearNew;
+    return fecha;
+}
+
+
 module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos};
