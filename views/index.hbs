@@ -24,25 +24,6 @@
             </ul>
         </div>
     </header>
-    <div class="containerDropdowns">
-        <form method="post" action="/">
-            <label for="direccion">Dirección</label>
-            <select name="direccion" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option selected>Seleccione una Dirección</option>
-                {{#each direccion}}
-                <option id="{{id}}" value="{{nombre}}">{{nombre}}</option>
-                {{/each}}
-            </select>
-            <label for="servicio">Servicio</label>
-            <select name="servicio" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option selected>Seleccione un Servicio</option>
-                {{#each servicio}}
-                <option id="{{id}}" value="{{nombre}}">{{nombre}}</option>
-                {{/each}}
-            </select>
-            <input type="submit" value="Buscar">
-        </form>
-    </div>
     <div class="generalContainer" style="margin: 12px 50px 0 50px; padding: 0;">
         <div class="majorTitlesFlow">
             <h4 class="titleMajorFlow">Flow</h4>

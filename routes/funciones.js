@@ -6,7 +6,7 @@ function nuevosIntegrantes(json, staffing, codigoJefe){
     let nuevos = [];
     for(const itemFila of leerStaff){
         if(itemFila['superior'] == codigoJefe){
-            nuevos.push({codigonew: itemFila['codigo'], nombrenew: itemFila['nombre'], dedicacionnew: estaOcupado(staffing, itemFila['codigo'])*100, direccion: itemFila['direccion'], servicio: itemFila['servicio'], empresa: itemFila['empresa'], tecnologianew: itemFila['tecnologia'], rolnew: itemFila['rol'], aso: Math.round(itemFila['ASO']), apx: Math.round(itemFila['APX']), cells: Math.round(itemFila['CELLS']), host: Math.round(itemFila['HOST']), bluespring: Math.round(itemFila['BLUESPRING']), python: Math.round(itemFila['PYTHON']), scala: Math.round(itemFila['SCALA'])});
+            nuevos.push({codigonew: itemFila['codigo'], nombrenew: itemFila['nombre'], dedicacionnew: 100 - estaOcupado(staffing, itemFila['codigo'])*100, direccion: itemFila['direccion'], servicio: itemFila['servicio'], empresa: itemFila['empresa'], tecnologianew: itemFila['tecnologia'], rolnew: itemFila['rol'], aso: Math.round(itemFila['ASO']), apx: Math.round(itemFila['APX']), cells: Math.round(itemFila['CELLS']), host: Math.round(itemFila['HOST']), bluespring: Math.round(itemFila['BLUESPRING']), python: Math.round(itemFila['PYTHON']), scala: Math.round(itemFila['SCALA'])});
         }
     }
     return nuevos;
@@ -206,5 +206,18 @@ function progreso(fechaini, fechafin){
     return Math.round(porcentaje);
 }
 
+function obtenerProyectos(staffing, principal){
+    for(const itemFila of principal){
+        let proyectos = [];
+        for(const item of staffing){
+            if(itemFila['codigo'] == item['codigo']){
+                proyectos.push({proyecto: item['proyecto'], dedicacion: item['dedicacion']});
+            }
+        }
+        itemFila.proyectos = proyectos;
+    }
+    return principal;
+}
 
-module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios};
+
+module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos};
