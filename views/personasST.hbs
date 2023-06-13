@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="personasST.css">
+    <title>Proyectos</title>
+</head>
+<body>
+    <header>
+        <div id="superiorContainer">
+            <h1 id="titleHeader">BBVA</h1>
+        </div>
+        <div id="menusContainer">
+            <ul id="listMenuContainer">
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="inicio">Inicio</a></li>
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Proyectos</a></li>
+                <li class=""><a class="nav-link fw-semibold titleMenus" href="personas">Personas</a></li>
+                <li class="" style="padding: 0px 0px 0px 250px"><img src="image/cerrar-sesion.png" style="width:auto; height:20px"><a href="login" style="color:white;">Cerrar sesión</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="containerPrincipal">
+        <table class="table">
+            <!-- Titulos tabla de proyectos -->
+            <thead >
+                <tr class="principalTitlesTable">
+                    <th scope="col"><p style="margin-bottom: 8px;">#</p></th>
+                    <th scope="col"><p style="margin-bottom: 8px;">Proyecto</p></th>
+                    <th scope="col"><p style="margin-bottom: 8px;">Título</p></th>
+                    <th scope="col"><p style="margin-bottom: 8px;">Feature</p></th>
+                    <th scope="col"><p style="margin-bottom: 8px;">Estado</p></th>
+                    <th scope="col"><p style="margin-bottom: 8px;">Scrum</p></th>
+                    <th scope="col"><p style="margin-bottom: 8px;">Personas</p></th>
+                    <th scope="col">
+                        <div class="indicadorCronograma" style="display: inline-flex; margin: 0px auto; align-items: center;">                           
+                            <div class="containerTitleTrimestre">
+                                <p style="font-size: 10px; color: transparent;">-</p>
+                                <p style="font-size: 10px;">1Q</p>
+                            </div><p style="color: transparent;">---</p>
+                            <div class="containerTitleTrimestre">
+                                <p style="font-size: 10px; color: transparent;">-</p>
+                                <p style="font-size: 10px;">2Q</p>
+                            </div><p style="color: transparent;">---</p>
+                            <div class="containerTitleTrimestre">
+                                <p style="font-size: 10px;">2023</p>
+                                <p style="font-size: 10px;">3Q</p>
+                            </div><p style="color: transparent;">---</p>
+                            <div class="containerTitleTrimestre">
+                                <p style="font-size: 10px; color: transparent;">-</p>
+                                <p style="font-size: 10px;">4Q</p>
+                            </div><p style="color: transparent;">---</p>
+                            <div class="containerTitleTrimestre">
+                                <p style="font-size: 10px; color: transparent;">-</p>
+                                <p style="font-size: 10px;">1Q</p>
+                            </div><p style="color: transparent;">---</p>
+                            <div class="containerTitleTrimestre">
+                                <p style="font-size: 10px; color: transparent;">-</p>
+                                <p style="font-size: 10px;">2Q</p>
+                            </div><p style="color: transparent;">---</p>
+                        </div>
+                    </th>
+                    <th scope="col"><p style="margin-bottom: 8px;">Ver</p></th>
+                </tr>
+            </thead>
+            <!-- Contenido de proyectos en "Flow" -->
+            <tbody id="containerGeneralProjectFlow">                
+                <tr>
+                    <th scope="row">1</th>
+                    <td>SDATOOL-001</td>
+                    <td>Proyecto 1</td>
+                    <td>
+                        <div class="containerFeature">
+                            <p>2 ...</p>
+                            <button class="buttonClicMeFeature">
+                                <span class="material-symbols-outlined iconFeature">
+                                    feature_search
+                                </span>
+                            </button>
+                        </div>
+                    </td>
+                    <td><p class="statusFlow">Flow</p></td>
+                    <td>
+                        <span class="material-symbols-outlined iconScrumTrue">
+                            check
+                        </span>
+                    </td>
+                    <td>
+                        <button class="buttonClicMePerson">
+                            <span class="material-symbols-outlined iconPerson">
+                                group
+                            </span>
+                        </button>
+                    </td>
+                    <td>
+                        <div class="containerIndicadorCronograma">                           
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">                        
+                            <!-- Button trigger modal -->
+                            <button type="button" class="buttonClicMeSeeProject" data-bs-toggle="modal" data-bs-target="#staticViewFlow">
+                                <span class="material-symbols-outlined clicMeSeeProject" >
+                                    visibility
+                                </span>                            
+                            </button>
+                            <!-- Modal ver descripción proyectos en Flow-->
+                            <div class="modal fade" id="staticViewFlow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Proyecto en Curso</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">                                                                                                
+                                        <div class="container ">
+                                            <div class="row containerTitlesViewProjectFlow">
+                                                <p class="col-md-3"><b>SDATOOL-001</b></p>
+                                                <p class="col-md-7"><b>Proyecto Gestor documental y distribuido</b></p>
+                                                <p class="col-md-2 statusFlowModal">Flow</p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5 containerDescriptionProjectFlow">
+                                                    <p class="scrollVerticalDescriptionFlow"><b>Descripción:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi aperiam dolores praesentium accusamus eos odit expedita veniam in dolor, facere fugiat magnam repellendus quae dicta deserunt temporibus sunt hic iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, nesciunt suscipit. Fugit eius repellendus corporis ratione aperiam numquam dolorum corrupti unde non dolore officiis, eveniet voluptatibus consequuntur, nesciunt optio omnis?</p>
+                                                </div>
+                                                <div class="col-md-4 containerDescriptionProjectFlow">
+                                                    <p><b>Owner:</b> product.owner@bbva.com</p>
+                                                    <p><b>Tipo:</b> Normativo</p>
+                                                    <p><b>Scrum:</b> Si</p> 
+                                                    <p><b>Features:</b> FT001A</p>
+                                                    <p><b>Customer:</b> CM001A</p>     
+                                                </div>
+                                                <div class="col-md-3 containerDescriptionProjectFlow">
+                                                    <p><b>Periodo de ejecución:</b></p>
+                                                    <br>
+                                                    <ul>
+                                                        <li><b>Inicio:</b> 2Q 2023</li>
+                                                        <li><b>Fin:</b> 4Q 2023</li>
+                                                    </ul>                   
+                                                </div>
+                                            </div>
+                                            <div class="horizontalScrollableViewPersonFlow">                    
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 1</p>
+                                                    <p class="personNameFlow">Danie Alejandro Larrota Moreno</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>                                            
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 2</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 3</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 4</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 5</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 6</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 7</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 8</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 9</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 10</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>                                                                             
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>                        
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>SDATOOL-002</td>
+                    <td>Proyecto 2</td>
+                    <td>
+                        <div class="containerFeature">
+                            <p>2 ...</p>
+                            <button class="buttonClicMeFeature">
+                                <span class="material-symbols-outlined iconFeature">
+                                    feature_search
+                                </span>
+                            </button>
+                        </div>
+                    </td>
+                    <td><p class="statusFlow">Flow</p></td>
+                    <td>
+                        <span class="material-symbols-outlined iconScrumTrue">
+                            check
+                        </span>
+                    </td>
+                    <td>                      
+                        <button class="buttonClicMePerson">
+                            <span class="material-symbols-outlined iconPerson">
+                            group
+                            </span>
+                        </button>
+                    </td>
+                    <td>
+                        <div class="containerIndicadorCronograma">                           
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaNextYear"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="buttonClicMeSeeProject">
+                            <span class="material-symbols-outlined clicMeSeeProject">
+                                visibility
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>SDATOOL-003</td>
+                    <td>Proyecto 3</td>
+                    <td>
+                        <div class="containerFeature">
+                            <p>2 ...</p>
+                            <button class="buttonClicMeFeature">
+                                <span class="material-symbols-outlined iconFeature">
+                                    feature_search
+                                </span>
+                            </button>
+                        </div>
+                    </td>
+                    <td><p class="statusFlow">Flow</p></td>
+                    <td>
+                        <span class="material-symbols-outlined iconScrumTrue">
+                            check
+                        </span>
+                    </td>
+                    <td>                      
+                        <button class="buttonClicMePerson">
+                            <span class="material-symbols-outlined iconPerson">
+                            group
+                            </span>
+                        </button>
+                    </td>
+                    <td>
+                        <div class="containerIndicadorCronograma">                           
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="buttonClicMeSeeProject">
+                            <span class="material-symbols-outlined clicMeSeeProject">
+                                visibility
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <!-- Contenido de proyectos en "Backlog" -->
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>SDATOOL-004</td>
+                    <td>Proyecto 4</td>
+                    <td>
+                        <div class="containerFeature">
+                            <p>2 ...</p>
+                            <button class="buttonClicMeFeature">
+                                <span class="material-symbols-outlined iconFeature">
+                                    feature_search
+                                </span>
+                            </button>
+                        </div>
+                    </td>
+                    <td><p class="statusBacklog">Backlog</p></td>
+                    <td>
+                        <span class="material-symbols-outlined iconScrumFalse">
+                            close
+                        </span>
+                    </td>
+                    <td>
+                        <button class="buttonClicMePerson">
+                            <span class="material-symbols-outlined iconPerson">
+                            group
+                            </span>
+                        </button>
+                    </td>
+                    <td>
+                        <div class="containerIndicadorCronograma">                           
+                            <div class="indicadorCronogramaFullDelay"><progress class="red chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="red chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="red chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">                        
+                            <!-- Button trigger modal Backlog-->
+                            
+                            <button type="button" class="buttonClicMeEditProject" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <span class="material-symbols-outlined clicMeEditProject" >
+                                    edit
+                                </span>
+                            </button>
+                            <button type="button" class="buttonClicMeSendProject" data-bs-toggle="modal" data-bs-target="">
+                                <span class="material-symbols-outlined clicMeSendProject">
+                                    publish
+                                </span>
+                            </button>
+                            <!-- Modal modificar caracteristicas Backlog-->
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Proyecto en Curso</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">                                                                                                
+                                        <div class="container ">
+                                            <div class="row containerTitlesViewProjectFlow">
+                                                <p class="col-md-3"><b>SDATOOL-001</b></p>
+                                                <p class="col-md-7"><b>Proyecto Gestor documental y distribuido</b></p>
+                                                <p class="col-md-2 statusFlowModal">Flow</p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5 containerDescriptionProjectFlow">
+                                                    <p class="scrollVerticalDescriptionFlow"><b>Descripción:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi aperiam dolores praesentium accusamus eos odit expedita veniam in dolor, facere fugiat magnam repellendus quae dicta deserunt temporibus sunt hic iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, nesciunt suscipit. Fugit eius repellendus corporis ratione aperiam numquam dolorum corrupti unde non dolore officiis, eveniet voluptatibus consequuntur, nesciunt optio omnis?</p>
+                                                </div>
+                                                <div class="col-md-4 containerDescriptionProjectFlow">
+                                                    <p><b>Owner:</b> product.owner@bbva.com</p>
+                                                    <p><b>Tipo:</b> Normativo</p>
+                                                    <p><b>Scrum:</b> Si</p> 
+                                                    <p><b>Features:</b> FT001A</p>
+                                                    <p><b>Customer:</b> CM001A</p>     
+                                                </div>
+                                                <div class="col-md-3 containerDescriptionProjectFlow">
+                                                    <p><b>Periodo de ejecución:</b></p>
+                                                    <br>
+                                                    <ul>
+                                                        <li><b>Inicio:</b> 2Q 2023</li>
+                                                        <li><b>Fin:</b> 4Q 2023</li>
+                                                    </ul>                   
+                                                </div>
+                                            </div>
+                                            <div class="horizontalScrollableViewPersonFlow">                    
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 1</p>
+                                                    <p class="personNameFlow">Danie Alejandro Larrota Moreno</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>                                            
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 2</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 3</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 4</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 5</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 6</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 7</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 8</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 9</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>
+                                                <div class="containerPersonViewFlow">
+                                                    <p class="personCodeFlow">Code 10</p>
+                                                    <p class="personNameFlow">Name developer</p>
+                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                </div>                                                                             
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>                        
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>SDATOOL-005</td>
+                    <td>Proyecto 5</td>
+                    <td>
+                        <div class="containerFeature">
+                            <p>2 ...</p>
+                            <button class="buttonClicMeFeature">
+                                <span class="material-symbols-outlined iconFeature">
+                                    feature_search
+                                </span>
+                            </button>
+                        </div>
+                    </td>
+                    <td><p class="statusBacklog">Backlog</p></td>
+                    <td>
+                        <span class="material-symbols-outlined iconScrumFalse">
+                            close
+                        </span>
+                    </td>
+                    <td>
+                        <button class="buttonClicMePerson">
+                            <span class="material-symbols-outlined iconPerson">
+                            group
+                            </span>
+                        </button>
+                    </td>
+                    <td>
+                        <div class="containerIndicadorCronograma">                           
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay" ><progress class="red chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaNextYear"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="buttonClicMeEditProject">
+                            <span class="material-symbols-outlined clicMeEditProject" >
+                                edit
+                            </span>
+                        </button>
+                        <button class="buttonClicMeSendProject">
+                            <span class="material-symbols-outlined clicMeSendProject" >
+                                publish
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>SDATOOL-006</td>
+                    <td>Proyecto 6</td>
+                    <td>
+                        <div class="containerFeature">
+                            <p>2 ...</p>
+                            <button class="buttonClicMeFeature">
+                                <span class="material-symbols-outlined iconFeature">
+                                    feature_search
+                                </span>
+                            </button>
+                        </div>
+                    </td>
+                    <td><p class="statusBacklog">Backlog</p></td>
+                    <td>
+                        <span class="material-symbols-outlined iconScrumTrue">
+                            check
+                        </span>
+                    </td>
+                    <td>
+                        <button class="buttonClicMePerson">
+                            <span class="material-symbols-outlined iconPerson">
+                            group
+                            </span>
+                        </button>
+                    </td>
+                    <td>
+                        <div class="containerIndicadorCronograma">                           
+                            <div class="indicadorCronogramaEmpty" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="red chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="red chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaEmpty" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="buttonClicMeEditProject">
+                            <span class="material-symbols-outlined clicMeEditProject" >
+                                edit
+                            </span>
+                        </button>
+                        <button class="buttonClicMeSendProject">
+                            <span class="material-symbols-outlined clicMeSendProject" >
+                                publish
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

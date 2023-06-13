@@ -35,8 +35,8 @@
         <!--Diagramas de barras(Servicios)-->
         <div class="col-6 col-md-6 d-flex align-items-stretch flex-column containerDiagramaHorizontal">
             <div class="chartHorizontal">
-                <form method="post" action="/direccion">   
-                    <select name="direccion" id="direccion" class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="updateSelect()">
+                <form>   
+                    <select id="direccion" class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="updateSelect()">
                         <option>Seleccione una Dirección</option>
                         {{#each direccion}}
                         <option value="{{direccion}}">{{direccion}}</option>
@@ -54,7 +54,6 @@
                     <h5 id="cambio" style="margin-bottom: 60px;">Dirección</h5>
                 </form>
                 <canvas id="serviciosChart"></canvas>
-                <div id="figuras" onload="mostrarImagen('{{servicios}}', {{cantidades}})"></div>
             </div>
         </div>
         <!--Diagramas de Carta de Radar(Tecnologías)-->
@@ -73,6 +72,9 @@
                             document.getElementById("change").innerHTML = "Servicio "+valor;
                         }
                     </script>
+                    <button type="submit" class="btn btn-primary">
+                                    Seleccionar
+                                </button>
                     <h5 id="change">Servicio</h5>
                 </form>
                 <canvas id="tecnologiasChart"></canvas>
@@ -84,19 +86,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
     <script>
-        function mostrarImagen(servicios,cantidades){
-            //Script del diagrama de barras horizontal
-            const ctx = document.getElementById('serviciosChart');
-            const arreglo = 'servicios';
-            let labels_servicio = arreglo.trim().split(',');
-            console.log(labels_servicio);
+        const ctx = document.getElementById('serviciosChart');
                 new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: labels_servicio,
+                        labels: ['Accounts', 'BPM', 'Gestor Doc. y SSDD', 'Personas y Arq. Host', 'Ventas Asis CAP', 'Loans', 'Payments'],
                         datasets: [{
                             label: 'Cantidad de Proyectos',
-                            data: [cantidades],
+                            data: [8, 4, 4, 6, 9, 1, 5],
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(255, 159, 64, 0.2)',
@@ -127,7 +124,6 @@
                         }
                     }
                 });
-        }
     </script>
     <script>//Script del diagrama de carta de radar
     
