@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Montserrat:wght@200;300&family=Open+Sans&display=swap');
+/* <------------------ 1. Estilos generales -------------> */
+*{
+    /*font-family: 'EB Garamond', serif;*/
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+}
+p{
+    margin: 0;
+}
+
+.containerPrincipal{
+    margin: 30px;
+    border: 2px solid #004481;
+    border-radius: 5px;
+    min-width: 576px;
+    text-align: center;
+}
+.principalTitlesTable{
+    background: #004481;
+}
+.principalTitlesTable th{
+    font-size: 15px;
+    color: white;
+}
+.containerFeature{
+    display: inline-flex;
+}
+.iconFeature{
+    margin-left: 4px;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 300,
+        'GRAD' 0,
+        'opsz' 20;
+    font-size: 18px;
+    color: #00a35f;
+}
+.buttonClicMeFeature{
+    border: none;
+    background: none;
+}
+.iconFeature:hover {
+    background: rgba(205, 255, 195, 0.473);
+    border-radius: 50%;
+}
+/*<--- 1.1. Sección Header --->*/
+header{
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+body{
+    margin-top: 140px;
+}
+#superiorContainer{
+    background-color: #072146;
+    width: 100%;
+    height: 55px;
+}
+#menusContainer{
+    background-color: #043263;
+    width: 100%;
+    height: 55px;
+    display: flex;
+    align-items: center;
+}
+#listMenuContainer{
+    display: flex;
+    margin: 0px auto;
+    list-style: none;
+}
+#titleHeader{
+    color: white;
+    margin: 0 0 0 30px;
+}
+.titleMenus{
+    color: white;
+    margin: 0 0 0 30px;
+}
+.containerTitleTrimestre{
+    width: 68px; 
+    height: auto; 
+    border: none; 
+    display: inline-block;
+}
+/* <-------------------- 2. Estilos proyectos en "Flow" ---------------> */
+.containerGeneralProjectFlow{
+    height: 180px;
+}
+.statusFlow{
+    background: #028484;
+    padding: 2px 4px 2px 4px;
+    border-radius: 16px;
+    color: aliceblue;
+    width: 80px;
+    text-align: center;
+    margin: 0 auto;
+}
+.containerIndicadorCronograma{
+    display: inline-flex; 
+    margin: 8px auto; 
+    align-items: center;
+}
+.indicadorCronogramaFull{
+    width: 68px; 
+    height: 22px; 
+    text-align: center; 
+    border: 1px solid #0145ff; 
+    border-radius: 11px;
+}
+.indicadorCronogramaFullDelay{
+    width: 68px; 
+    height: 22px; 
+    text-align: center; 
+    border: 1px solid #c50202; 
+    border-radius: 11px;
+}
+.indicadorCronogramaEmpty{
+    width: 68px; 
+    height: 22px; 
+    text-align: center; 
+    border: none;
+}
+.indicadorCronogramaNextYear{
+    width: 68px; 
+    height: 22px; 
+    text-align: center; 
+    border: 1px solid #01ad96;
+    border-radius: 11px;
+}
+.chartProgress{
+    width: 60px; 
+    height: 20px;
+}
+.separadorCronograma{
+    color: rgb(0, 183, 255);
+}
+/* <-- Clases colores barras cronograma --> */
+.progress{
+    border: none;
+}
+.red{
+    accent-color: rgba(255, 1, 1, 0.671);
+}
+.lightBlue{
+    accent-color: rgba(71, 203, 255, 0.801);
+}
+.orange{
+    accent-color: #C07B00;
+}
+.green {
+    accent-color: green;
+}
+/* <-- Botón ver personas --> */
+.iconPerson{
+    color: #1973b8;
+    font-variation-settings:
+        'FILL' 60,
+        'wght' 500,
+        'GRAD' 0,
+        'opsz' 20;
+}
+.buttonClicMePerson{
+    border: none;
+    background: none;
+}
+.iconPerson:hover {
+    background: rgba(158, 158, 158, 0.267);
+    border-radius: 50%;
+}
+.iconScrumTrue {
+    margin-left: 15px;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 300,
+        'GRAD' 0,
+        'opsz' 20;
+    font-size: 24px;
+    color: #00a35f;
+}
+.iconScrumFalse {
+    margin-left: 15px;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 300,
+        'GRAD' 0,
+        'opsz' 20;
+    font-size: 20px;
+    color: #c50202;
+}
+/* <-- Botón ver proyecto --> */
+.buttonClicMeSeeProject{
+    border: none;
+    background: none;
+}
+.clicMeSeeProject{
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 360,
+        'GRAD' 0,
+        'opsz' 20;
+    font-size: 20px; 
+    color: #1973b8;
+} 
+.clicMeSeeProject:hover{
+    background: rgba(168, 240, 253, 0.329);
+    border-radius: 50%;
+}  
+/* <--- 2.1. Estilos modal ver proyectos en curso ---> */
+.modal-title{
+    margin-left: 20px;
+    font-weight: bolder;
+}
+.horizontalScrollableViewPersonFlow{
+    overflow-x: auto;
+    margin: 20px 0;
+    white-space: nowrap;
+    display: inline-flex;
+    float: none;
+    width: 100%;
+}
+.containerTitlesViewProjectFlow{
+    display:flex;
+    margin-bottom: 15px;
+}
+.statusFlowModal{
+    height: 22px;
+    background: #028484;
+    padding: 2px 4px 2px 4px;
+    border-radius: 16px;
+    color: aliceblue;
+    width: 80px;
+    text-align: center;
+    margin: 0 auto;
+}
+.containerDescriptionProjectFlow{
+    text-align: justify;
+    
+}
+.containerDescriptionProjectFlow p{
+    margin: 0;
+}
+.scrollVerticalDescriptionFlow{
+    width:auto;
+    height:120px;
+    overflow:scroll;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+.containerPersonViewFlow{
+    margin: 12px;
+    padding: 6px 12px;
+    border: 2px solid #00a35f;
+    border-radius: 12px;
+    display: inline-block;
+    text-align: center;
+}
+.imagePersonFlow{
+    width: auto;
+    height: 40px;
+    border-radius: 50%;
+}
+.descriptionPersonFlow{
+    margin: 0;
+    padding: 0;
+
+}
+.personCodeFlow, .descriptionPersonFlow, .personNameFlow{
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+}
+.imagePersonFlow{
+    margin: 8px 6px 6px 6px;
+}
+.personCodeFlow{
+    font-weight: bolder;
+}
+.personNameFlow{
+    width: 100px;
+    height: auto;
+    white-space: pre-wrap;
+}
+/* <-------------------- 3. Estilos proyectos en "Backlog" ---------------> */
+.statusBacklog{
+    background:  rgb(209, 34, 34);
+    padding: 2px 4px 2px 4px;
+    border-radius: 16px;
+    color: aliceblue;
+    width: 80px;
+    text-align: center;
+    margin: 0 auto;
+}
+/* <-- Botón editar proyecto --> */
+.buttonClicMeEditProject{
+    border: none;
+    background: none;
+}
+.clicMeEditProject{
+    font-variation-settings:
+        'FILL' 60,
+        'wght' 300,
+        'GRAD' 0,
+        'opsz' 20;
+    font-size: 20px;
+    color: rgba(192, 10, 10, 0.911);    
+}
+.clicMeEditProject:hover{
+    background: rgba(253, 168, 168, 0.329);
+    border-radius: 50%;
+}
+/* <-- Botón enviar proyecto de backlog a flow--> */
+.buttonClicMeSendProject{
+    border: none;
+    background: none;
+}
+.clicMeSendProject{
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 20;
+    font-size: 22px;
+    color: #028484;
+}
+.clicMeSendProject:hover{
+    background: rgba(168, 240, 253, 0.329);
+    border-radius: 50%;
+}
+/* <-------------- 4. Estilos "Modal" ver proyecto Flow ----------------> */
+
+/* <-------------- 5. Estilos "Modal" editar proyecto Backlog ----------> */
+
+/* <-------------- 6. Estilos "Modal" enviar proyecto Backlog ----------> */
