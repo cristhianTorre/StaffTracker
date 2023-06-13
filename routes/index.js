@@ -3,9 +3,16 @@ var router = express.Router();
 var funciones = require('./funciones');
 const connect = require('./connect');
 
+/*
+ * Redirecciona la página para que haya un logueo de parte del usuario 
+ */
 router.get('/', function(req, res){
     return res.redirect('/login');
 });
+
+/*
+ * Carga la página de proyectos accediendo a la base de datos
+ */
 
 router.get('/proyectos', function (req, res) {
     var jefe = req.session.codigo;
@@ -20,6 +27,9 @@ router.get('/proyectos', function (req, res) {
     });
 });
 
+/*
+ * Carga proyectos de acuerdo a la dirección y servicio seleccionado
+ */
 
 router.post('/proyectos-post', function (req, res) {
     var jefe = req.session.codigo;
@@ -34,6 +44,10 @@ router.post('/proyectos-post', function (req, res) {
         res.render('index', { proyectos: funciones.getProyectos(JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[2])), direccionNueva, servicioNueva), backlog: funciones.getNewsProyectos(JSON.parse(JSON.stringify(results[2])), JSON.parse(JSON.stringify(results[1])), JSON.parse(JSON.stringify(results[3])), jefe), direccion: funciones.getDirecciones(JSON.parse(JSON.stringify(results[0]))), servicio: funciones.getServicios(JSON.parse(JSON.stringify(results[0]))) });
     });
 });
+
+/*
+ * Enviar proyectos del backlog a proyectos en curso
+ */
 
 router.post('/actualizar', function (req, res) {
     var id = req.body.proyecto;
@@ -51,6 +65,11 @@ router.post('/actualizar', function (req, res) {
     });
 });
 
+
+/*
+ * Carga la pagina de personas
+ */
+
 router.get('/personas', function (req, res) {
     var jefe = req.session.codigo;
     var seleccion = ['SELECT id_direccion, direccion FROM parametros GROUP BY id_direccion',
@@ -62,6 +81,11 @@ router.get('/personas', function (req, res) {
         res.render('personas', { direccion: JSON.parse(JSON.stringify(results[0])), servicio: JSON.parse(JSON.stringify(results[1])), persona: funciones.obtenerProyectos(JSON.parse(JSON.stringify(results[3])), JSON.parse(JSON.stringify(results[2]))) });
     });
 });
+
+
+/*
+ * Carga la página de personas de acuerdo a la dirección y servicio seleccionado
+ */
 
 router.post('/personas-post', function (req, res) {
     var direccion = req.body.direccion;
@@ -75,6 +99,12 @@ router.post('/personas-post', function (req, res) {
         res.render('personas', { direccion: JSON.parse(JSON.stringify(results[0])), servicio: JSON.parse(JSON.stringify(results[1])), persona: funciones.obtenerProyectos(JSON.parse(JSON.stringify(results[3])), JSON.parse(JSON.stringify(results[2]))) });
     });
 });
+
+
+/*
+ * Envía los empleados al empleado seleccionado
+ * Actualiza la fecha de inicio y fin del proyecto seleccionado
+ */
 
 router.post('/guardar', function (req, res) {
     var dedicaciones = req.body.dedicacion;
@@ -103,6 +133,10 @@ router.post('/guardar', function (req, res) {
     });
 });
 
+/*
+ * Elimina un miembro del proyecto seleccionado 
+ */
+
 router.get('/eliminar', function (req, res) {
     var id = req.body.id;
     connect.conexion.query("delete from staffing where id=?", [id], function (err, rows, fields) {
@@ -119,6 +153,10 @@ router.get('/eliminar', function (req, res) {
 
 });
 
+/*
+ * Carga la página de inicio 
+ */
+
 router.get('/inicio', function (req, res) {
     var consulta = ['SELECT id_direccion, direccion FROM parametros GROUP BY id_direccion',
                     'SELECT id, servicio FROM parametros'];
@@ -127,9 +165,17 @@ router.get('/inicio', function (req, res) {
     });
 });
 
+/*
+ * Carga la página de logueo
+ */
+
 router.get('/login', function (req, res, next) {
     res.render('login');
 });
+
+/*
+ * Hace la validación correspondiente al correcto logueo del usuario 
+ */
 
 router.post('/login', function (req, res, next) {
     var codigo = req.body.codigo;
@@ -152,10 +198,18 @@ router.post('/login', function (req, res, next) {
     });
 });
 
+/*
+ * Cierra la sesión iniciada por el usuario
+ */
+
 router.post('/logout', function (req, res, next) {
     req.session.destroy();
     res.render('login');
 });
+
+/*
+ * Carga los gráficos de la página de inicio 
+ */
 
 router.post('/direccion', function (req,res,next) {
     var direccion = req.body.direccion;

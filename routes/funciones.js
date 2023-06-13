@@ -1,6 +1,11 @@
 
-
-//Mostrar listado de personas acargo
+/**
+ * Muestra las personas a cargo y sus habilidades en las tecnologías del banco
+ * @param {JSON} json 
+ * @param {JSON} staffing 
+ * @param {String} codigoJefe 
+ * @returns 
+ */
 function nuevosIntegrantes(json, staffing, codigoJefe){
     let leerStaff = json;
     let nuevos = [];
@@ -12,7 +17,14 @@ function nuevosIntegrantes(json, staffing, codigoJefe){
     return nuevos;
 }
 
-//Backlog
+/**
+ * Obtiene los proyectos que están en el backlog (estado=stock)
+ * @param {JSON} json 
+ * @param {JSON} staffing 
+ * @param {JSON} staff 
+ * @param {String} jefe 
+ * @returns 
+ */
 function getNewsProyectos(json, staffing, staff, jefe){
     let leerProyectos = json;
     let backlog = [];
@@ -24,7 +36,14 @@ function getNewsProyectos(json, staffing, staff, jefe){
     return backlog;
 }
 
-//Staffing - proyectos con sus respectivos empleados y cronograma
+/**
+ * Muestra los proyectos con sus respectivos empleados y cronograma
+ * @param {JSON} json 
+ * @param {JSON} proyecto 
+ * @param {String} direccion 
+ * @param {String} servicio 
+ * @returns 
+ */
 function getProyectos(json, proyecto, direccion, servicio){
     let leerStaffing = json;
     let proyectos = [];
@@ -42,6 +61,12 @@ function getProyectos(json, proyecto, direccion, servicio){
     return informacion;
 }
 
+/**
+ * Consulta si una persona está ocupada
+ * @param {JSON} json 
+ * @param {String} codigo 
+ * @returns 
+ */
 function estaOcupado(json, codigo){
     let leerStaffing = json;
     var suma = 0;
@@ -53,6 +78,12 @@ function estaOcupado(json, codigo){
     return suma;
 }
 
+/**
+ * Consulta si el proyecto tiene como estado Flow
+ * @param {JSON} json 
+ * @param {String} proyecto 
+ * @returns 
+ */
 function getStatusFlow(json, proyecto){
     let leerProyectos = json;
     for(const itemFila of leerProyectos){
@@ -63,10 +94,16 @@ function getStatusFlow(json, proyecto){
     return false;
 }
 
+/**
+ * Obtiene el identificador del proyecto buscado
+ * @param {JSON} json1 
+ * @param {JSON} json2 
+ * @param {String} proyecto 
+ * @returns 
+ */
 function staffingProject(json1, json2, proyecto){
     let leerStaffing = json1;
     let leerProyectos = json2;
-    console.log(proyecto);
     for(const itemFila of leerStaffing){
         if(itemFila['proyecto'] == proyecto){
             for(const item of leerProyectos){
@@ -78,6 +115,12 @@ function staffingProject(json1, json2, proyecto){
     }
 }
 
+/**
+ * Revisa si el identificador del item se encuentra dentro del arreglo
+ * @param {Number} proj 
+ * @param {Array} arreg 
+ * @returns 
+ */
 function inArreglo(proj,arreg){
     for(var i = 0; i<arreg.length; i++){
         if(Object.is(arreg[i], proj)){
@@ -87,6 +130,12 @@ function inArreglo(proj,arreg){
     return true;
 }
 
+/**
+ * Obtiene los empleados del proyecto seleccionado
+ * @param {JSON} json 
+ * @param {String} proyecto 
+ * @returns 
+ */
 function getEmpleados(json, proyecto){
     let leerStaffing = json;
     let empleados = [];
@@ -98,6 +147,12 @@ function getEmpleados(json, proyecto){
     return empleados;
 }
 
+/**
+ * Obtiene la información del proyecto seleccionado
+ * @param {JSON} json 
+ * @param {String} proyecto 
+ * @returns 
+ */
 function consultaInformacionProyecto(json, proyecto){
     let leerProyectos = json;
     let informacion = {};
@@ -109,6 +164,11 @@ function consultaInformacionProyecto(json, proyecto){
     return informacion;
 }
 
+/**
+ * Obtiene las direcciones del banco
+ * @param {JSON} json 
+ * @returns 
+ */
 function getDirecciones(json){
     let leerParametros = json;
     let direcciones = [];
@@ -122,7 +182,11 @@ function getDirecciones(json){
     return direcciones;
 }
 
-
+/**
+ * Obtiene los servicios de cada una de las direcciones
+ * @param {JSON} json 
+ * @returns 
+ */
 function getServicios(json){
     let leerParametros = json;
     let servicios = [];
@@ -147,7 +211,12 @@ function getProyectosJefe(jefe){
     return informacion;
 }
 
-//Obtener el jefe 
+/**
+ * Obtiene el jefe de la persona solicitada
+ * @param {JSON} json 
+ * @param {String} codigo 
+ * @returns 
+ */
 function getBoss(json, codigo) {
     let leerStaff = json;
     for(const itemFila of leerStaff){
@@ -158,21 +227,11 @@ function getBoss(json, codigo) {
     return 'No tiene jefe';
 }
 
-
-function staffingProject(json1, json2, proyecto){
-    let leerStaffing =  json1;
-    let leerProyectos = json2;
-    for(const itemFila of leerStaffing){
-        if(itemFila['proyecto'] == proyecto){
-            for(const item of leerProyectos){
-                if(item['projectidname'] == proyecto){
-                    return item['id'];
-                }
-            }
-        }
-    }
-}
-
+/**
+ * Convierte el formato cuartil en la primera fecha del cuartil mencionado
+ * @param {String} cuartil 
+ * @returns 
+ */
 function conversion_fecha_inicial(cuartil){
     if(cuartil[0] == "1"){
         return cuartil.substring(cuartil.length - 4, cuartil.length) + "/01/01";
@@ -185,6 +244,11 @@ function conversion_fecha_inicial(cuartil){
     }
 }
 
+/**
+ * Convierte el formato cuartil en la última fecha del cuartil mencionado
+ * @param {String} cuartil 
+ * @returns 
+ */
 function conversion_fecha_final(cuartil){
     if(cuartil[0] == "1"){
         return cuartil.substring(cuartil.length - 4, cuartil.length) + "/03/31";
@@ -197,6 +261,12 @@ function conversion_fecha_final(cuartil){
     }
 }
 
+/**
+ * Obtiene el porcentaje del tiempo transcurrido de acuerdo a la fecha inicial y final
+ * @param {String} fechaini 
+ * @param {String} fechafin 
+ * @returns 
+ */
 function progreso(fechaini, fechafin){
     let convertirini = new Date(fechaini).getTime();
     let convertirfin = new Date(fechafin).getTime();
@@ -206,6 +276,12 @@ function progreso(fechaini, fechafin){
     return Math.round(porcentaje);
 }
 
+/**
+ * Obtiene los proyectos y la dedicación del empleado asociada al mismo 
+ * @param {JSON} staffing 
+ * @param {JSON} principal 
+ * @returns 
+ */
 function obtenerProyectos(staffing, principal){
     for(const itemFila of principal){
         let proyectos = [];
@@ -219,6 +295,11 @@ function obtenerProyectos(staffing, principal){
     return principal;
 }
 
+/**
+ * Genera el número de color correspondiente al porcentaje marcado
+ * @param {Number} porcentaje 
+ * @returns 
+ */
 function obtenerColor(porcentaje){
     if(porcentaje <=  0){
         return '#F6775C';
@@ -229,6 +310,10 @@ function obtenerColor(porcentaje){
     }
 }
 
+/**
+ * Obtiene el cuartil de la fecha de hoy
+ * @returns 
+ */
 function getQuartilHoy(){
     const tiempoTranscurrido = Date.now();
     const hoy = new Date(tiempoTranscurrido);
@@ -245,6 +330,13 @@ function getQuartilHoy(){
     }
 }
 
+/**
+ * Revisa si el cuartil marcado está entre los cuartiles inicial y final
+ * @param {String} inicio 
+ * @param {String} fin 
+ * @param {String} cuartil 
+ * @returns 
+ */
 function entreCuartiles(inicio, fin, cuartil){
     let listadoCuartiles = obtenerListadoCuartiles(inicio, fin);
     if(listadoCuartiles.includes(cuartil)){
