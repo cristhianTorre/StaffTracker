@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var funciones = require('./funciones');
 const connect = require('./connect');
+const cron = require('node-cron');
+const reglas = require('./businessRules');
 
 /*
  * Redirecciona la página para que haya un logueo de parte del usuario 
@@ -232,5 +234,31 @@ router.post('/direccion', function (req,res,next) {
         res.render("inicio", {servicios:service, cantidades:cantidad, direccion: JSON.parse(JSON.stringify(results[0])), servicio: JSON.parse(JSON.stringify(results[1]))});
     });
 });
+
+router.get('/features', function (req,res,next){
+    let jefe = req.session.codigo;
+    let features_consulta = 'SELECT * FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona WHERE personas.superior = ? AND features.estado = "Flow"';
+    let personas_habilidades = 'SELECT * FROM personas INNER JOIN porcentajes_asociados ON personas.codigo = porcentajes_asociados.codigo';
+    let consultas = [features_consulta, personas_habilidades];
+    connect.conexion.query(consultas.join(';'), [jefe], function (error, results, fields){
+        let resultadoUno = JSON.parse(JSON.stringify(results[0]));
+        let resultadoDos = JSON.parse(JSON.stringify(results[1]));
+        res.render("features", {features: resultadoUno, habilidades: resultadoDos});
+    });
+});
+
+cron.schedule("* * 1 * *", function () {
+    reglas.set_internos_externos_cero();
+    reglas.set_ocupacion_cero();
+    let tablas = ['SELECT * FROM staffing',
+                'SELECT * FROM features',
+                'SELECT * FROM personas'];
+    connect.conexion.query(tablas.join(';'), function (error, results, fields) {
+        const staffing = JSON.parse(JSON.stringify(results[0]));
+        const features = JSON.parse(JSON.stringify(results[1]));
+        const personas = JSON.parse(JSON.stringify(results[2]));
+        reglas.actualizar_ocupacion_actual(staffing, features, personas);
+    });
+  });
 
 module.exports = router;
