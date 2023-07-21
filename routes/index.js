@@ -182,7 +182,7 @@ router.get('/login', function (req, res, next) {
 router.post('/login', function (req, res, next) {
     var codigo = req.body.codigo;
     var clave = req.body.clave;
-    var credencial = 'SELECT codigo, password FROM usuarios where codigo=? AND password=?';
+    var credencial = 'SELECT codigo, clave FROM usuarios where codigo=? AND clave=?';
     connect.conexion.query(credencial, [codigo, clave], function (error, results, fields) {
         if (!!error) {
             console.log('Error', +error);
@@ -190,12 +190,12 @@ router.post('/login', function (req, res, next) {
         else if (results[0].codigo == undefined) {
             console.log("Usted no está registrado");
         }
-        else if (results[0].password == undefined) {
+        else if (results[0].clave == undefined) {
             console.log("Contraseña invalida");
         } else
         {
             req.session.codigo = req.body.codigo;
-            return res.redirect('/inicio');
+            return res.redirect('/features');
         }
     });
 });
@@ -237,13 +237,14 @@ router.post('/direccion', function (req,res,next) {
 
 router.get('/features', function (req,res,next){
     let jefe = req.session.codigo;
-    let features_consulta = 'SELECT * FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona WHERE personas.superior = ? AND features.estado = "Flow"';
+    const cuartiles = funciones.getCuartilesEncabezado();
+    let features_consulta = 'SELECT * FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona WHERE personas.superior = ? AND features.estado != "Closed"';
     let personas_habilidades = 'SELECT * FROM personas INNER JOIN porcentajes_asociados ON personas.codigo = porcentajes_asociados.codigo';
     let consultas = [features_consulta, personas_habilidades];
     connect.conexion.query(consultas.join(';'), [jefe], function (error, results, fields){
         let resultadoUno = JSON.parse(JSON.stringify(results[0]));
         let resultadoDos = JSON.parse(JSON.stringify(results[1]));
-        res.render("features", {features: resultadoUno, habilidades: resultadoDos});
+        res.render("personasST", {features: resultadoUno, habilidades: resultadoDos, qtiles: cuartiles});
     });
 });
 

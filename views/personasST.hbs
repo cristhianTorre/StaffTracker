@@ -39,27 +39,27 @@
                         <div class="indicadorCronograma" style="display: inline-flex; margin: 0px auto; align-items: center;">                           
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px; color: transparent;">-</p>
-                                <p style="font-size: 10px;">1Q</p>
+                                <p style="font-size: 10px;">{{qtiles.primero}}</p>
                             </div><p style="color: transparent;">---</p>
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px; color: transparent;">-</p>
-                                <p style="font-size: 10px;">2Q</p>
+                                <p style="font-size: 10px;">{{qtiles.segundo}}</p>
                             </div><p style="color: transparent;">---</p>
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px;">2023</p>
-                                <p style="font-size: 10px;">3Q</p>
+                                <p style="font-size: 10px;">{{qtiles.tercero}}</p>
                             </div><p style="color: transparent;">---</p>
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px; color: transparent;">-</p>
-                                <p style="font-size: 10px;">4Q</p>
+                                <p style="font-size: 10px;">{{qtiles.cuarto}}</p>
                             </div><p style="color: transparent;">---</p>
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px; color: transparent;">-</p>
-                                <p style="font-size: 10px;">1Q</p>
+                                <p style="font-size: 10px;">{{qtiles.quinto}}</p>
                             </div><p style="color: transparent;">---</p>
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px; color: transparent;">-</p>
-                                <p style="font-size: 10px;">2Q</p>
+                                <p style="font-size: 10px;">{{qtiles.sexto}}</p>
                             </div><p style="color: transparent;">---</p>
                         </div>
                     </th>
@@ -67,11 +67,12 @@
                 </tr>
             </thead>
             <!-- Contenido de proyectos en "Flow" -->
-            <tbody id="containerGeneralProjectFlow">                
+            <tbody id="containerGeneralProjectFlow">
+                {{#each features}}                
                 <tr>
-                    <th scope="row">1</th>
-                    <td>SDATOOL-001</td>
-                    <td>Proyecto 1</td>
+                    <th scope="row">{{id}}</th>
+                    <td>{{codigo}}</td>
+                    <td>{{nombre}}</td>
                     <td>
                         <div class="containerFeature">
                             <p>2 ...</p>
@@ -232,6 +233,7 @@
                         </div>
                     </td>
                 </tr>
+                {{/each}}
                 <tr>
                     <th scope="row">2</th>
                     <td>SDATOOL-002</td>
