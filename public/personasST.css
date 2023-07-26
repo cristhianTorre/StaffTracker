@@ -26,7 +26,7 @@ p{
     color: white;
 }
 .containerFeature{
-    display: inline-flex;
+    margin: 15px 0 40px 0;
 }
 .iconFeature{
     margin-left: 4px;
@@ -90,17 +90,28 @@ body{
     display: inline-block;
 }
 /* <-------------------- 2. Estilos proyectos en "Flow" ---------------> */
-.containerGeneralProjectFlow{
-    height: 180px;
-}
+/*#containerGeneralProjectFlow{
+    height: 100px;
+    overflow:scroll;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}*/
+/*#containerGeneralPrueba{
+    height: 100px;
+}*/
 .statusFlow{
-    background: #028484;
+    background: #028452;
     padding: 2px 4px 2px 4px;
     border-radius: 16px;
     color: aliceblue;
     width: 80px;
     text-align: center;
     margin: 0 auto;
+}
+.imagePersonView{
+    border-radius: 50%;
+    width: 30px;
+    margin-right: 20px;
 }
 .containerIndicadorCronograma{
     display: inline-flex; 
@@ -118,7 +129,7 @@ body{
     width: 68px; 
     height: 22px; 
     text-align: center; 
-    border: 1px solid #c50202; 
+    border: 1px solid #01ad96; 
     border-radius: 11px;
 }
 .indicadorCronogramaEmpty{
@@ -152,7 +163,7 @@ body{
     accent-color: rgba(71, 203, 255, 0.801);
 }
 .orange{
-    accent-color: #C07B00;
+    accent-color: #028452;
 }
 .green {
     accent-color: green;
@@ -229,6 +240,16 @@ body{
     display:flex;
     margin-bottom: 15px;
 }
+.scrollVerticalModalSee{
+    height: 500px;
+    overflow:scroll;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+.nameFeature, .nameProject{
+    text-align: left; 
+    margin-left: 40px;
+}
 .statusFlowModal{
     height: 22px;
     background: #028484;
@@ -257,7 +278,7 @@ body{
     margin: 12px;
     padding: 6px 12px;
     border: 2px solid #00a35f;
-    border-radius: 12px;
+    border-radius: 18px;
     display: inline-block;
     text-align: center;
 }
@@ -289,7 +310,7 @@ body{
 }
 /* <-------------------- 3. Estilos proyectos en "Backlog" ---------------> */
 .statusBacklog{
-    background:  rgb(209, 34, 34);
+    background:  rgb(0, 161, 167);
     padding: 2px 4px 2px 4px;
     border-radius: 16px;
     color: aliceblue;
@@ -333,8 +354,32 @@ body{
     background: rgba(168, 240, 253, 0.329);
     border-radius: 50%;
 }
-/* <-------------- 4. Estilos "Modal" ver proyecto Flow ----------------> */
+/* <--- 3.1. Estilos "Modal" ver proyecto Flow ---> */
+.statusBacklogModal{
+    height: 22px;
+    background: rgb(209, 34, 34);;
+    padding: 2px 4px 2px 4px;
+    border-radius: 16px;
+    color: aliceblue;
+    width: 80px;
+    text-align: center;
+    margin: 0 auto;
+}
+.titleAddPersonBacklog{
+    text-align: left;
+    margin: 30px 0 0 20px;
+}
+.descriptionAddPersonBacklog{
+    text-align: left;
+    margin-left: 20px;
+}.containerPersonViewBacklog{
+    margin: 12px;
+    padding: 6px 12px;
+    border: 2px solid #f18900;
+    border-radius: 12px;
+    display: inline-block;
+    text-align: center;
+}
+/* <-------------- 4. Estilos "Modal" editar proyecto Backlog ----------> */
 
-/* <-------------- 5. Estilos "Modal" editar proyecto Backlog ----------> */
-
-/* <-------------- 6. Estilos "Modal" enviar proyecto Backlog ----------> */
+/* <-------------- 5. Estilos "Modal" enviar proyecto Backlog ----------> */
