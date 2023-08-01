@@ -445,7 +445,6 @@ function obtenerTercerProximoQuartil(cuartil){
 
 function getCuartilesEncabezado(){
     const cuartilHoy = getQuartilHoy();
-    console.log(cuartilHoy);
     const fecha_inicio = obtenerTercerQuartil(cuartilHoy);
     const fecha = obtenerTercerProximoQuartil(cuartilHoy);
     let listado = obtenerListadoCuartiles(fecha_inicio, fecha);
@@ -453,5 +452,52 @@ function getCuartilesEncabezado(){
     return map;
 }
 
+function getQuartilFecha(fecha){
+    const hoy = new Date(fecha);
+    const year = hoy.getFullYear();
+    const mes = hoy.getMonth() + 1;
+    if(mes < 4){
+        return "1Q "+year.toString();
+    }else if(mes < 7){
+        return "2Q "+year.toString();
+    }else if(mes < 10){
+        return "3Q "+year.toString();
+    }else{
+        return "4Q "+year.toString();
+    }
+}
 
-module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos, getCuartilesEncabezado};
+function organizarPersonas(personas, proyectos){
+    for(const proyecto of proyectos){
+        let listaPersonas = [];
+        for(const persona of personas){
+            if(proyecto['proyecto'] == persona['proyecto']){
+                listaPersonas.push(persona);
+            }
+        }
+        proyecto.personas = listaPersonas;
+        const cronograma = cronogramaFeature(proyecto['fecha_inicio'], proyecto['fecha_fin']);
+        proyecto.quartil_uno = cronograma.primero;
+        proyecto.quartil_dos = cronograma.segundo;
+        proyecto.progreso = progreso(proyecto['fecha_inicio'], proyecto['fecha_fin']);
+    }
+    return proyectos;
+}
+
+function cronogramaFeature(f_inicial, f_final){
+    const q_inicial = getQuartilFecha(f_inicial);
+    const q_final = getQuartilFecha(f_final);
+    let listado = obtenerListadoCuartiles(q_inicial, q_final);
+    let cronograma = getCuartilesEncabezado();
+    let porcentajes = {primero:0, segundo:0}
+    if(listado.includes(cronograma.primero)){
+        porcentajes.primero = 100;
+    }
+    if(listado.includes(cronograma.segundo)){
+        porcentajes.segundo = 100;
+    }
+    return porcentajes;
+}
+
+
+module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos, getCuartilesEncabezado, organizarPersonas};
