@@ -231,14 +231,16 @@
                                                         </ul>               
                                                     </div>
                                                 </div>
-                                            <div class="horizontalScrollableViewPersonFlow">                    
+                                            <div class="horizontalScrollableViewPersonFlow">
+                                                {{#each equipo}}                    
                                                 <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">O003812</p>
-                                                    <p class="personNameFlow">Danie Alejandro Larrota Moreno</p>
+                                                    <p class="personCodeFlow">{{codigo}}</p>
+                                                    <p class="personNameFlow">{{nombre}}</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
-                                                </div>                                            
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: {{ocupacion_total}}%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">{{rol}}</small></p>
+                                                </div>
+                                                {{/each}}                                            
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">O003992</p>
                                                     <p class="personNameFlow">Cristhian Camilo Torres Castro</p>
@@ -304,7 +306,6 @@
                                                 </div>                                                                             
                                             </div>
                                         </div>
-                                        
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
