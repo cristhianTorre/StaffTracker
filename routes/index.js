@@ -238,14 +238,17 @@ router.post('/direccion', function (req,res,next) {
 router.get('/features', function (req,res,next){
     let jefe = req.session.codigo;
     const cuartiles = funciones.getCuartilesEncabezado();
-    let features_proyectos = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" GROUP BY features.id';
-    let features_consulta = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, personas.codigo AS "persona_codigo", personas.nombre AS "persona_nombre", habilidades.nombre AS "habilidad_nombre", staffing.ocupacion, personas.rol FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed"';
+    let features_proyectos = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" GROUP BY features.id AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
+    let features_consulta = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, personas.codigo AS "persona_codigo", personas.nombre AS "persona_nombre", habilidades.nombre AS "habilidad_nombre", staffing.ocupacion, personas.rol FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
     let personas_equipo = 'SELECT * FROM personas WHERE superior = ?';
     let consultas = [features_consulta, personas_equipo, features_proyectos];
     connect.conexion.query(consultas.join(';'), [jefe, jefe, jefe], function (error, results, fields){
         let resultadoUno = JSON.parse(JSON.stringify(results[0]));
         let resultadoDos = JSON.parse(JSON.stringify(results[1]));
         let resultadoTres = JSON.parse(JSON.stringify(results[2]));
+        for(let proyecto of resultadoTres){
+            proyecto.equipo = resultadoDos;
+        }
         res.render("personasST", {features: funciones.organizarPersonas(resultadoUno, resultadoTres), habilidades: resultadoDos, qtiles: cuartiles});
     });
 });
