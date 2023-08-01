@@ -318,7 +318,7 @@ function getQuartilHoy(){
     const tiempoTranscurrido = Date.now();
     const hoy = new Date(tiempoTranscurrido);
     const year = hoy.getFullYear();
-    const mes = hoy.getMonth();
+    const mes = hoy.getMonth() + 1;
     if(mes < 4){
         return "1Q "+year.toString();
     }else if(mes < 7){
@@ -365,7 +365,8 @@ function obtenerListadoCuartiles(inicio, fin){
 }
 
 function obtenerSextoCuartil(cuartil){
-    const valorCuartil = parseInt(cuartil[0]);
+    console.log(cuartil);
+    const valorCuartil = cuartil[0];
     const year = parseInt(valorCuartil.substring(valorCuartil.length - 4, valorCuartil.length));
     const cuartilSexto = '';
     const yearNew = '';
@@ -413,31 +414,90 @@ function obtenerOcupacionByQuartil(staffing, proyectos, codigo, cuartil){
 }
 
 function obtenerTercerQuartil(cuartil){
-    const valorCuartil = parseInt(cuartil[0]);
-    const year = parseInt(valorCuartil.substring(valorCuartil.length - 4, valorCuartil.length));
-    const cuartilSexto = '';
-    const yearNew = '';
-    switch(cuartil){
-        case 1:
-            cuartilSexto = '2';
-            yearNew = (year - 1).toString();
-            break;
-        case 2:
-            cuartilSexto = '3';
-            yearNew = (year - 1).toString();
-            break;
-        case 3:
-            cuartilSexto = '4';
-            yearNew = (year - 1).toString();
-            break;
-        case 4:
-            cuartilSexto = '1';
-            yearNew = year.toString();
-            break;
+    const valorCuartil = cuartil.charAt(0);
+    const year = parseInt(cuartil.substring(cuartil.length - 4, cuartil.length));
+    switch(valorCuartil){
+        case '1':
+            return '3Q '+(year-1).toString();
+        case '2':
+            return '4Q '+(year-1).toString();
+        case '3':
+            return '1Q '+year.toString();
+        case '4':
+            return '2Q '+year.toString();
     }
-    const fecha = cuartilSexto+"Q "+yearNew;
-    return fecha;
+}
+
+function obtenerTercerProximoQuartil(cuartil){
+    const valorCuartil = cuartil.charAt(0);
+    const year = parseInt(cuartil.substring(cuartil.length - 4, cuartil.length));
+    switch(valorCuartil){
+        case '1':
+            return '4Q '+year.toString();
+        case '2':
+            return '1Q '+(year + 1).toString();
+        case '3':
+            return '2Q '+(year + 1).toString();
+        case '4':
+            return '3Q '+(year + 1).toString();
+    }
+}
+
+function getCuartilesEncabezado(){
+    const cuartilHoy = getQuartilHoy();
+    const fecha_inicio = obtenerTercerQuartil(cuartilHoy);
+    const fecha = obtenerTercerProximoQuartil(cuartilHoy);
+    let listado = obtenerListadoCuartiles(fecha_inicio, fecha);
+    let map = {primero:listado[0], segundo:listado[1], tercero:listado[2], cuarto:listado[3], quinto:listado[4], sexto:listado[5]};
+    return map;
+}
+
+function getQuartilFecha(fecha){
+    const hoy = new Date(fecha);
+    const year = hoy.getFullYear();
+    const mes = hoy.getMonth() + 1;
+    if(mes < 4){
+        return "1Q "+year.toString();
+    }else if(mes < 7){
+        return "2Q "+year.toString();
+    }else if(mes < 10){
+        return "3Q "+year.toString();
+    }else{
+        return "4Q "+year.toString();
+    }
+}
+
+function organizarPersonas(personas, proyectos){
+    for(const proyecto of proyectos){
+        let listaPersonas = [];
+        for(const persona of personas){
+            if(proyecto['proyecto'] == persona['proyecto']){
+                listaPersonas.push(persona);
+            }
+        }
+        proyecto.personas = listaPersonas;
+        const cronograma = cronogramaFeature(proyecto['fecha_inicio'], proyecto['fecha_fin']);
+        proyecto.quartil_uno = cronograma.primero;
+        proyecto.quartil_dos = cronograma.segundo;
+        proyecto.progreso = progreso(proyecto['fecha_inicio'], proyecto['fecha_fin']);
+    }
+    return proyectos;
+}
+
+function cronogramaFeature(f_inicial, f_final){
+    const q_inicial = getQuartilFecha(f_inicial);
+    const q_final = getQuartilFecha(f_final);
+    let listado = obtenerListadoCuartiles(q_inicial, q_final);
+    let cronograma = getCuartilesEncabezado();
+    let porcentajes = {primero:0, segundo:0}
+    if(listado.includes(cronograma.primero)){
+        porcentajes.primero = 100;
+    }
+    if(listado.includes(cronograma.segundo)){
+        porcentajes.segundo = 100;
+    }
+    return porcentajes;
 }
 
 
-module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos};
+module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos, getCuartilesEncabezado, organizarPersonas};

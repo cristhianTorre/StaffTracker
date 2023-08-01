@@ -29,9 +29,9 @@
             <thead >
                 <tr class="principalTitlesTable">
                     <th scope="col"><p style="margin-bottom: 8px;">#</p></th>
-                    <th scope="col"><p style="margin-bottom: 8px;">Proyecto</p></th>
-                    <th scope="col"><p style="margin-bottom: 8px;">Título</p></th>
                     <th scope="col"><p style="margin-bottom: 8px;">Feature</p></th>
+                    <th scope="col"><p style="margin-bottom: 8px;">Título</p></th>
+                    <th scope="col"><p style="margin-bottom: 8px;">Proyecto</p></th>
                     <th scope="col"><p style="margin-bottom: 8px;">Estado</p></th>
                     <th scope="col"><p style="margin-bottom: 8px;">Scrum</p></th>
                     <th scope="col"><p style="margin-bottom: 8px;">Personas</p></th>
@@ -39,27 +39,27 @@
                         <div class="indicadorCronograma" style="display: inline-flex; margin: 0px auto; align-items: center;">                           
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px; color: transparent;">-</p>
-                                <p style="font-size: 10px;">1Q</p>
+                                <p style="font-size: 10px;">{{qtiles.primero}}</p>
                             </div><p style="color: transparent;">---</p>
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px; color: transparent;">-</p>
-                                <p style="font-size: 10px;">2Q</p>
+                                <p style="font-size: 10px;">{{qtiles.segundo}}</p>
                             </div><p style="color: transparent;">---</p>
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px;">2023</p>
-                                <p style="font-size: 10px;">3Q</p>
+                                <p style="font-size: 10px;">{{qtiles.tercero}}</p>
                             </div><p style="color: transparent;">---</p>
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px; color: transparent;">-</p>
-                                <p style="font-size: 10px;">4Q</p>
+                                <p style="font-size: 10px;">{{qtiles.cuarto}}</p>
                             </div><p style="color: transparent;">---</p>
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px; color: transparent;">-</p>
-                                <p style="font-size: 10px;">1Q</p>
+                                <p style="font-size: 10px;">{{qtiles.quinto}}</p>
                             </div><p style="color: transparent;">---</p>
                             <div class="containerTitleTrimestre">
                                 <p style="font-size: 10px; color: transparent;">-</p>
-                                <p style="font-size: 10px;">2Q</p>
+                                <p style="font-size: 10px;">{{qtiles.sexto}}</p>
                             </div><p style="color: transparent;">---</p>
                         </div>
                     </th>
@@ -67,39 +67,92 @@
                 </tr>
             </thead>
             <!-- Contenido de proyectos en "Flow" -->
-            <tbody id="containerGeneralProjectFlow">                
+        <div  id="containerGeneralProjectFlow">
+            <tbody id="containerGeneralPrueba">
+                {{#each features}}                
                 <tr>
                     <th scope="row">1</th>
-                    <td>SDATOOL-001</td>
-                    <td>Proyecto 1</td>
-                    <td>
-                        <div class="containerFeature">
-                            <p>2 ...</p>
-                            <button class="buttonClicMeFeature">
-                                <span class="material-symbols-outlined iconFeature">
-                                    feature_search
-                                </span>
-                            </button>
-                        </div>
-                    </td>
-                    <td><p class="statusFlow">Flow</p></td>
+                    <td>{{feature_codigo}}</td>
+                    <td>{{feature_nombre}}</td>
+                    <td>SDATOOL-{{proyecto}}</td>
+                    <td><p class="statusFlow">{{estado}}</p></td>
                     <td>
                         <span class="material-symbols-outlined iconScrumTrue">
                             check
                         </span>
                     </td>
                     <td>
-                        <button class="buttonClicMePerson">
-                            <span class="material-symbols-outlined iconPerson">
-                                group
-                            </span>
-                        </button>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">    
+                            <!-- Button trigger modal -->                    
+                            <button type="button" class="buttonClicMePerson" data-bs-toggle="modal" data-bs-target="#staticIconPerson">
+                                <span class="material-symbols-outlined iconPerson">
+                                    group
+                                </span>
+                            </button>
+                            <!-- Modal ver Personas asociadas a la Feature-->
+                            <div class="modal fade" id="staticIconPerson" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticIconPerson" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticIconPerson">Personas Asociadas a la Feature: </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">                                                                                                
+                                            <div class="container" style="text-align: left;">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Persona</th>
+                                                            <th scope="col">Rol</th>
+                                                            <th scope="col">% de Asignación</th>
+                                                            <th scope="col">Tecnología</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {{#each personas}}
+                                                        <tr>
+                                                            <th scope="row"><img class="imagePersonView" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">{{persona_nombre}}</th>
+                                                            <td>{{rol}}</td>
+                                                            <td>{{ocupacion}}</td>
+                                                            <td>{{habilidad_nombre}}</td>
+                                                        </tr>
+                                                        {{/each}}
+                                                        <tr>
+                                                            <th scope="row"><img class="imagePersonView" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">Cristhian Camilo Torres</th>
+                                                            <td>Desarrollador</td>
+                                                            <td>80</td>
+                                                            <td>Java</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row"><img class="imagePersonView" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">Daniel Alejandro Larrota Moreno</th>
+                                                            <td>Desarrollador</td>
+                                                            <td>80</td>
+                                                            <td>Cells</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row"><img class="imagePersonView" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">Elkin Fidel Ariza</th>
+                                                            <td>Lider</td>
+                                                            <td>100</td>
+                                                            <td>Distribuido</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </td>
                     <td>
                         <div class="containerIndicadorCronograma">                           
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="{{quartil_uno}}" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="{{quartil_dos}}" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="{{progreso}}" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div>
@@ -114,109 +167,139 @@
                                 </span>                            
                             </button>
                             <!-- Modal ver descripción proyectos en Flow-->
-                            <div class="modal fade" id="staticViewFlow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="staticViewFlow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticFlowProject" aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Proyecto en Curso</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h5 class="modal-title" id="staticFlowProject">Proyecto en Curso</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">                                                                                                
-                                        <div class="container ">
+                                    <div class="modal-body scrollVerticalModalSee">                                                                                                
+                                        <div class="containerFeature">
+                                            <h3 style="color:rgb(2, 21, 128); text-align: left; margin: 0 0 15px 20px;">Feature</h3>
                                             <div class="row containerTitlesViewProjectFlow">
-                                                <p class="col-md-3"><b>SDATOOL-001</b></p>
-                                                <p class="col-md-7"><b>Proyecto Gestor documental y distribuido</b></p>
+                                                <p class="col-md-2"><b>COLWSCRM-2287</b></p>
+                                                <p class="col-md-8 nameFeature"><b>Nombre:</b> Plan CRM: MejorasDWP Jurídicos (Pymes, Empresas, Gobiernos)</p>
                                                 <p class="col-md-2 statusFlowModal">Flow</p>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-5 containerDescriptionProjectFlow">
-                                                    <p class="scrollVerticalDescriptionFlow"><b>Descripción:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi aperiam dolores praesentium accusamus eos odit expedita veniam in dolor, facere fugiat magnam repellendus quae dicta deserunt temporibus sunt hic iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, nesciunt suscipit. Fugit eius repellendus corporis ratione aperiam numquam dolorum corrupti unde non dolore officiis, eveniet voluptatibus consequuntur, nesciunt optio omnis?</p>
+                                                    <p><b>Descripción:</b> Mejorar la usabilidad de la plataforma CAP -  Contratación ágil de productos, en la actualidad se realizan 10Mil contrataciones mensuales por esta aplicación, y se requiere llevar al uso del 100% (20.000Mil solicitudes)</p>
                                                 </div>
                                                 <div class="col-md-4 containerDescriptionProjectFlow">
-                                                    <p><b>Owner:</b> product.owner@bbva.com</p>
-                                                    <p><b>Tipo:</b> Normativo</p>
-                                                    <p><b>Scrum:</b> Si</p> 
-                                                    <p><b>Features:</b> FT001A</p>
-                                                    <p><b>Customer:</b> CM001A</p>     
+                                                    <p><b>Tipo:</b> Project</p>
+                                                    <p><b>Estado:</b> Analysing</p> 
+                                                    <p><b>Scrum:</b> si</p>
                                                 </div>
                                                 <div class="col-md-3 containerDescriptionProjectFlow">
                                                     <p><b>Periodo de ejecución:</b></p>
-                                                    <br>
                                                     <ul>
                                                         <li><b>Inicio:</b> 2Q 2023</li>
                                                         <li><b>Fin:</b> 4Q 2023</li>
-                                                    </ul>                   
+                                                    </ul>           
                                                 </div>
                                             </div>
+                                        </div>    
+                                            <div class="container ">
+                                                <h3 style="color:rgb(2, 21, 128); text-align: left; margin: 0 0 15px 20px;">Proyecto</h3>
+                                                <div class="row containerTitlesViewProjectFlow">
+                                                    <p class="col-md-2"><b>SDATOOL-001</b></p>
+                                                    <p class="col-md-8 nameProject"><b>Nombre: </b>Gestor documental y distribuido</p>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-5 containerDescriptionProjectFlow">
+                                                        <p class="scrollVerticalDescriptionFlow"><b>Descripción:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi aperiam dolores praesentium accusamus eos odit expedita veniam in dolor, facere fugiat magnam repellendus quae dicta deserunt temporibus sunt hic iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, nesciunt suscipit. Fugit eius repellendus corporis ratione aperiam numquam dolorum corrupti unde non dolore officiis, eveniet voluptatibus consequuntur, nesciunt optio omnis?</p>
+                                                    </div>
+                                                    <div class="col-md-3 containerDescriptionProjectFlow">
+                                                        <p><b>Costo Total:</b> 30.000.000</p>
+                                                        <p><b>Owner:</b> product.owner@bbva.com</p>
+                                                        <p><b>Tipo:</b> Normativo</p>
+                                                        <p><b>Estado:</b> Flow</p>     
+                                                    </div>
+                                                    <div class="col-md-2 containerDescriptionProjectFlow">
+                                                        <p><b>Periodo de ejecución:</b></p>
+                                                        <ul>
+                                                            <li><b>Inicio:</b> 2Q 2023</li>
+                                                            <li><b>Fin:</b> 4Q 2023</li>
+                                                        </ul>          
+                                                    </div>
+                                                    <div class="col-md-2 containerDescriptionProjectFlow">    
+                                                        <p><b>Features Asociadas:</b></p>
+                                                        <ul>
+                                                            <li>COLW24-A</li>
+                                                            <li>COLW54-B</li>
+                                                        </ul>               
+                                                    </div>
+                                                </div>
                                             <div class="horizontalScrollableViewPersonFlow">                    
                                                 <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 1</p>
+                                                    <p class="personCodeFlow">O003812</p>
                                                     <p class="personNameFlow">Danie Alejandro Larrota Moreno</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>                                            
                                                 <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 2</p>
-                                                    <p class="personNameFlow">Name developer</p>
+                                                    <p class="personCodeFlow">O003992</p>
+                                                    <p class="personNameFlow">Cristhian Camilo Torres Castro</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 3</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 4</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 5</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 6</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 7</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 8</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 9</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 10</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>                                                                             
                                             </div>
@@ -224,7 +307,7 @@
                                         
                                     </div>
                                     <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                                 </div>
@@ -232,19 +315,13 @@
                         </div>
                     </td>
                 </tr>
+                {{/each}}
                 <tr>
                     <th scope="row">2</th>
                     <td>SDATOOL-002</td>
                     <td>Proyecto 2</td>
                     <td>
-                        <div class="containerFeature">
-                            <p>2 ...</p>
-                            <button class="buttonClicMeFeature">
-                                <span class="material-symbols-outlined iconFeature">
-                                    feature_search
-                                </span>
-                            </button>
-                        </div>
+                        <p>COLWSD-01</p>
                     </td>
                     <td><p class="statusFlow">Flow</p></td>
                     <td>
@@ -282,14 +359,7 @@
                     <td>SDATOOL-003</td>
                     <td>Proyecto 3</td>
                     <td>
-                        <div class="containerFeature">
-                            <p>2 ...</p>
-                            <button class="buttonClicMeFeature">
-                                <span class="material-symbols-outlined iconFeature">
-                                    feature_search
-                                </span>
-                            </button>
-                        </div>
+                        <p>COLWSD-01</p>
                     </td>
                     <td><p class="statusFlow">Flow</p></td>
                     <td>
@@ -323,6 +393,7 @@
                     </td>
                 </tr>
             </tbody>
+        </div>
             <!-- Contenido de proyectos en "Backlog" -->
             <tbody>
                 <tr>
@@ -330,14 +401,7 @@
                     <td>SDATOOL-004</td>
                     <td>Proyecto 4</td>
                     <td>
-                        <div class="containerFeature">
-                            <p>2 ...</p>
-                            <button class="buttonClicMeFeature">
-                                <span class="material-symbols-outlined iconFeature">
-                                    feature_search
-                                </span>
-                            </button>
-                        </div>
+                        <p>COLWSD-01</p>
                     </td>
                     <td><p class="statusBacklog">Backlog</p></td>
                     <td>
@@ -354,9 +418,9 @@
                     </td>
                     <td>
                         <div class="containerIndicadorCronograma">                           
-                            <div class="indicadorCronogramaFullDelay"><progress class="red chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay"><progress class="red chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay"><progress class="red chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="orange chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="orange chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="orange chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
@@ -366,7 +430,7 @@
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center">                        
                             <!-- Button trigger modal Backlog-->
                             
-                            <button type="button" class="buttonClicMeEditProject" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <button type="button" class="buttonClicMeEditProject" data-bs-toggle="modal" data-bs-target="#staticBacklogEditProject">
                                 <span class="material-symbols-outlined clicMeEditProject" >
                                     edit
                                 </span>
@@ -377,11 +441,11 @@
                                 </span>
                             </button>
                             <!-- Modal modificar caracteristicas Backlog-->
-                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="staticBacklogEditProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBacklogProject" aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Proyecto en Curso</h5>
+                                    <h5 class="modal-title" id="staticBacklogProject">Proyecto en Curso</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">                                                                                                
@@ -389,97 +453,104 @@
                                             <div class="row containerTitlesViewProjectFlow">
                                                 <p class="col-md-3"><b>SDATOOL-001</b></p>
                                                 <p class="col-md-7"><b>Proyecto Gestor documental y distribuido</b></p>
-                                                <p class="col-md-2 statusFlowModal">Flow</p>
+                                                <p class="col-md-2 statusBacklogModal">Backlog</p>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-5 containerDescriptionProjectFlow">
                                                     <p class="scrollVerticalDescriptionFlow"><b>Descripción:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi aperiam dolores praesentium accusamus eos odit expedita veniam in dolor, facere fugiat magnam repellendus quae dicta deserunt temporibus sunt hic iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, nesciunt suscipit. Fugit eius repellendus corporis ratione aperiam numquam dolorum corrupti unde non dolore officiis, eveniet voluptatibus consequuntur, nesciunt optio omnis?</p>
                                                 </div>
                                                 <div class="col-md-4 containerDescriptionProjectFlow">
+                                                    <p><b>Costo Total:</b> 30.000.000</p>
                                                     <p><b>Owner:</b> product.owner@bbva.com</p>
                                                     <p><b>Tipo:</b> Normativo</p>
                                                     <p><b>Scrum:</b> Si</p> 
-                                                    <p><b>Features:</b> FT001A</p>
+                                                    <p><b>Feature:</b> FT001A</p>
                                                     <p><b>Customer:</b> CM001A</p>     
                                                 </div>
                                                 <div class="col-md-3 containerDescriptionProjectFlow">
                                                     <p><b>Periodo de ejecución:</b></p>
-                                                    <br>
                                                     <ul>
                                                         <li><b>Inicio:</b> 2Q 2023</li>
                                                         <li><b>Fin:</b> 4Q 2023</li>
-                                                    </ul>                   
+                                                    </ul>    
+                                                    <p><b>Features Asociadas:</b></p>
+                                                    <ul>
+                                                        <li>COLW24-A</li>
+                                                        <li>COLW54-B</li>
+                                                    </ul>               
                                                 </div>
                                             </div>
+                                            <p class="titleAddPersonBacklog"><b>Agregar personas al proyecto:</b></p>
+                                            <p class="descriptionAddPersonBacklog">Seleccione las personas que quiere agregar al proyecto, tenga en cuenta la ocupación.</p>
                                             <div class="horizontalScrollableViewPersonFlow">                    
-                                                <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 1</p>
+                                                <div class="containerPersonViewBacklog">
+                                                    <p class="personCodeFlow">O003812</p>
                                                     <p class="personNameFlow">Danie Alejandro Larrota Moreno</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>                                            
                                                 <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 2</p>
-                                                    <p class="personNameFlow">Name developer</p>
+                                                    <p class="personCodeFlow">O003992</p>
+                                                    <p class="personNameFlow">Cristhian Camilo Torres Castro</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
-                                                <div class="containerPersonViewFlow">
+                                                <div class="containerPersonViewBacklog">
                                                     <p class="personCodeFlow">Code 3</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
-                                                <div class="containerPersonViewFlow">
+                                                <div class="containerPersonViewBacklog">
                                                     <p class="personCodeFlow">Code 4</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 5</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 6</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 7</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 8</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 9</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>
                                                 <div class="containerPersonViewFlow">
                                                     <p class="personCodeFlow">Code 10</p>
                                                     <p class="personNameFlow">Name developer</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Disponibilidad: 100%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
                                                 </div>                                                                             
                                             </div>
@@ -500,14 +571,7 @@
                     <td>SDATOOL-005</td>
                     <td>Proyecto 5</td>
                     <td>
-                        <div class="containerFeature">
-                            <p>2 ...</p>
-                            <button class="buttonClicMeFeature">
-                                <span class="material-symbols-outlined iconFeature">
-                                    feature_search
-                                </span>
-                            </button>
-                        </div>
+                        <p>COLWSD-01</p>
                     </td>
                     <td><p class="statusBacklog">Backlog</p></td>
                     <td>
@@ -526,7 +590,7 @@
                         <div class="containerIndicadorCronograma">                           
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay" ><progress class="red chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay" ><progress class="orange chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaFullDelay" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaNextYear"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
@@ -550,14 +614,7 @@
                     <td>SDATOOL-006</td>
                     <td>Proyecto 6</td>
                     <td>
-                        <div class="containerFeature">
-                            <p>2 ...</p>
-                            <button class="buttonClicMeFeature">
-                                <span class="material-symbols-outlined iconFeature">
-                                    feature_search
-                                </span>
-                            </button>
-                        </div>
+                        <p>COLWSD-01</p>
                     </td>
                     <td><p class="statusBacklog">Backlog</p></td>
                     <td>
@@ -575,8 +632,8 @@
                     <td>
                         <div class="containerIndicadorCronograma">                           
                             <div class="indicadorCronogramaEmpty" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay"><progress class="red chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay"><progress class="red chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="orange chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="orange chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaFullDelay"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
