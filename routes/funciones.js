@@ -1,3 +1,4 @@
+var listado_proyectos = [];
 
 /**
  * Muestra las personas a cargo y sus habilidades en las tecnologías del banco
@@ -365,7 +366,6 @@ function obtenerListadoCuartiles(inicio, fin){
 }
 
 function obtenerSextoCuartil(cuartil){
-    console.log(cuartil);
     const valorCuartil = cuartil[0];
     const year = parseInt(valorCuartil.substring(valorCuartil.length - 4, valorCuartil.length));
     const cuartilSexto = '';
@@ -467,19 +467,12 @@ function getQuartilFecha(fecha){
     }
 }
 
-function organizarPersonas(personas, proyectos){
+function organizarPersonas(proyectos){
     for(const proyecto of proyectos){
-        let listaPersonas = [];
-        for(const persona of personas){
-            if(proyecto['proyecto'] == persona['proyecto']){
-                listaPersonas.push(persona);
-            }
-        }
-        proyecto.personas = listaPersonas;
-        const cronograma = cronogramaFeature(proyecto['fecha_inicio'], proyecto['fecha_fin']);
+        const cronograma = cronogramaFeature(proyecto['project'].fecha_inicio, proyecto['project'].fecha_fin);
         proyecto.quartil_uno = cronograma.primero;
         proyecto.quartil_dos = cronograma.segundo;
-        proyecto.progreso = progreso(proyecto['fecha_inicio'], proyecto['fecha_fin']);
+        proyecto.progreso = progreso(conversion_fecha_inicial(getQuartilHoy()), conversion_fecha_final(getQuartilHoy()));
     }
     return proyectos;
 }
@@ -500,4 +493,72 @@ function cronogramaFeature(f_inicial, f_final){
 }
 
 
-module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos, getCuartilesEncabezado, organizarPersonas};
+function proyectosConJefe(proyectos, jefe, personas, usuarios){
+    for(const persona of personas){
+        if(persona['superior'] == jefe && !esJefe(usuarios, persona['codigo'])){
+            getProjects(proyectos, persona, jefe);
+        }else if(persona['superior'] == jefe){
+            proyectosConJefe(proyectos, persona['codigo'], personas, usuarios);
+        }
+    }
+    return listado_proyectos;
+}
+
+function esJefe(usuarios, persona){
+    for(const usuario of usuarios){
+        if(usuario['codigo'] == persona){
+            return true;
+        }
+    }
+    return false;
+}
+
+function getProjects(proyectos, persona, jefe){
+    for(const proyecto of proyectos){
+        if(proyecto['persona_codigo'] == persona['codigo']){
+            let verificar = inListadoProyectos(proyecto);
+            if(verificar[0]){
+                persona.ocupacion = proyecto['ocupacion'];
+                persona.habilidad = proyecto['habilidad_nombre'];
+                listado_proyectos[verificar[1]].people.push(persona);
+            }else{
+                persona.ocupacion = proyecto['ocupacion'];
+                persona.habilidad = proyecto['habilidad_nombre'];
+                listado_proyectos.push({boss: jefe, project: {feature_codigo:proyecto['feature_codigo'], feature_nombre:proyecto['feature_nombre'], proyecto: proyecto['proyecto'], estado: proyecto['estado'], fecha_inicio:proyecto['fecha_inicio'], fecha_fin:proyecto['fecha_fin']}, people: [persona]});
+            }
+            /*
+            for(let i = 0; i<listado_proyectos.length; i++){
+                if(listado_proyectos[i].project['feature_codigo']==proyecto['feature_codigo'] && !inArregloPersonas(listado_proyectos[i].people, persona['codigo'])){
+                    persona.ocupacion = proyecto['ocupacion'];
+                    persona.habilidad = proyecto['habilidad_nombre'];
+                    listado_proyectos[i].people.push(persona);
+                }else if(i==listado_proyectos.length-1){
+                    persona.ocupacion = proyecto['ocupacion'];
+                    persona.habilidad = proyecto['habilidad_nombre'];
+                    listado_proyectos.push({boss: jefe, project: {feature_codigo:proyecto['feature_codigo'], feature_nombre:proyecto['feature_nombre'], proyecto: proyecto['proyecto'], estado: proyecto['estado'], fecha_inicio:proyecto['fecha_inicio'], fecha_fin:proyecto['fecha_fin']}, people: [persona]});
+                }
+            }
+            */
+        }
+    }
+}
+
+function inArregloPersonas(arreglo, codigo){
+    for(let i = 0; i<arreglo.length; i++){
+        if(arreglo[i].codigo == codigo){
+            return true;
+        }
+    }
+    return false;
+}
+
+function inListadoProyectos(proyecto){
+    for(let i = 0; i<listado_proyectos.length; i++){
+        if(listado_proyectos[i].project['feature_codigo']==proyecto['feature_codigo']){
+            return [true, i];
+        }
+    }
+    return [false, 0];
+}
+
+module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos, getCuartilesEncabezado, organizarPersonas, proyectosConJefe};

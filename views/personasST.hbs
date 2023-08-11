@@ -70,12 +70,12 @@
         <div  id="containerGeneralProjectFlow">
             <tbody id="containerGeneralPrueba">
                 {{#each features}}                
-                <tr>
-                    <th scope="row">1</th>
-                    <td>{{feature_codigo}}</td>
-                    <td>{{feature_nombre}}</td>
-                    <td>SDATOOL-{{proyecto}}</td>
-                    <td><p class="statusFlow">{{estado}}</p></td>
+                <tr id="{{project.feature_codigo}}">
+                    <th scope="row">{{boss}}</th>
+                    <td>{{project.feature_codigo}}</td>
+                    <td>{{project.feature_nombre}}</td>
+                    <td>SDATOOL-{{project.proyecto}}</td>
+                    <td><p class="statusFlow">{{project.estado}}</p></td>
                     <td>
                         <span class="material-symbols-outlined iconScrumTrue">
                             check
@@ -90,14 +90,14 @@
                                 </span>
                             </button>
                             <!-- Modal ver Personas asociadas a la Feature-->
-                            <div class="modal fade" id="staticIconPerson" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticIconPerson" aria-hidden="true">
+                            <div class="modal fade" id="staticIconPerson{{project.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticIconPerson" aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="staticIconPerson">Personas Asociadas a la Feature: </h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">                                                                                                
+                                        <div class="modal-body" id="modal">                                                                                                
                                             <div class="container" style="text-align: left;">
                                                 <table class="table">
                                                     <thead>
@@ -109,12 +109,12 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {{#each personas}}
-                                                        <tr>
-                                                            <th scope="row"><img class="imagePersonView" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">{{persona_nombre}}</th>
+                                                        {{#each people}}
+                                                        <tr id="{{persona_codigo}}">
+                                                            <th scope="row"><img class="imagePersonView" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">{{nombre}}</th>
                                                             <td>{{rol}}</td>
                                                             <td>{{ocupacion}}</td>
-                                                            <td>{{habilidad_nombre}}</td>
+                                                            <td>{{habilidad}}</td>
                                                         </tr>
                                                         {{/each}}
                                                         <tr>
