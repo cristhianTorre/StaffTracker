@@ -241,21 +241,29 @@ router.get('/features', function (req,res,next){
     let features_proyectos = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" GROUP BY features.id AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
     let features_consulta = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, personas.codigo AS "persona_codigo", personas.nombre AS "persona_nombre", habilidades.nombre AS "habilidad_nombre", staffing.ocupacion, personas.rol FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
     let personas_equipo = 'SELECT * FROM personas WHERE superior = ?';
-    let consultas = [features_consulta, personas_equipo, features_proyectos];
+    let proyectos_general = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin, staffing.persona AS "persona_codigo", habilidades.nombre AS "habilidad_nombre", staffing.ocupacion FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE features.estado != "Closed" AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
+    let personas_general = 'SELECT * FROM personas';
+    let usuarios = 'SELECT * FROM usuarios';
+    let consultas = [features_consulta, personas_equipo, features_proyectos, proyectos_general, personas_general, usuarios];
     connect.conexion.query(consultas.join(';'), [jefe, jefe, jefe], function (error, results, fields){
         let resultadoUno = JSON.parse(JSON.stringify(results[0]));
         let resultadoDos = JSON.parse(JSON.stringify(results[1]));
         let resultadoTres = JSON.parse(JSON.stringify(results[2]));
+        let resultadoCuatro = JSON.parse(JSON.stringify(results[3]));
+        let resultadoCinco = JSON.parse(JSON.stringify(results[4]));
+        let resultadoSeis = JSON.parse(JSON.stringify(results[5]));
         for(let proyecto of resultadoTres){
             proyecto.equipo = resultadoDos;
         }
-        res.render("personasST", {features: funciones.organizarPersonas(resultadoUno, resultadoTres), habilidades: resultadoDos, qtiles: cuartiles});
+        const manipulacion = funciones.proyectosConJefe(resultadoCuatro, jefe, resultadoCinco, resultadoSeis);
+        console.log(manipulacion);
+        res.render("personasST", {features: funciones.organizarPersonas(manipulacion), habilidades: resultadoDos, qtiles: cuartiles});
     });
 });
 
-cron.schedule("1 * * * *", function () {
-    reglas.set_internos_externos_cero();
-    reglas.set_ocupacion_cero();
+cron.schedule("* * * * *", function () {
+    //reglas.set_internos_externos_cero();
+    //reglas.set_ocupacion_cero();
     let tablas = ['SELECT * FROM staffing',
                 'SELECT * FROM features',
                 'SELECT * FROM personas'];
@@ -264,7 +272,24 @@ cron.schedule("1 * * * *", function () {
         const features = JSON.parse(JSON.stringify(results[1]));
         const personas = JSON.parse(JSON.stringify(results[2]));
         reglas.actualizar_ocupacion_actual(staffing, features, personas);
+        reglas.actualizar_internos_externos_features(staffing, features, personas);
+        for(const feature of features){
+            reglas.regla_numero_uno(feature);
+        }
+        reglas.codigosStaffinActual(staffing, features);
     });
   });
+
+cron.schedule("25 * * * *", function (){
+    let tablas = ['SELECT * FROM features',
+    'SELECT * FROM reglas_asociadas',
+    'SELECT * FROM reglas_de_oro'];
+    connect.conexion.query(tablas.join(';'), function (error, results, fields) {
+        const features = JSON.parse(JSON.stringify(results[0]));
+        const reglas_asociadas = JSON.parse(JSON.stringify(results[1]));
+        const reglas_de_oro = JSON.parse(JSON.stringify(results[2]));
+        reglas.insercion_reglas_asociadas(features, reglas_asociadas, reglas_de_oro);
+    });
+});
 
 module.exports = router;
