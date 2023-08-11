@@ -12,17 +12,27 @@
 <body>
     <header>
         <div id="superiorContainer">
-            <h1 id="titleHeader">BBVA</h1>
+            <ul id="menusContainerSuperior">
+                <li class=""><img id="logoTipoBBVA" src="image/Logotipo_Actual_BBVA_White_Transparent.jpg" alt="logoTipo"></li>
+                <li class="listMenuSuperior"><a class="logoutUser" href="login"><span class="material-symbols-outlined iconLogout">logout</span></a></li>
+            </ul>
         </div>
         <div id="menusContainer">
             <ul id="listMenuContainer">
-                <li class=""><a class="nav-link fw-semibold titleMenus" href="inicio">Inicio</a></li>
-                <li class=""><a class="nav-link fw-semibold titleMenus" href="#">Proyectos</a></li>
-                <li class=""><a class="nav-link fw-semibold titleMenus" href="personas">Personas</a></li>
-                <li class="" style="padding: 0px 0px 0px 250px"><img src="image/cerrar-sesion.png" style="width:auto; height:20px"><a href="login" style="color:white;">Cerrar sesión</a></li>
+                <li><a class="nav-link fw-semibold titleMenus" href="inicio">Inicio</a></li>
+                <li><a class="nav-link fw-semibold titleMenus" href="#">Proyectos</a></li>
+                <li><a class="nav-link fw-semibold titleMenus" href="personas">Personas</a></li>
             </ul>
         </div>
     </header>
+    <div class="containerSeeUser">
+        <img class="imageSeeUser" src="image/userCaptura1.PNG" class="img-fluid rounded-start" alt="...">
+        <div class="descriptionSeeUser">
+            <p><b>Jairo Humberto Lopez</b></p>
+            <p>Tech Manager / Lider</p>
+            <p>Cross System</p>
+        </div>
+    </div>
     <div class="containerPrincipal">
         <table class="table">
             <!-- Titulos tabla de proyectos -->
@@ -147,9 +157,9 @@
                     </td>
                     <td>
                         <div class="containerIndicadorCronograma">                           
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div>
@@ -157,7 +167,7 @@
                     </td>
                     <td>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center">                        
-                            <!-- Button trigger modal -->
+                            <!-- Button trigger modal Ver Feature-->
                             <button type="button" class="buttonClicMeSeeProject" data-bs-toggle="modal" data-bs-target="#staticViewFlow">
                                 <span class="material-symbols-outlined clicMeSeeProject" >
                                     visibility
@@ -308,7 +318,89 @@
                                     </div>
                                 </div>
                                 </div>
-                            </div>                        
+                            </div> 
+                            <!-- Button trigger modal Ver Reglasde Oro-->
+                            <button type="button" class="buttonClicAlertGoldenRules" data-bs-toggle="modal" data-bs-target="#AlertGoldenRules">
+                                <span class="material-symbols-outlined ClicAlertGoldenRules">
+                                    info
+                                </span>                           
+                            </button>
+                            <!-- Modal ver reglas de Oro Feature-->
+                            <div class="modal fade" id="AlertGoldenRules" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tittleAlertGoldenRules"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="tittleAlertGoldenRules">Reglas de Oro</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body scrollVerticalModalSee">
+                                            <div class="containerGoldenRules">
+                                                <h3>Feature: COLWSCRM-2287</h3>
+                                                <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ipsa saepe alias maxime mollitia ab eaque praesentium aliquid suscipit. Magni officia nam quas maiores quae quos sapiente, culpa illum sed!</P>
+                                                <h4 class="tittleGoldenRules">Validación Reglas de Oro</h4>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Regla</th>
+                                                            <th scope="col">Cumple</th>
+                                                            <th scope="col">No Cumple</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="table-danger">
+                                                            <th scope="row">1</th>
+                                                            <td>El numero de personas externas asociadas a un proyecto debe ser igual o menor a la cantidad del personal interno.</td>
+                                                            <td class="verify"></td>
+                                                            <td class="noVerify">x</td>
+                                                        </tr>
+                                                        <tr class="table-danger">
+                                                            <th scope="row">2</th>
+                                                            <td>Una persona no puede tener mas de tres Features en el mismo periodo de tiempo.</td>
+                                                            <td class="verify"></td>
+                                                            <td class="noVerify">x</td>
+                                                        </tr>
+                                                        <tr class="table-success">
+                                                            <th scope="row">3</th>
+                                                            <td>Una persona no puede superar el 100% de la ocupación en el tiempo actual.</td>
+                                                            <td class="verify">x</td>
+                                                            <td class="noVerify"></td>
+                                                        </tr>
+                                                        <tr class="table-danger">
+                                                            <th scope="row">4</th>
+                                                            <td>Una Feature debe ser ejecutada en un periodo máximo de 6 meses.</td>
+                                                            <td class="verify"></td>
+                                                            <td class="noVerify">x</td>
+                                                        </tr>
+                                                        <tr class="table-success">
+                                                            <th scope="row">5</th>
+                                                            <td>Una Feature no puede superar el tiempo destinado para su ejecución.</td>
+                                                            <td class="verify">x</td>
+                                                            <td class="noVerify"></td>
+                                                        </tr>
+                                                        <tr class="table-success">
+                                                            <th scope="row">6</th>
+                                                            <td>El porcentaje de habilidad de la persona seleccionada es inferior al porcentaje de la tecnología requerida para el proyecto.</td>
+                                                            <td class="verify">x</td>
+                                                            <td class="noVerify"></td>
+                                                        </tr>
+                                                        <tr class="table-danger">
+                                                            <th scope="row">7</th>
+                                                            <td>La persona seleccionada pertenece a un equipo Scrum, por lo cual su dedicación esta al 100% y no puede participar en mas Features en el mismo periodo de tiempo.</td>
+                                                            <td class="verify"></td>
+                                                            <td class="noVerify">x</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -335,8 +427,8 @@
                     <td>
                         <div class="containerIndicadorCronograma">                           
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaFull"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaNextYear"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div>
@@ -372,9 +464,9 @@
                     </td>
                     <td>
                         <div class="containerIndicadorCronograma">                           
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="marineWater chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="marineWater chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="marineWater chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
@@ -389,15 +481,18 @@
                     </td>
                 </tr>
             </tbody>
+        </table>
         </div>
+        <div class="containerPrincipalBacklog">
             <!-- Contenido de proyectos en "Backlog" -->
+        <table class="table">
             <tbody>
                 <tr>
                     <th scope="row">1</th>
-                    <td>SDATOOL-004</td>
-                    <td>Proyecto 4</td>
+                    <td>COLWSCRM-2287</td>
+                    <td>Plan CMR: Mejoras...</td>
                     <td>
-                        <p>COLWSD-01</p>
+                        <p>SDATOOL-001</p>
                     </td>
                     <td><p class="statusBacklog">Backlog</p></td>
                     <td>
@@ -414,9 +509,9 @@
                     </td>
                     <td>
                         <div class="containerIndicadorCronograma">                           
-                            <div class="indicadorCronogramaFullDelay"><progress class="orange chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay"><progress class="orange chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay"><progress class="orange chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
@@ -586,7 +681,7 @@
                         <div class="containerIndicadorCronograma">                           
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay" ><progress class="orange chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay" ><progress class="chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaFullDelay" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaNextYear"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
@@ -628,8 +723,8 @@
                     <td>
                         <div class="containerIndicadorCronograma">                           
                             <div class="indicadorCronogramaEmpty" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay"><progress class="orange chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay"><progress class="orange chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="indicadorCronogramaFullDelay"><progress class="chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaFullDelay"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaEmpty" ><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
@@ -650,6 +745,7 @@
                 </tr>
             </tbody>
         </table>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

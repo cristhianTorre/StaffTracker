@@ -5,6 +5,56 @@
 b{
     color: rgb(10, 26, 99);
 }
+/*<-------------------------------// Sección Interfaz Login //-------------------------------------------->*/
+.bodyLogin{
+    margin: 0; 
+    padding: 0; 
+    display: flex;
+}
+/*<--- Sección Portada izquierda Login --->*/
+.containerImageLeftLogin{
+    height: auto;
+}
+/*<--- Sección Formulario Login --->*/
+.containerFormLogin{
+    box-sizing: border-box;
+    margin: 0; 
+    border-radius: 5px; 
+    border:#4AB2B2 5px solid; 
+    width: 340px;
+    text-align: center;
+}
+.logoBBVAFormulario{
+    margin: 160px 0 50px 0;
+}
+.formLogin{
+    border-color:#4AB2B2; 
+    padding:10px; 
+    margin: 5px 5px 5px 5px; 
+    box-sizing: border-box; 
+    border-radius: 5px;
+}
+.containerTextItemForm{
+    text-align: left;
+    align-items: center;
+    margin-bottom: 0!important
+}
+.formLogin{
+    margin: 0 auto;
+}
+.inputFormControl{
+    margin: 0 auto;
+    width: 70%;
+    height: 28px;
+}
+.textItemForm{
+    margin-left: 50px;
+}
+.buttonLogin{
+    color:white; 
+    border-color:#4AB2B2; 
+    background-color:#4A68B2;
+}
 /*<-------------------------------// Sección Proyectos en Ejecución //-------------------------------------------->*/
 /*<--- Sección Header --->*/
 header{

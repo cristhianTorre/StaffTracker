@@ -9,23 +9,26 @@
     <link rel="stylesheet" href="style.css">
     <title>login</title>
 </head>
-<body>
+<body class="bodyLogin">
     <header>
     </header>
-    <div class="form-label" style="margin: 10% 30% 30% 30%; box-sizing: border-box; border-radius: 5px; border:#4AB2B2 5px solid;">
-        <form method="post" action="/login" style="border-color:#4AB2B2; padding:10px; margin: 5px 5px 5px 5px; box-sizing: border-box; border-radius: 5px;">
+    <div class="containerImageLeftLogin">
+        <img src="image/portadaLoginStaffTracker.png" alt="portadaLogin">
+    </div>
+    <div class="form-label containerFormLogin">
+        <img class="logoBBVAFormulario" src="image/Logotipo_Actual_BBVA_Creando_Oportunidades.jpg" alt="logoFormulario">
+        <form method="post" action="/login" class="formLogin">
             <!-- Email input -->
-            <div class="form-outline mb-4">
-                <input type="email" id="form2Example1" class="form-control" name="mail" placeholder="EJ: O001111"/>
-                <label class="form-label" for="form2Example1">Código</label>
+            <div class="form-outline mb-4 containerTextItemForm">
+                <input id="form2Example1" class="form-control inputFormControl" name="mail" placeholder="EJ: O001111"/>
+                <label class="form-label textItemForm" for="form2Example1">Código</label>
             </div>
-
             <!-- Password input -->
-            <div class="form-outline mb-4">
-                <input type="password" id="form2Example2" class="form-control" name="clave"/>
-                <label class="form-label" for="form2Example2">Contraseña</label>
+            <div class="form-outline mb-4 containerTextItemForm">
+                <input type="password" id="form2Example2" class="form-control inputFormControl" name="clave"/>
+                <label class="form-label textItemForm" for="form2Example2">Contraseña</label>
             </div>
-            <button type="submit" class="btn btn-primary btn-block mb-4" style="color:white; border-color:#4AB2B2; background-color:#4A68B2;">Ingresar</button>
+            <button type="submit" class="btn btn-primary btn-block mb-4 buttonLogin">Ingresar</button>
         </form>
     </div>
     
