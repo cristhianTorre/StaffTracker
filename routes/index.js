@@ -17,7 +17,7 @@ router.get('/', function(req, res){
  */
 
 router.get('/proyectos', function (req, res) {
-    var jefe = req.session.codigo;
+    var jefe = req.session.mail;
     var parametros = ['SELECT * FROM parametros',
         'SELECT * FROM staffing',
         'SELECT * FROM proyectos',
@@ -34,7 +34,7 @@ router.get('/proyectos', function (req, res) {
  */
 
 router.post('/proyectos-post', function (req, res) {
-    var jefe = req.session.codigo;
+    var jefe = req.session.mail;
     var direccionNueva = req.body.direccion;
     var servicioNueva = req.body.servicio;
     var parametros = ['SELECT * FROM parametros',
@@ -180,7 +180,7 @@ router.get('/login', function (req, res, next) {
  */
 
 router.post('/login', function (req, res, next) {
-    var codigo = req.body.codigo;
+    var codigo = req.body.mail;
     var clave = req.body.clave;
     var credencial = 'SELECT codigo, clave FROM usuarios where codigo=? AND clave=?';
     connect.conexion.query(credencial, [codigo, clave], function (error, results, fields) {
@@ -194,7 +194,7 @@ router.post('/login', function (req, res, next) {
             console.log("Contraseña invalida");
         } else
         {
-            req.session.codigo = req.body.codigo;
+            req.session.mail = req.body.mail;
             return res.redirect('/features');
         }
     });
@@ -236,7 +236,7 @@ router.post('/direccion', function (req,res,next) {
 });
 
 router.get('/features', function (req,res,next){
-    let jefe = req.session.codigo;
+    let jefe = req.session.mail;
     const cuartiles = funciones.getCuartilesEncabezado();
     let features_proyectos = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" GROUP BY features.id AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
     let features_consulta = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, personas.codigo AS "persona_codigo", personas.nombre AS "persona_nombre", habilidades.nombre AS "habilidad_nombre", staffing.ocupacion, personas.rol FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
@@ -244,20 +244,23 @@ router.get('/features', function (req,res,next){
     let proyectos_general = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin, staffing.persona AS "persona_codigo", habilidades.nombre AS "habilidad_nombre", staffing.ocupacion FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE features.estado != "Closed" AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
     let personas_general = 'SELECT * FROM personas';
     let usuarios = 'SELECT * FROM usuarios';
-    let consultas = [features_consulta, personas_equipo, features_proyectos, proyectos_general, personas_general, usuarios];
-    connect.conexion.query(consultas.join(';'), [jefe, jefe, jefe], function (error, results, fields){
+    let usuario = 'SELECT * FROM usuarios WHERE codigo = ?';
+    let reglas_c = 'SELECT * FROM reglas_asociadas INNER JOIN reglas_de_oro ON reglas_asociadas.regla = reglas_de_oro.id'
+    let consultas = [features_consulta, personas_equipo, features_proyectos, proyectos_general, personas_general, usuarios, usuario, reglas_c];
+    connect.conexion.query(consultas.join(';'), [jefe, jefe, jefe, jefe], function (error, results, fields){
         let resultadoUno = JSON.parse(JSON.stringify(results[0]));
         let resultadoDos = JSON.parse(JSON.stringify(results[1]));
         let resultadoTres = JSON.parse(JSON.stringify(results[2]));
         let resultadoCuatro = JSON.parse(JSON.stringify(results[3]));
         let resultadoCinco = JSON.parse(JSON.stringify(results[4]));
         let resultadoSeis = JSON.parse(JSON.stringify(results[5]));
+        let usuario_login = JSON.parse(JSON.stringify(results[6]));
+        let reglas = JSON.parse(JSON.stringify(results[7]));
         for(let proyecto of resultadoTres){
             proyecto.equipo = resultadoDos;
         }
         const manipulacion = funciones.proyectosConJefe(resultadoCuatro, jefe, resultadoCinco, resultadoSeis);
-        console.log(manipulacion);
-        res.render("personasST", {features: funciones.organizarPersonas(manipulacion), habilidades: resultadoDos, qtiles: cuartiles});
+        res.render("personasST", {login: usuario_login, features: funciones.organizarPersonas(manipulacion, reglas), habilidades: resultadoDos, qtiles: cuartiles});
     });
 });
 
@@ -266,29 +269,47 @@ cron.schedule("* * * * *", function () {
     //reglas.set_ocupacion_cero();
     let tablas = ['SELECT * FROM staffing',
                 'SELECT * FROM features',
-                'SELECT * FROM personas'];
+                'SELECT * FROM personas',
+                'SELECT * FROM porcentajes_asociados',
+                'SELECT * FROM requisitos'];
     connect.conexion.query(tablas.join(';'), function (error, results, fields) {
         const staffing = JSON.parse(JSON.stringify(results[0]));
         const features = JSON.parse(JSON.stringify(results[1]));
         const personas = JSON.parse(JSON.stringify(results[2]));
+        const porcentajes = JSON.parse(JSON.stringify(results[3]));
+        const requisitos = JSON.parse(JSON.stringify(results[4]));
         reglas.actualizar_ocupacion_actual(staffing, features, personas);
         reglas.actualizar_internos_externos_features(staffing, features, personas);
         for(const feature of features){
+            if(feature['scrum'] == 1){
+                reglas.regla_numero_siete(feature, features, staffing);
+            }
             reglas.regla_numero_uno(feature);
+            reglas.regla_numero_tres(staffing, personas, feature);
+            reglas.regla_numero_cuatro(feature);
+            reglas.regla_numero_cinco(feature);
+            reglas.regla_numero_seis(feature, staffing, porcentajes);
+            reglas.regla_numero_ocho(feature, requisitos, staffing);
         }
+        //regla 2 de todas las features
         reglas.codigosStaffinActual(staffing, features);
     });
   });
 
-cron.schedule("25 * * * *", function (){
+cron.schedule("40 * * * *", function (){
     let tablas = ['SELECT * FROM features',
     'SELECT * FROM reglas_asociadas',
-    'SELECT * FROM reglas_de_oro'];
+    'SELECT * FROM reglas_de_oro',
+    'SELECT * FROM requisitos',
+    'SELECT * FROM habilidades'];
     connect.conexion.query(tablas.join(';'), function (error, results, fields) {
         const features = JSON.parse(JSON.stringify(results[0]));
         const reglas_asociadas = JSON.parse(JSON.stringify(results[1]));
         const reglas_de_oro = JSON.parse(JSON.stringify(results[2]));
+        const requisitos = JSON.parse(JSON.stringify(results[3]));
+        const habilidades = JSON.parse(JSON.stringify(results[4]));
         reglas.insercion_reglas_asociadas(features, reglas_asociadas, reglas_de_oro);
+        reglas.insercion_requisitos_features(features, requisitos, habilidades);
     });
 });
 

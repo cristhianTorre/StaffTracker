@@ -448,7 +448,7 @@ function getCuartilesEncabezado(){
     const fecha_inicio = obtenerTercerQuartil(cuartilHoy);
     const fecha = obtenerTercerProximoQuartil(cuartilHoy);
     let listado = obtenerListadoCuartiles(fecha_inicio, fecha);
-    let map = {primero:listado[0], segundo:listado[1], tercero:listado[2], cuarto:listado[3], quinto:listado[4], sexto:listado[5]};
+    let map = {primero:listado[0], segundo:listado[1], tercero:listado[2], cuarto:listado[3], quinto:listado[4], sexto:listado[5], year: new Date(Date.now()).getFullYear()};
     return map;
 }
 
@@ -467,11 +467,22 @@ function getQuartilFecha(fecha){
     }
 }
 
-function organizarPersonas(proyectos){
+function organizarPersonas(proyectos, reglas){
     for(const proyecto of proyectos){
+        proyecto.reglas = unirReglas(reglas, proyecto);
         const cronograma = cronogramaFeature(proyecto['project'].fecha_inicio, proyecto['project'].fecha_fin);
         proyecto.quartil_uno = cronograma.primero;
+        if(cronograma.primero == 100){
+            proyecto.borde_uno = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_uno = "indicadorCronogramaEmpty";
+        }
         proyecto.quartil_dos = cronograma.segundo;
+        if(cronograma.segundo == 100){
+            proyecto.borde_dos = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_dos = "indicadorCronogramaEmpty";
+        }
         proyecto.progreso = progreso(conversion_fecha_inicial(getQuartilHoy()), conversion_fecha_final(getQuartilHoy()));
     }
     return proyectos;
@@ -526,19 +537,6 @@ function getProjects(proyectos, persona, jefe){
                 persona.habilidad = proyecto['habilidad_nombre'];
                 listado_proyectos.push({boss: jefe, project: {feature_codigo:proyecto['feature_codigo'], feature_nombre:proyecto['feature_nombre'], proyecto: proyecto['proyecto'], estado: proyecto['estado'], fecha_inicio:proyecto['fecha_inicio'], fecha_fin:proyecto['fecha_fin']}, people: [persona]});
             }
-            /*
-            for(let i = 0; i<listado_proyectos.length; i++){
-                if(listado_proyectos[i].project['feature_codigo']==proyecto['feature_codigo'] && !inArregloPersonas(listado_proyectos[i].people, persona['codigo'])){
-                    persona.ocupacion = proyecto['ocupacion'];
-                    persona.habilidad = proyecto['habilidad_nombre'];
-                    listado_proyectos[i].people.push(persona);
-                }else if(i==listado_proyectos.length-1){
-                    persona.ocupacion = proyecto['ocupacion'];
-                    persona.habilidad = proyecto['habilidad_nombre'];
-                    listado_proyectos.push({boss: jefe, project: {feature_codigo:proyecto['feature_codigo'], feature_nombre:proyecto['feature_nombre'], proyecto: proyecto['proyecto'], estado: proyecto['estado'], fecha_inicio:proyecto['fecha_inicio'], fecha_fin:proyecto['fecha_fin']}, people: [persona]});
-                }
-            }
-            */
         }
     }
 }
@@ -559,6 +557,22 @@ function inListadoProyectos(proyecto){
         }
     }
     return [false, 0];
+}
+
+function unirReglas(reglas, proyecto){
+    let arreglo = [];
+    for(let regla of reglas){
+        if(regla['feature'] == proyecto['feature_codigo']){
+            if(regla['cumple'] == 1){
+                regla.clase = "table-success";
+            }else{
+                regla.clase = "table-danger";
+            }
+            arreglo.push(regla);
+        }
+    }
+    return arreglo;
+    //proyecto.reglas = arreglo;
 }
 
 module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos, getCuartilesEncabezado, organizarPersonas, proyectosConJefe};

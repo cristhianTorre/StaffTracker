@@ -2,9 +2,6 @@ const connect = require('./connect');
 
 //Actualizaciones diarias
 
-
-//Validaciones Reglas de oro
-
 function set_ocupacion_cero(){
     let actualizacion_cero = 'UPDATE personas SET ocupacion_total = 0';
     connect.conexion.query(actualizacion_cero, function (err, rows, fields) {
@@ -76,7 +73,7 @@ function actualizar_internos_externos_features(staffing, features, personas){
     }
 }
 
-//Actualizaciones Features
+//Poblar tablas automaticamente
 
 function insercion_reglas_asociadas(features, reglas_asociadas, reglas){
     for(const feature of features){
@@ -101,10 +98,32 @@ function insercion_reglas_asociadas(features, reglas_asociadas, reglas){
     }
 }
 
+function insercion_requisitos_features(features, requisitos, habilidades){
+    for(const feature of features){
+        for(const habilidad of habilidades){
+            let existe = 0;
+            for(const requisito of requisitos){
+                if(requisito['feature'] == feature['codigo'] && requisito['habilidad'] == habilidad['id']){
+                    existe = 1;
+                }
+            }
+            if(existe == 0){
+                let insertar = 'INSERT INTO requisitos(feature, habilidad, cantidad) VALUES ("'+feature['codigo']+'", "'+habilidad['id']+'", "0");';
+                console.log(insertar);
+                connect.conexion.query(insertar, function (err, rows, fields) {
+                    if (!!err) {
+                        console.log('Error', +err);
+                    }
+                });
+            }
+        }
+    }
+}
+
 //Revision de reglas de oro por feature
 
 function regla_numero_uno(feature){
-    let actualizar = 'UPDATE reglas_asociadas SET cumple = ? WHERE feature = ?';
+    let actualizar = 'UPDATE reglas_asociadas SET cumple = ? WHERE feature = ? AND regla = 1';
     let booleano = 1;
     if(feature['internos'] < feature['externos']){
         booleano = 0;
@@ -176,5 +195,120 @@ function enFechaActual(features, codigo){
     }
 }
 
+function regla_numero_tres(staffing, personas, feature){
+    let actualizar = 'UPDATE reglas_asociadas SET cumple = ? WHERE feature = ? AND regla = 3';
+    let aux = 1;
+    for(const staff of staffing){
+        if(staff['feature'] == feature['codigo']){
+            for(const persona of personas){
+                if(persona['codigo'] == staff['persona'] && persona['ocupacion_total'] > 100){
+                    aux = 0;
+                }
+            }
+        }
+    }
+    connect.conexion.query(actualizar, [aux, feature['codigo']], function (err, rows, fields) {
+        if (!!err) {
+            console.log('Error', +err);
+        }
+    });
+}
+
+function regla_numero_cuatro(feature){
+    let actualizar = 'UPDATE reglas_asociadas SET cumple = ? WHERE feature = ? AND regla = 4';
+    const fechaInicioObj = new Date(feature['fecha_inicio']);
+    const fechaFinObj = new Date(Date.now());
+    const añosDiferencia = fechaFinObj.getFullYear() - fechaInicioObj.getFullYear();
+    const mesesDiferencia = fechaFinObj.getMonth() - fechaInicioObj.getMonth();
+    const totalMeses = añosDiferencia * 12 + mesesDiferencia;
+    let condicion = 1;
+    if(totalMeses > 6){
+        condicion = 0;
+    }
+    connect.conexion.query(actualizar, [condicion, feature['codigo']], function (err, rows, fields) {
+        if (!!err) {
+            console.log('Error', +err);
+        }
+    });
+}
+
+function regla_numero_cinco(feature){
+    let actualizar = 'UPDATE reglas_asociadas SET cumple = ? WHERE feature = ? AND regla = 5';
+    let condicion = 1;
+    if(new Date(feature['fecha_fin']).getTime() < Date.now()){
+        condicion = 0;
+    }
+    connect.conexion.query(actualizar, [condicion, feature['codigo']], function (err, rows, fields) {
+        if (!!err) {
+            console.log('Error', +err);
+        }
+    });
+}
+
+
+function regla_numero_seis(feature, staffing, porcentajes){
+    let actualizar = 'UPDATE reglas_asociadas SET cumple = ? WHERE feature = ? AND regla = 6';
+    let validar = 1;
+    for(const staff of staffing){
+        if(staff['feature'] == feature['codigo']){
+            for(const porcentaje of porcentajes){
+                if(porcentaje['codigo'] == staff['persona'] && porcentaje['tecnologia'] == staff['tecnologia']){
+                    if(porcentaje['porcentaje'] < 60){
+                        validar = 0;
+                    }
+                }
+            }
+        }
+    }
+    connect.conexion.query(actualizar, [validar, feature['codigo']], function (err, rows, fields) {
+        if (!!err) {
+            console.log('Error', +err);
+        }
+    });
+}
+
+function regla_numero_siete(feature, features, staffing){
+    let actualizar = 'UPDATE reglas_asociadas SET cumple = ? WHERE feature = ? AND regla = 7';
+    let validar = 1;
+    for(const staff of staffing){
+        if(feature['codigo'] == staff['feature']){
+            for(const f_feature of features){
+                for(const s_staff of staffing){
+                    if(f_feature['codigo'] == s_staff['feature'] && staff['feature'] !== s_staff['feature'] && staff['persona'] == s_staff['persona'] && new Date(f_feature['fecha_inicio']).getTime() <= Date.now() && new Date(f_feature['fecha_fin']).getTime() >= Date.now()){
+                        validar = 0;
+                    }
+                }
+            }
+        }
+    }
+    connect.conexion.query(actualizar, [validar, feature['codigo']], function (err, rows, fields) {
+        if (!!err) {
+            console.log('Error', +err);
+        }
+    });
+}
+
+function regla_numero_ocho(feature, requisitos, staffing){
+    let actualizar = 'UPDATE reglas_asociadas SET cumple = ? WHERE feature = ? AND regla = 8';
+    let validar = 1;
+    for(const requisito of requisitos){
+        let cant_req = 0;
+        for(const staff of staffing){
+            if(feature['codigo'] == requisito['feature'] && staff['feature'] == requisito['feature'] && staff['tecnologia'] == requisito['habilidad']){
+                cant_req += 1;
+            }
+        }
+        if(cant_req !== requisito['cantidad']){
+            validar = 0;
+        }
+    }
+    connect.conexion.query(actualizar, [validar, feature['codigo']], function (err, rows, fields) {
+        if (!!err) {
+            console.log('Error', +err);
+        }
+    });
+}
+
 module.exports = {set_internos_externos_cero, set_ocupacion_cero, actualizar_ocupacion_actual, actualizar_internos_externos_features, insercion_reglas_asociadas,
-    regla_numero_uno, codigosStaffinActual};
+    regla_numero_uno, codigosStaffinActual, regla_numero_tres, regla_numero_cuatro, regla_numero_cinco, insercion_requisitos_features, regla_numero_seis,
+    regla_numero_siete, regla_numero_ocho};
