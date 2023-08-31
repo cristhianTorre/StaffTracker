@@ -33,7 +33,7 @@ p{
     color: white;
 }
 .containerFeature{
-    margin: 15px 0 40px 0;
+    margin-top: 0px;
 }
 .iconFeature{
     margin-left: 4px;
@@ -308,6 +308,7 @@ body{
 .nameFeature, .nameProject{
     text-align: left; 
     margin-left: 40px;
+    margin: 0;
 }
 .statusFlowModal{
     height: 22px;
@@ -321,10 +322,17 @@ body{
 }
 .containerDescriptionProjectFlow{
     text-align: justify;
+    margin-bottom: 20px;
+    display: flex;
     
 }
 .containerDescriptionProjectFlow p{
     margin: 0;
+}
+.containerFormFeatureFlow{
+    text-align: left;
+    width: 95%;
+    margin: 0 auto;
 }
 .scrollVerticalDescriptionFlow{
     width:auto;
@@ -347,6 +355,8 @@ body{
 }
 .tittleGoldenRules{
     margin: 30px 0 10px 0;
+    display: flex; 
+    align-items: center
 }
 .verify, .noVerify{
     text-align: center;
@@ -363,7 +373,7 @@ body{
 }
 .personCodeFlow, .descriptionPersonFlow, .personNameFlow{
     font-size: 10px;
-    margin: 0;
+    margin-top: 3px;
     padding: 0;
 }
 .imagePersonFlow{
