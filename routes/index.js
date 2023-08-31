@@ -238,31 +238,37 @@ router.post('/direccion', function (req,res,next) {
 router.get('/features', function (req,res,next){
     let jefe = req.session.mail;
     const cuartiles = funciones.getCuartilesEncabezado();
-    let features_proyectos = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" GROUP BY features.id AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
-    let features_consulta = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, personas.codigo AS "persona_codigo", personas.nombre AS "persona_nombre", habilidades.nombre AS "habilidad_nombre", staffing.ocupacion, personas.rol FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
+    //let features_proyectos = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.descripcion, features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin, proyectos.nombre AS "proyecto_nombre", proyectos.estado AS "proyecto_estado", proyectos.q_inicial, proyectos.q_final, proyectos.owner, proyectos.presupuesto, proyectos.normativo FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN proyectos ON features.proyecto = proyectos.sda INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" GROUP BY features.id AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
+    let features_nuevos = 'SELECT * FROM features WHERE estado = "Sin asignar"'
     let personas_equipo = 'SELECT * FROM personas WHERE superior = ?';
-    let proyectos_general = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin, staffing.persona AS "persona_codigo", habilidades.nombre AS "habilidad_nombre", staffing.ocupacion FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE features.estado != "Closed" AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
+    let proyectos_general = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.descripcion, features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin, proyectos.nombre AS "proyecto_nombre", proyectos.estado AS "proyecto_estado", proyectos.q_inicial, proyectos.q_final, proyectos.owner, proyectos.presupuesto, proyectos.normativo, staffing.persona AS "persona_codigo", habilidades.nombre AS "habilidad_nombre", staffing.ocupacion FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN proyectos ON features.proyecto = proyectos.sda INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE features.estado != "Closed" AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
     let personas_general = 'SELECT * FROM personas';
     let usuarios = 'SELECT * FROM usuarios';
     let usuario = 'SELECT * FROM usuarios WHERE codigo = ?';
     let reglas_c = 'SELECT * FROM reglas_asociadas INNER JOIN reglas_de_oro ON reglas_asociadas.regla = reglas_de_oro.id'
-    let consultas = [features_consulta, personas_equipo, features_proyectos, proyectos_general, personas_general, usuarios, usuario, reglas_c];
+    let consultas = [personas_equipo, features_nuevos, proyectos_general, personas_general, usuarios, usuario, reglas_c];
     connect.conexion.query(consultas.join(';'), [jefe, jefe, jefe, jefe], function (error, results, fields){
-        let resultadoUno = JSON.parse(JSON.stringify(results[0]));
-        let resultadoDos = JSON.parse(JSON.stringify(results[1]));
-        let resultadoTres = JSON.parse(JSON.stringify(results[2]));
-        let resultadoCuatro = JSON.parse(JSON.stringify(results[3]));
-        let resultadoCinco = JSON.parse(JSON.stringify(results[4]));
-        let resultadoSeis = JSON.parse(JSON.stringify(results[5]));
-        let usuario_login = JSON.parse(JSON.stringify(results[6]));
-        let reglas = JSON.parse(JSON.stringify(results[7]));
-        for(let proyecto of resultadoTres){
+        let resultadoDos = JSON.parse(JSON.stringify(results[0]));
+        let resultadoTres = JSON.parse(JSON.stringify(results[1]));
+        let resultadoCuatro = JSON.parse(JSON.stringify(results[2]));
+        let resultadoCinco = JSON.parse(JSON.stringify(results[3]));
+        let resultadoSeis = JSON.parse(JSON.stringify(results[4]));
+        let usuario_login = JSON.parse(JSON.stringify(results[5]));
+        let reglas = JSON.parse(JSON.stringify(results[6]));
+        for(let proyecto of resultadoCuatro){
             proyecto.equipo = resultadoDos;
         }
         const manipulacion = funciones.proyectosConJefe(resultadoCuatro, jefe, resultadoCinco, resultadoSeis);
-        res.render("personasST", {login: usuario_login, features: funciones.organizarPersonas(manipulacion, reglas), habilidades: resultadoDos, qtiles: cuartiles});
+        res.render("personasST", {login: usuario_login, features: funciones.organizarPersonas(manipulacion, reglas), habilidades: resultadoDos, qtiles: cuartiles, backlog: resultadoTres});
     });
 });
+
+function backToStaffing(id){
+    let str_actualizar = 'UPDATE features SET estado = "NEW" WHERE id = ?';
+    connect.conexion.query(str_actualizar, [id], function(error, results, fields){
+        res.redirect("/features");
+    });
+}
 
 cron.schedule("* * * * *", function () {
     //reglas.set_internos_externos_cero();
