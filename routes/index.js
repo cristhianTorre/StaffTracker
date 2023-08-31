@@ -258,6 +258,9 @@ router.get('/features', function (req,res,next){
         for(let proyecto of resultadoCuatro){
             proyecto.equipo = resultadoDos;
         }
+        for(let feature_new of resultadoTres){
+            feature_new.equipo =  resultadoDos;
+        }
         const manipulacion = funciones.proyectosConJefe(resultadoCuatro, jefe, resultadoCinco, resultadoSeis);
         res.render("personasST", {login: usuario_login, features: funciones.organizarPersonas(manipulacion, reglas), habilidades: resultadoDos, qtiles: cuartiles, backlog: resultadoTres});
     });
@@ -267,6 +270,38 @@ router.post('/backToStaffing', function (req, res) {
     let id = req.body.id_feature_new;
     let str_actualizar = 'UPDATE features SET estado = "NEW" WHERE id = ?';
     connect.conexion.query(str_actualizar, [id], function(error, results, fields){
+        res.redirect("/features");
+    });
+});
+
+router.post('/actualizarFeature', function (req, res){
+    let id = req.body.id;
+    let codigo = req.body.codigo;
+    let nombre = req.body.nombre;
+    let descripcion = req.body.descripcion;
+    let tipo = req.body.tipo;
+    let scrum = req.body.scrum;
+    let fecha_ini = req.body.fecha_ini;
+    let fecha_fin = req.body.fecha_fin;
+    let str_actualizar = 'UPDATE features SET codigo = ?, nombre = ?, descripcion = ?, tipo = ?, scrum = ?, fecha_inicio = ?, fecha_fin = ? WHERE id = ?';
+    connect.conexion.query(str_actualizar, [codigo, nombre, descripcion, tipo, scrum, fecha_ini, fecha_fin, id], function(error, results, fields){
+        if (!!error) {
+            console.log('Error', +error);
+        }
+        res.redirect("/features");
+    });
+});
+
+router.post('/updateFeature', function (req, res){
+    let codigo = req.body.codigo;
+    let estado = req.body.estado;
+    let scrum = req.body.scrum;
+    let tipo = req.body.tipo;
+    let str_actualizar = 'UPDATE features SET estado = ?, tipo = ?, scrum = ? WHERE id = ?';
+    connect.conexion.query(str_actualizar, [estado, tipo, scrum, codigo], function(error, results, fields){
+        if (!!error) {
+            console.log('Error', +error);
+        }
         res.redirect("/features");
     });
 });
