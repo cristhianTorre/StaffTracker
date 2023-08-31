@@ -96,17 +96,17 @@
                     <td>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center">    
                             <!-- Button trigger modal -->                    
-                            <button type="button" class="buttonClicMePerson" data-bs-toggle="modal" data-bs-target="#staticIconPerson">
+                            <button type="button" class="buttonClicMePerson" data-bs-toggle="modal" data-bs-target="#staticIconPerson{{project.feature_codigo}}">
                                 <span class="material-symbols-outlined iconPerson">
                                     group
                                 </span>
                             </button>
                             <!-- Modal ver Personas asociadas a la Feature-->
-                            <div class="modal fade" id="staticIconPerson" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticIconPerson" aria-hidden="true">
+                            <div class="modal fade" id="staticIconPerson{{project.feature_codigo}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticIconPerson{{project.feature_codigo}}" aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="staticIconPerson">Personas Asociadas a la Feature: </h5>
+                                            <h5 class="modal-title" id="staticIconPerson{{project.feature_codigo}}">Personas Asociadas a la Feature: </h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">                                                                                                
@@ -147,21 +147,21 @@
                             <div class="{{borde_uno}}"><progress id="file" max="100" value="{{quartil_uno}}" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="{{borde_dos}}"><progress id="file" max="100" value="{{quartil_dos}}" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="indicadorCronogramaFull"><progress id="file" max="100" value="{{progreso}}" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div>
+                            <div class="{{borde_cuatro}}"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="{{borde_cinco}}"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="{{borde_seis}}"><progress id="file" max="100" value="0" class="chartProgress"></progress></div>
                         </div>
                     </td>
                     <td>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center">                        
                             <!-- Button trigger modal Ver Feature-->
-                            <button type="button" class="buttonClicMeSeeProject" data-bs-toggle="modal" data-bs-target="#staticViewFlow">
+                            <button type="button" class="buttonClicMeSeeProject" data-bs-toggle="modal" data-bs-target="#staticViewFlow{{project.feature_codigo}}">
                                 <span class="material-symbols-outlined clicMeSeeProject" >
                                     visibility
                                 </span>                            
                             </button>
                             <!-- Modal ver descripción proyectos en Flow-->
-                            <div class="modal fade" id="staticViewFlow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticFlowProject" aria-hidden="true">
+                            <div class="modal fade" id="staticViewFlow{{project.feature_codigo}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticFlowProject" aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -197,24 +197,24 @@
                                             <div class="container ">
                                                 <h3 style="color:rgb(2, 21, 128); text-align: left; margin: 0 0 15px 20px;">Proyecto</h3>
                                                 <div class="row containerTitlesViewProjectFlow">
-                                                    <p class="col-md-2"><b>SDATOOL-001</b></p>
-                                                    <p class="col-md-8 nameProject"><b>Nombre: </b>Gestor documental y distribuido</p>
+                                                    <p class="col-md-2"><b>SDATOOL-{{project.proyecto}}</b></p>
+                                                    <p class="col-md-8 nameProject"><b>Nombre: </b>{{project.proyecto_nombre}}</p>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-5 containerDescriptionProjectFlow">
                                                         <p class="scrollVerticalDescriptionFlow"><b>Descripción:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi aperiam dolores praesentium accusamus eos odit expedita veniam in dolor, facere fugiat magnam repellendus quae dicta deserunt temporibus sunt hic iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, nesciunt suscipit. Fugit eius repellendus corporis ratione aperiam numquam dolorum corrupti unde non dolore officiis, eveniet voluptatibus consequuntur, nesciunt optio omnis?</p>
                                                     </div>
                                                     <div class="col-md-3 containerDescriptionProjectFlow">
-                                                        <p><b>Costo Total:</b> 30.000.000</p>
-                                                        <p><b>Owner:</b> product.owner@bbva.com</p>
-                                                        <p><b>Tipo:</b> Normativo</p>
-                                                        <p><b>Estado:</b> Flow</p>     
+                                                        <p><b>Costo Total:</b> {{project.presupuesto}}</p>
+                                                        <p><b>Owner:</b> {{project.owner}}</p>
+                                                        <p><b>Tipo:</b> {{project.normativo}}</p>
+                                                        <p><b>Estado:</b> {{project.proyecto_estado}}</p>     
                                                     </div>
                                                     <div class="col-md-2 containerDescriptionProjectFlow">
                                                         <p><b>Periodo de ejecución:</b></p>
                                                         <ul>
-                                                            <li><b>Inicio:</b> 2Q 2023</li>
-                                                            <li><b>Fin:</b> 4Q 2023</li>
+                                                            <li><b>Inicio:</b> {{project.q_inicial}}</li>
+                                                            <li><b>Fin:</b> {{project.q_final}}</li>
                                                         </ul>          
                                                     </div>
                                                     <div class="col-md-2 containerDescriptionProjectFlow">    
@@ -225,77 +225,16 @@
                                                         </ul>               
                                                     </div>
                                                 </div>
-                                            <div class="horizontalScrollableViewPersonFlow">                    
+                                            <div class="horizontalScrollableViewPersonFlow">
+                                                {{#each project.equipo}}                    
                                                 <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">O003812</p>
-                                                    <p class="personNameFlow">Danie Alejandro Larrota Moreno</p>
+                                                    <p class="personCodeFlow">{{codigo}}</p>
+                                                    <p class="personNameFlow">{{nombre}}</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
-                                                </div>                                            
-                                                <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">O003992</p>
-                                                    <p class="personNameFlow">Cristhian Camilo Torres Castro</p>
-                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: {{ocupacion_total}}%</small></p>
+                                                    <p class="descriptionPersonFlow"><small class="text-muted">{{rol}}</small></p>
                                                 </div>
-                                                <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 3</p>
-                                                    <p class="personNameFlow">Name developer</p>
-                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
-                                                </div>
-                                                <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 4</p>
-                                                    <p class="personNameFlow">Name developer</p>
-                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
-                                                </div>
-                                                <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 5</p>
-                                                    <p class="personNameFlow">Name developer</p>
-                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
-                                                </div>
-                                                <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 6</p>
-                                                    <p class="personNameFlow">Name developer</p>
-                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
-                                                </div>
-                                                <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 7</p>
-                                                    <p class="personNameFlow">Name developer</p>
-                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
-                                                </div>
-                                                <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 8</p>
-                                                    <p class="personNameFlow">Name developer</p>
-                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
-                                                </div>
-                                                <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 9</p>
-                                                    <p class="personNameFlow">Name developer</p>
-                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
-                                                </div>
-                                                <div class="containerPersonViewFlow">
-                                                    <p class="personCodeFlow">Code 10</p>
-                                                    <p class="personNameFlow">Name developer</p>
-                                                    <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Developer</small></p>
-                                                </div>                                                                             
+                                                {{/each}}                                                                            
                                             </div>
                                         </div>
                                         
@@ -307,13 +246,13 @@
                                 </div>
                             </div> 
                             <!-- Button trigger modal Ver Reglasde Oro-->
-                            <button type="button" class="buttonClicAlertGoldenRules" data-bs-toggle="modal" data-bs-target="#AlertGoldenRules">
+                            <button type="button" class="buttonClicAlertGoldenRules" data-bs-toggle="modal" data-bs-target="#AlertGoldenRules{{project.feature_codigo}}">
                                 <span class="material-symbols-outlined ClicAlertGoldenRules">
                                     info
                                 </span>                           
                             </button>
                             <!-- Modal ver reglas de Oro Feature-->
-                            <div class="modal fade" id="AlertGoldenRules" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tittleAlertGoldenRules"
+                            <div class="modal fade" id="AlertGoldenRules{{project.feature_codigo}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tittleAlertGoldenRules"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
@@ -323,7 +262,7 @@
                                         </div>
                                         <div class="modal-body scrollVerticalModalSee">
                                             <div class="containerGoldenRules">
-                                                <h3>Feature: COLWSCRM-2287</h3>
+                                                <h3>Feature: {{project.feature_codigo}}</h3>
                                                 <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ipsa saepe alias maxime mollitia ab eaque praesentium aliquid suscipit. Magni officia nam quas maiores quae quos sapiente, culpa illum sed!</P>
                                                 <h4 class="tittleGoldenRules">Validación Reglas de Oro</h4>
                                                 <table class="table">
@@ -331,8 +270,6 @@
                                                         <tr>
                                                             <th scope="col">#</th>
                                                             <th scope="col">Regla</th>
-                                                            <th scope="col">Cumple</th>
-                                                            <th scope="col">No Cumple</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -340,46 +277,8 @@
                                                         <tr class="{{clase}}">
                                                             <th scope="row">{{id}}</th>
                                                             <td>{{descripcion}}</td>
-                                                            <td class="verify"></td>
-                                                            <td class="noVerify">x</td>
                                                         </tr>
                                                         {{/each}}
-                                                        <tr class="table-danger">
-                                                            <th scope="row">2</th>
-                                                            <td>Una persona no puede tener mas de tres Features en el mismo periodo de tiempo.</td>
-                                                            <td class="verify"></td>
-                                                            <td class="noVerify">x</td>
-                                                        </tr>
-                                                        <tr class="table-success">
-                                                            <th scope="row">3</th>
-                                                            <td>Una persona no puede superar el 100% de la ocupación en el tiempo actual.</td>
-                                                            <td class="verify">x</td>
-                                                            <td class="noVerify"></td>
-                                                        </tr>
-                                                        <tr class="table-danger">
-                                                            <th scope="row">4</th>
-                                                            <td>Una Feature debe ser ejecutada en un periodo máximo de 6 meses.</td>
-                                                            <td class="verify"></td>
-                                                            <td class="noVerify">x</td>
-                                                        </tr>
-                                                        <tr class="table-success">
-                                                            <th scope="row">5</th>
-                                                            <td>Una Feature no puede superar el tiempo destinado para su ejecución.</td>
-                                                            <td class="verify">x</td>
-                                                            <td class="noVerify"></td>
-                                                        </tr>
-                                                        <tr class="table-success">
-                                                            <th scope="row">6</th>
-                                                            <td>El porcentaje de habilidad de la persona seleccionada es inferior al porcentaje de la tecnología requerida para el proyecto.</td>
-                                                            <td class="verify">x</td>
-                                                            <td class="noVerify"></td>
-                                                        </tr>
-                                                        <tr class="table-danger">
-                                                            <th scope="row">7</th>
-                                                            <td>La persona seleccionada pertenece a un equipo Scrum, por lo cual su dedicación esta al 100% y no puede participar en mas Features en el mismo periodo de tiempo.</td>
-                                                            <td class="verify"></td>
-                                                            <td class="noVerify">x</td>
-                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -394,82 +293,6 @@
                     </td>
                 </tr>
                 {{/each}}
-                <tr>
-                    <th scope="row">2</th>
-                    <td>SDATOOL-002</td>
-                    <td>Proyecto 2</td>
-                    <td>
-                        <p>COLWSD-01</p>
-                    </td>
-                    <td><p class="statusFlow">Flow</p></td>
-                    <td>
-                        <span class="material-symbols-outlined iconScrumTrue">
-                            check
-                        </span>
-                    </td>
-                    <td>                      
-                        <button class="buttonClicMePerson">
-                            <span class="material-symbols-outlined iconPerson">
-                            group
-                            </span>
-                        </button>
-                    </td>
-                    <td>
-                        <div class="containerIndicadorCronograma">                           
-                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaNextYear"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress"></progress></div>
-                        </div>
-                    </td>
-                    <td>
-                        <button class="buttonClicMeSeeProject">
-                            <span class="material-symbols-outlined clicMeSeeProject">
-                                visibility
-                            </span>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>SDATOOL-003</td>
-                    <td>Proyecto 3</td>
-                    <td>
-                        <p>COLWSD-01</p>
-                    </td>
-                    <td><p class="statusFlow">Flow</p></td>
-                    <td>
-                        <span class="material-symbols-outlined iconScrumTrue">
-                            check
-                        </span>
-                    </td>
-                    <td>                      
-                        <button class="buttonClicMePerson">
-                            <span class="material-symbols-outlined iconPerson">
-                            group
-                            </span>
-                        </button>
-                    </td>
-                    <td>
-                        <div class="containerIndicadorCronograma">                           
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="marineWater chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="100" class="marineWater chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="20" class="marineWater chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
-                        </div>
-                    </td>
-                    <td>
-                        <button class="buttonClicMeSeeProject">
-                            <span class="material-symbols-outlined clicMeSeeProject">
-                                visibility
-                            </span>
-                        </button>
-                    </td>
-                </tr>
             </tbody>
         </table>
         </div>
@@ -477,12 +300,13 @@
             <!-- Contenido de proyectos en "Backlog" -->
         <table class="table">
             <tbody>
+                {{#each backlog}}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>COLWSCRM-2287</td>
-                    <td>Plan CMR: Mejoras...</td>
+                    <th scope="row">-</th>
+                    <td>{{codigo_feature}}</td>
+                    <td>{{nombre_feature}}</td>
                     <td>
-                        <p>SDATOOL-001</p>
+                        <p>SDATOOL-{{codigo_proyecto}}</p>
                     </td>
                     <td><p class="statusBacklog">Backlog</p></td>
                     <td>
@@ -532,8 +356,8 @@
                                     <div class="modal-body">                                                                                                
                                         <div class="container ">
                                             <div class="row containerTitlesViewProjectFlow">
-                                                <p class="col-md-3"><b>SDATOOL-001</b></p>
-                                                <p class="col-md-7"><b>Proyecto Gestor documental y distribuido</b></p>
+                                                <p class="col-md-3"><b>SDATOOL-{{codigo_proyecto}}</b></p>
+                                                <p class="col-md-7"><b>{{nombre_proyecto}}</b></p>
                                                 <p class="col-md-2 statusBacklogModal">Backlog</p>
                                             </div>
                                             <div class="row">
@@ -541,18 +365,18 @@
                                                     <p class="scrollVerticalDescriptionFlow"><b>Descripción:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi aperiam dolores praesentium accusamus eos odit expedita veniam in dolor, facere fugiat magnam repellendus quae dicta deserunt temporibus sunt hic iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, nesciunt suscipit. Fugit eius repellendus corporis ratione aperiam numquam dolorum corrupti unde non dolore officiis, eveniet voluptatibus consequuntur, nesciunt optio omnis?</p>
                                                 </div>
                                                 <div class="col-md-4 containerDescriptionProjectFlow">
-                                                    <p><b>Costo Total:</b> 30.000.000</p>
-                                                    <p><b>Owner:</b> product.owner@bbva.com</p>
-                                                    <p><b>Tipo:</b> Normativo</p>
-                                                    <p><b>Scrum:</b> Si</p> 
-                                                    <p><b>Feature:</b> FT001A</p>
+                                                    <p><b>Costo Total:</b> {{presupuesto}}</p>
+                                                    <p><b>Owner:</b> {{owner}}</p>
+                                                    <p><b>Tipo:</b> {{normativo}}</p>
+                                                    <p><b>Scrum:</b> {{scrum}}</p> 
+                                                    <p><b>Feature:</b> {{codigo_feature}}</p>
                                                     <p><b>Customer:</b> CM001A</p>     
                                                 </div>
                                                 <div class="col-md-3 containerDescriptionProjectFlow">
                                                     <p><b>Periodo de ejecución:</b></p>
                                                     <ul>
-                                                        <li><b>Inicio:</b> 2Q 2023</li>
-                                                        <li><b>Fin:</b> 4Q 2023</li>
+                                                        <li><b>Inicio:</b> {{fecha_inicio}}</li>
+                                                        <li><b>Fin:</b> {{fecha_fin}}</li>
                                                     </ul>    
                                                     <p><b>Features Asociadas:</b></p>
                                                     <ul>
@@ -647,6 +471,7 @@
                         </div>
                     </td>
                 </tr>
+                {{/each}}
                 <tr>
                     <th scope="row">2</th>
                     <td>SDATOOL-005</td>

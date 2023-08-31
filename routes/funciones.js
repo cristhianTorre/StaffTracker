@@ -469,7 +469,7 @@ function getQuartilFecha(fecha){
 
 function organizarPersonas(proyectos, reglas){
     for(const proyecto of proyectos){
-        proyecto.reglas = unirReglas(reglas, proyecto);
+        proyecto.reglas = unirReglas(reglas, proyecto['project'].feature_codigo);
         const cronograma = cronogramaFeature(proyecto['project'].fecha_inicio, proyecto['project'].fecha_fin);
         proyecto.quartil_uno = cronograma.primero;
         if(cronograma.primero == 100){
@@ -482,6 +482,21 @@ function organizarPersonas(proyectos, reglas){
             proyecto.borde_dos = "indicadorCronogramaFull";
         }else{
             proyecto.borde_dos = "indicadorCronogramaEmpty";
+        }
+        if(cronograma.cuarto == 100){
+            proyecto.borde_cuatro = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_cuatro = "indicadorCronogramaEmpty";
+        }
+        if(cronograma.quinto == 100){
+            proyecto.borde_cinco = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_cinco = "indicadorCronogramaEmpty";
+        }
+        if(cronograma.sexto == 100){
+            proyecto.borde_seis = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_seis = "indicadorCronogramaEmpty";
         }
         proyecto.progreso = progreso(conversion_fecha_inicial(getQuartilHoy()), conversion_fecha_final(getQuartilHoy()));
     }
@@ -499,6 +514,15 @@ function cronogramaFeature(f_inicial, f_final){
     }
     if(listado.includes(cronograma.segundo)){
         porcentajes.segundo = 100;
+    }
+    if(listado.includes(cronograma.cuarto)){
+        porcentajes.cuarto = 100;
+    }
+    if(listado.includes(cronograma.quinto)){
+        porcentajes.quinto = 100;
+    }
+    if(listado.includes(cronograma.sexto)){
+        porcentajes.sexto = 100;
     }
     return porcentajes;
 }
@@ -535,7 +559,8 @@ function getProjects(proyectos, persona, jefe){
             }else{
                 persona.ocupacion = proyecto['ocupacion'];
                 persona.habilidad = proyecto['habilidad_nombre'];
-                listado_proyectos.push({boss: jefe, project: {feature_codigo:proyecto['feature_codigo'], feature_nombre:proyecto['feature_nombre'], proyecto: proyecto['proyecto'], estado: proyecto['estado'], fecha_inicio:proyecto['fecha_inicio'], fecha_fin:proyecto['fecha_fin']}, people: [persona]});
+                listado_proyectos.push({boss: jefe, project: proyecto, people: [persona]});
+                //feature_codigo: proyecto['feature_codigo'], feature_nombre:proyecto['feature_nombre'], proyecto: proyecto['proyecto'], estado: proyecto['estado'], fecha_inicio:proyecto['fecha_inicio'], fecha_fin:proyecto['fecha_fin']
             }
         }
     }
@@ -560,9 +585,9 @@ function inListadoProyectos(proyecto){
 }
 
 function unirReglas(reglas, proyecto){
-    let arreglo = [];
-    for(let regla of reglas){
-        if(regla['feature'] == proyecto['feature_codigo']){
+    const arreglo = [];
+    for(const regla of reglas){
+        if(regla['feature'] == proyecto){
             if(regla['cumple'] == 1){
                 regla.clase = "table-success";
             }else{
@@ -572,7 +597,6 @@ function unirReglas(reglas, proyecto){
         }
     }
     return arreglo;
-    //proyecto.reglas = arreglo;
 }
 
 module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos, getCuartilesEncabezado, organizarPersonas, proyectosConJefe};
