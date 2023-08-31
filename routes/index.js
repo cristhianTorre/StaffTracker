@@ -263,12 +263,13 @@ router.get('/features', function (req,res,next){
     });
 });
 
-function backToStaffing(id){
+router.post('/backToStaffing', function (req, res) {
+    let id = req.body.id_feature_new;
     let str_actualizar = 'UPDATE features SET estado = "NEW" WHERE id = ?';
     connect.conexion.query(str_actualizar, [id], function(error, results, fields){
         res.redirect("/features");
     });
-}
+});
 
 cron.schedule("* * * * *", function () {
     //reglas.set_internos_externos_cero();

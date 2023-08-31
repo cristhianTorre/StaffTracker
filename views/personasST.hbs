@@ -340,11 +340,14 @@
                                     edit
                                 </span>
                             </button>
-                            <button type="button" class="buttonClicMeSendProject" data-bs-toggle="modal" data-bs-target="">
-                                <span class="material-symbols-outlined clicMeSendProject">
-                                    publish
-                                </span>
-                            </button>
+                            <form method="post" action="/backToStaffing">
+                                <input type="hidden" id="{{id}}" value="{{id}}" name="id_feature_new">
+                                <button type="submit" class="buttonClicMeSendProject" data-bs-toggle="modal" data-bs-target="">
+                                    <span class="material-symbols-outlined clicMeSendProject">
+                                        publish
+                                    </span>
+                                </button>
+                            </form>
                             <!-- Modal modificar caracteristicas Backlog-->
                             <div class="modal fade" id="staticBacklogEditProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBacklogProject" aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
