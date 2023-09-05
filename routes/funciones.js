@@ -483,6 +483,11 @@ function organizarPersonas(proyectos, reglas){
         }else{
             proyecto.borde_dos = "indicadorCronogramaEmpty";
         }
+        if(cronograma.tercero == 100){
+            proyecto.borde_tres = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_tres = "indicadorCronogramaEmpty";
+        }
         if(cronograma.cuarto == 100){
             proyecto.borde_cuatro = "indicadorCronogramaFull";
         }else{
@@ -503,6 +508,46 @@ function organizarPersonas(proyectos, reglas){
     return proyectos;
 }
 
+function cuadrarCronograma(proyectos){
+    for(const proyecto of proyectos){
+        const cronograma = cronogramaFeature(proyecto.fecha_inicio, proyecto.fecha_fin);
+        proyecto.quartil_uno = cronograma.primero;
+        if(cronograma.primero == 100){
+            proyecto.borde_uno = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_uno = "indicadorCronogramaEmpty";
+        }
+        proyecto.quartil_dos = cronograma.segundo;
+        if(cronograma.segundo == 100){
+            proyecto.borde_dos = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_dos = "indicadorCronogramaEmpty";
+        }
+        if(cronograma.tercero == 100){
+            proyecto.borde_tres = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_tres = "indicadorCronogramaEmpty";
+        }
+        if(cronograma.cuarto == 100){
+            proyecto.borde_cuatro = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_cuatro = "indicadorCronogramaEmpty";
+        }
+        if(cronograma.quinto == 100){
+            proyecto.borde_cinco = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_cinco = "indicadorCronogramaEmpty";
+        }
+        if(cronograma.sexto == 100){
+            proyecto.borde_seis = "indicadorCronogramaFull";
+        }else{
+            proyecto.borde_seis = "indicadorCronogramaEmpty";
+        }
+        //proyecto.progreso = progreso(conversion_fecha_inicial(getQuartilHoy()), conversion_fecha_final(getQuartilHoy()));
+    }
+    return proyectos;
+}
+
 function cronogramaFeature(f_inicial, f_final){
     const q_inicial = getQuartilFecha(f_inicial);
     const q_final = getQuartilFecha(f_final);
@@ -514,6 +559,9 @@ function cronogramaFeature(f_inicial, f_final){
     }
     if(listado.includes(cronograma.segundo)){
         porcentajes.segundo = 100;
+    }
+    if(listado.includes(cronograma.tercero)){
+        porcentajes.tercero = 100;
     }
     if(listado.includes(cronograma.cuarto)){
         porcentajes.cuarto = 100;
@@ -599,4 +647,4 @@ function unirReglas(reglas, proyecto){
     return arreglo;
 }
 
-module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos, getCuartilesEncabezado, organizarPersonas, proyectosConJefe};
+module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos, getCuartilesEncabezado, organizarPersonas, proyectosConJefe, cuadrarCronograma};

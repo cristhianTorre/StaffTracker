@@ -241,7 +241,7 @@ router.get('/features', function (req,res,next){
     //let features_proyectos = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.descripcion, features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin, proyectos.nombre AS "proyecto_nombre", proyectos.estado AS "proyecto_estado", proyectos.q_inicial, proyectos.q_final, proyectos.owner, proyectos.presupuesto, proyectos.normativo FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN proyectos ON features.proyecto = proyectos.sda INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" GROUP BY features.id AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
     let features_nuevos = 'SELECT * FROM features WHERE estado = "Sin asignar"'
     let personas_equipo = 'SELECT * FROM personas WHERE superior = ?';
-    let proyectos_general = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.descripcion, features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin, proyectos.nombre AS "proyecto_nombre", proyectos.estado AS "proyecto_estado", proyectos.q_inicial, proyectos.q_final, proyectos.owner, proyectos.presupuesto, proyectos.normativo, staffing.persona AS "persona_codigo", habilidades.nombre AS "habilidad_nombre", staffing.ocupacion FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN proyectos ON features.proyecto = proyectos.sda INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE features.estado != "Closed" AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
+    let proyectos_general = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.descripcion, features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin, proyectos.nombre AS "proyecto_nombre", proyectos.estado AS "proyecto_estado", proyectos.q_inicial, proyectos.q_final, proyectos.owner, proyectos.presupuesto, proyectos.normativo, staffing.persona AS "persona_codigo", habilidades.nombre AS "habilidad_nombre", staffing.ocupacion FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN proyectos ON features.proyecto = proyectos.sda INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE features.estado != "Sin asignar" AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
     let personas_general = 'SELECT * FROM personas';
     let usuarios = 'SELECT * FROM usuarios';
     let usuario = 'SELECT * FROM usuarios WHERE codigo = ?';
@@ -262,7 +262,7 @@ router.get('/features', function (req,res,next){
             feature_new.equipo =  resultadoDos;
         }
         const manipulacion = funciones.proyectosConJefe(resultadoCuatro, jefe, resultadoCinco, resultadoSeis);
-        res.render("personasST", {login: usuario_login, features: funciones.organizarPersonas(manipulacion, reglas), habilidades: resultadoDos, qtiles: cuartiles, backlog: resultadoTres});
+        res.render("personasST", {login: usuario_login, features: funciones.organizarPersonas(manipulacion, reglas), habilidades: resultadoDos, qtiles: cuartiles, backlog: funciones.cuadrarCronograma(resultadoTres)});
     });
 });
 
@@ -290,6 +290,20 @@ router.post('/actualizarFeature', function (req, res){
         }
         res.redirect("/features");
     });
+});
+
+router.post('/insertarPersonas', function (req, res){
+    let personas = req.body.personas;
+    let codigo = req.body.codigo;
+    for(let i = 0; i<personas.length; i++){
+        let features = 'SELECT proyecto FROM features WHERE codigo = ?';
+        connect.conexion.query(features, [codigo], function (error, results, fields) {
+            let insPerso = 'INSERT INTO `staffing`(`sda`, `feature`, `persona`, `ocupacion`, `tecnologia`) VALUES ("'+results[0].proyecto+'","'+codigo+'","'+personas[i]+'","50","1")';
+            connect.conexion.query(insPerso, function (error, results, fields) {
+                res.redirect("/features");
+            });
+        });
+    }
 });
 
 router.post('/updateFeature', function (req, res){
@@ -354,5 +368,13 @@ cron.schedule("40 * * * *", function (){
         reglas.insercion_requisitos_features(features, requisitos, habilidades);
     });
 });
+
+function getProyectos(codigo){
+    let features = 'SELECT proyecto FROM features WHERE codigo = ?';
+    connect.conexion.query(features, [codigo], function (error, results, fields) {
+        console.log(results);
+        return results;
+    });
+}
 
 module.exports = router;

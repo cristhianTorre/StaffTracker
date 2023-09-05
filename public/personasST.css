@@ -17,6 +17,8 @@ p{
     border-radius: 5px;
     min-width: 576px;
     text-align: center;
+    overflow-y: scroll; /* Habilita el scroll vertical */
+    height: 150px; /* Altura máxima de la tabla */
 }
 .containerPrincipalBacklog{
     margin: 0px 30px 30px 30px;
@@ -24,6 +26,8 @@ p{
     border-radius: 5px;
     min-width: 576px;
     text-align: center;
+    overflow-y: scroll; /* Habilita el scroll vertical */
+    height: 150px; /* Altura máxima de la tabla */
 }
 .principalTitlesTable{
     background: #004481;
@@ -31,6 +35,8 @@ p{
 .principalTitlesTable th{
     font-size: 15px;
     color: white;
+    position: sticky; /* Fija el encabezado */
+    top: 0; /* Mantiene el encabezado en la parte superior */
 }
 .containerFeature{
     margin-top: 0px;

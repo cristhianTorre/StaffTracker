@@ -146,7 +146,7 @@
                         <div class="containerIndicadorCronograma">                           
                             <div class="{{borde_uno}}"><progress id="file" max="100" value="{{quartil_uno}}" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="{{borde_dos}}"><progress id="file" max="100" value="{{quartil_dos}}" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFull"><progress id="file" max="100" value="{{progreso}}" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="{{borde_tres}}"><progress id="file" max="100" value="{{progreso}}" class="marineWater chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="{{borde_cuatro}}"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="{{borde_cinco}}"><progress id="file" max="100" value="0" class="chartProgress"></progress></div><p class="separadorCronograma">---</p>
                             <div class="{{borde_seis}}"><progress id="file" max="100" value="0" class="chartProgress"></progress></div>
@@ -210,7 +210,7 @@
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">{{codigo}}</p>
                                                         <div class="form-check" style="position: absolute; right: 10px;">
-                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" checked>
+                                                            <input class="form-check-input" type="checkbox" value="{{codigo}}" id="flexCheckDefault2">
                                                         </div>
                                                     </div>
                                                     <p class="personNameFlow">{{nombre}}</p>
@@ -304,19 +304,19 @@
                     </td>
                     <td>
                         <div class="containerIndicadorCronograma">                           
-                            <div class="indicadorCronogramaFullDelay"><progress class="chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay"><progress class="chartProgress" id="file" max="100" value="100"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaFullDelay"><progress class="chartProgress" id="file" max="100" value="20"></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
-                            <div class="indicadorCronogramaEmpty"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
+                            <div class="{{borde_uno}}"><progress class="chartProgress" id="file" max="100" value="0"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="{{borde_dos}}"><progress class="chartProgress" id="file" max="100" value="0"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="{{borde_tres}}"><progress class="chartProgress" id="file" max="100" value="0"></progress></div><p class="separadorCronograma">---</p>
+                            <div class="{{borde_cuatro}}"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="{{borde_cinco}}"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div><p class="separadorCronograma">---</p>
+                            <div class="{{borde_seis}}"><progress id="file" max="100" value="0" class="chartProgress" ></progress></div>
                         </div>
                     </td>
                     <td>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center">                        
                             <!-- Button trigger modal Backlog-->
                             
-                            <button type="button" class="buttonClicMeEditProject" data-bs-toggle="modal" data-bs-target="#staticBacklogEditProject">
+                            <button type="button" class="buttonClicMeEditProject" data-bs-toggle="modal" data-bs-target="#staticBacklogEditProject{{id}}">
                                 <span class="material-symbols-outlined clicMeEditProject" >
                                     edit
                                 </span>
@@ -330,7 +330,7 @@
                                 </button>
                             </form>
                             <!-- Modal modificar caracteristicas Backlog-->
-                            <div class="modal fade" id="staticBacklogEditProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBacklogProject" aria-hidden="true">
+                            <div class="modal fade" id="staticBacklogEditProject{{id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBacklogProject" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -386,14 +386,15 @@
                                                     <button type="submit">Actualizar</button>
                                                 </form>
                                             </div>
-                                        </div>    
+                                        </div> 
+                                        <form method="post" action="/insertarPersonas">   
                                             <div class="horizontalScrollableViewPersonFlow"> 
                                                 {{#each equipo}}                   
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">{{codigo}}</p>
                                                         <div class="form-check" style="position: absolute; right: 10px;">
-                                                            <input name="personas" class="form-check-input" type="checkbox" value="{{codigo}}" id="flexCheck1" checked>
+                                                            <input name="personas" class="form-check-input" type="checkbox" value="{{codigo}}" id="flexCheckDefault2">
                                                         </div>
                                                     </div>
                                                     <p class="personNameFlow">{{nombre}}</p>
@@ -403,6 +404,9 @@
                                                 </div>
                                                 {{/each}}                                                                             
                                             </div>
+                                            <input type="hidden" name="codigo" value="{{codigo}}">
+                                            <button type="submit">Insertar</button>
+                                        </form>
                                         </div>
                                     <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
