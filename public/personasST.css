@@ -18,7 +18,7 @@ p{
     min-width: 576px;
     text-align: center;
     overflow-y: scroll; /* Habilita el scroll vertical */
-    height: 150px; /* Altura máxima de la tabla */
+    height: 250px; /* Altura máxima de la tabla */
 }
 .containerPrincipalBacklog{
     margin: 0px 30px 30px 30px;
@@ -27,10 +27,13 @@ p{
     min-width: 576px;
     text-align: center;
     overflow-y: scroll; /* Habilita el scroll vertical */
-    height: 150px; /* Altura máxima de la tabla */
+    height: 210px; /* Altura máxima de la tabla */
+    
 }
 .principalTitlesTable{
     background: #004481;
+    position: sticky; /* Fija el encabezado */
+    top: 0; /* Mantiene el encabezado en la parte superior */
 }
 .principalTitlesTable th{
     font-size: 15px;
@@ -147,6 +150,11 @@ body{
 /*#containerGeneralPrueba{
     height: 100px;
 }*/
+.imageLeaderFeature{
+    height: 30px;
+    width: auto;
+    border-radius: 50%;
+}
 .statusFlow{
     background: #028452;
     padding: 2px 4px 2px 4px;
@@ -377,10 +385,18 @@ body{
     padding: 0;
 
 }
-.personCodeFlow, .descriptionPersonFlow, .personNameFlow{
+.personCodeFlow, .descriptionPersonFlow, .personNameFlow, .descriptionTecnologFlow{
     font-size: 10px;
     margin-top: 3px;
     padding: 0;
+}
+.descriptionTecnologFlow{
+    margin-left: 3px;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
 }
 .imagePersonFlow{
     margin: 8px 6px 6px 6px;

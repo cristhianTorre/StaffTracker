@@ -38,7 +38,7 @@
             <!-- Titulos tabla de proyectos -->
             <thead >
                 <tr class="principalTitlesTable">
-                    <th scope="col"><p style="margin-bottom: 8px;">#</p></th>
+                    <th scope="col"><p style="margin-bottom: 8px;">Lider</p></th>
                     <th scope="col"><p style="margin-bottom: 8px;">Feature</p></th>
                     <th scope="col"><p style="margin-bottom: 8px;">Título</p></th>
                     <th scope="col"><p style="margin-bottom: 8px;">Proyecto</p></th>
@@ -80,7 +80,11 @@
         <div  id="containerGeneralProjectFlow">
             <tbody id="containerGeneralPrueba">                
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">
+                        <span class="d-inline-block imageLeaderFeature" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Elkin Fidel Ariza">
+                            <img class="imageLeaderFeature" src="image/userCaptura.PNG" class="img-fluid rounded-start" alt="...">
+                        </span>
+                    </th>
                     <td>COLWSCRM-2287</td>
                     <td>Plan CMR: Mejoras...</td>
                     <td>SDATOOL-001</td>
@@ -221,19 +225,36 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">O003812</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
-                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" checked>
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheck1" checked>
                                                         </div>
                                                     </div>
                                                     <p class="personNameFlow">Daniel Alejandro Larrota Moreno</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer / Interno</small></p>
+                                                    <div style="text-align: left;">
+                                                        <p class="descriptionPersonFlow"><small class="text-muted">Ocupación Total: 85%</small></p>
+                                                        <p class="descriptionPersonFlow"><small class="text-muted">Dedicación Feat: <input type="number" style="width: 20px; height: 13px; text-align: center;">%</small></p>
+                                                        <label for="selectTecnologia" class="descriptionPersonFlow text-muted" style="text-align: left;">Tecnología:</label>
+                                                        <select class="form-select form-select-sm descriptionPersonFlow" style="border: none;"
+                                                            aria-label=".form-select-sm example" id="selectTecnologia">
+                                                            <option selected class="descriptionTecnologFlow text-muted">Seleccione</small></p>
+                                                            </option>
+                                                            <option value="1" class="descriptionTecnologFlow text-muted">ASO: 100%</option>
+                                                            <option value="2" class="descriptionTecnologFlow text-muted">APX: 100%</option>
+                                                            <option value="3" class="descriptionTecnologFlow text-muted">Cells: 100%</option>
+                                                            <option value="4" class="descriptionTecnologFlow text-muted">Host: 100%</option>
+                                                            <option value="5" class="descriptionTecnologFlow text-muted">Bluesprint: 100%</option>
+                                                            <option value="6" class="descriptionTecnologFlow text-muted">Python: 100%</option>
+                                                            <option value="7" class="descriptionTecnologFlow text-muted">Scala: 100%</option>
+                                                            <option value="8" class="descriptionTecnologFlow text-muted">Distribuido: 100%</option>
+                                                        </select>
+                                                    </div>
                                                 </div>                                            
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">O003992</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" checked>
                                                         </div>
                                                     </div>
@@ -245,7 +266,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 3</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
                                                         </div>
                                                     </div>
@@ -257,7 +278,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 4</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4" checked>
                                                         </div>
                                                     </div>
@@ -269,7 +290,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 5</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">
                                                         </div>
                                                     </div>
@@ -281,7 +302,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 6</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6">
                                                         </div>
                                                     </div>
@@ -293,7 +314,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 7</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault7">
                                                         </div>
                                                     </div>
@@ -305,7 +326,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 8</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault8">
                                                         </div>
                                                     </div>
@@ -317,7 +338,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 9</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9">
                                                         </div>
                                                     </div>
@@ -329,7 +350,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 10</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10">
                                                         </div>
                                                     </div>
@@ -505,7 +526,11 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">
+                        <span class="d-inline-block imageLeaderFeature" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Elkin Fidel Ariza">
+                            <img class="imageLeaderFeature" src="image/userCaptura.PNG" class="img-fluid rounded-start" alt="...">
+                        </span>
+                    </th>
                     <td>COLWSCRM-2287</td>
                     <td>Plan CMR: Mejoras...</td>
                     <td>
@@ -592,14 +617,14 @@
                                                             <option value="3">No</option>
                                                         </select>
                                                     </div>
-                                                    
+
                                                     <div class="col-md-6 position-relative">
-                                                        <label for="validation06" class="form-label">Fecha Inicio</label>
-                                                        <input type="text" class="form-control" id="validation06" value="01/01/2023" required>
+                                                        <label for="validation06" style="margin-bottom: 0.5rem;">Fecha Inicio</label>
+                                                        <input id="validation06" class="form-control" type="date" />
                                                     </div>
                                                     <div class="col-md-6 position-relative">
-                                                        <label for="validation07" class="form-label">Fecha Finalización</label>
-                                                        <input type="text" class="form-control" id="validation07" value="29/03/2023" required>
+                                                        <label for="validation07" style="margin-bottom: 0.5rem;">Fecha Finalización</label>
+                                                        <input id="validation07" class="form-control" type="date" />
                                                     </div>
                                                 </form>
                                             </div>
@@ -608,19 +633,36 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">O003812</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck1" checked>
                                                         </div>
                                                     </div>
                                                     <p class="personNameFlow">Daniel Alejandro Larrota Moreno</p>
                                                     <img class="imagePersonFlow" src="https://img.freepik.com/vector-premium/icono-usuario-hombre-traje-negocios_454641-453.jpg?w=50" class="img-fluid rounded-start" alt="...">
-                                                    <p class="descriptionPersonFlow"><small class="text-muted">Ocupación: 100%</small></p>
                                                     <p class="descriptionPersonFlow"><small class="text-muted">Developer / Interno</small></p>
+                                                    <div style="text-align: left;">
+                                                        <p class="descriptionPersonFlow"><small class="text-muted">Ocupación Total: 85%</small></p>
+                                                        <p class="descriptionPersonFlow"><small class="text-muted">Dedicación Feat: <input type="number" style="width: 20px; height: 13px; text-align: center;">%</small></p>
+                                                        <label for="selectTecnologia" class="descriptionPersonFlow text-muted" style="text-align: left;">Tecnología:</label>
+                                                        <select class="form-select form-select-sm descriptionPersonFlow" style="border: none;"
+                                                            aria-label=".form-select-sm example" id="selectTecnologia">
+                                                            <option selected class="descriptionTecnologFlow ">Seleccione</small></p>
+                                                            </option>
+                                                            <option value="1" class="descriptionTecnologFlow ">ASO: 100%</option>
+                                                            <option value="2" class="descriptionTecnologFlow ">APX: 100%</option>
+                                                            <option value="3" class="descriptionTecnologFlow ">Cells: 100%</option>
+                                                            <option value="4" class="descriptionTecnologFlow ">Host: 100%</option>
+                                                            <option value="5" class="descriptionTecnologFlow ">Bluesprint: 100%</option>
+                                                            <option value="6" class="descriptionTecnologFlow ">Python: 100%</option>
+                                                            <option value="7" class="descriptionTecnologFlow ">Scala: 100%</option>
+                                                            <option value="8" class="descriptionTecnologFlow ">Distribuido: 100%</option>
+                                                        </select>
+                                                    </div>
                                                 </div>                                            
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">O003992</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck2" checked>
                                                         </div>
                                                     </div>
@@ -632,7 +674,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 3</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck3">
                                                         </div>
                                                     </div>
@@ -644,7 +686,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 4</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck4" checked>
                                                         </div>
                                                     </div>
@@ -656,7 +698,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 5</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck5">
                                                         </div>
                                                     </div>
@@ -668,7 +710,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 6</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck6">
                                                         </div>
                                                     </div>
@@ -680,7 +722,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 7</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck7">
                                                         </div>
                                                     </div>
@@ -692,7 +734,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 8</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck8">
                                                         </div>
                                                     </div>
@@ -704,7 +746,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 9</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck9">
                                                         </div>
                                                     </div>
@@ -716,7 +758,7 @@
                                                 <div class="containerPersonViewFlow">
                                                     <div style="display: flex; position: relative;">
                                                         <p class="personCodeFlow">Code 10</p>
-                                                        <div class="form-check" style="position: absolute; right: 10px;">
+                                                        <div class="form-check" style="position: absolute; right: 1px;">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck10">
                                                         </div>
                                                     </div>
@@ -827,5 +869,12 @@
     </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script>
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            })
+    </script>
+    <script src="app.js"></script>
 </body>
 </html>
