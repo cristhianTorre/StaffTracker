@@ -237,6 +237,7 @@ router.post('/direccion', function (req,res,next) {
 
 router.get('/features', function (req,res,next){
     let jefe = req.session.mail;
+    let nombreJefe = req.session.nombre;
     const cuartiles = funciones.getCuartilesEncabezado();
     //let features_proyectos = 'SELECT features.codigo AS "feature_codigo", features.nombre AS "feature_nombre", features.descripcion, features.proyecto, features.estado, features.fecha_inicio, features.fecha_fin, proyectos.nombre AS "proyecto_nombre", proyectos.estado AS "proyecto_estado", proyectos.q_inicial, proyectos.q_final, proyectos.owner, proyectos.presupuesto, proyectos.normativo FROM features INNER JOIN staffing ON features.codigo = staffing.feature INNER JOIN proyectos ON features.proyecto = proyectos.sda INNER JOIN personas ON personas.codigo = staffing.persona INNER JOIN habilidades ON staffing.tecnologia = habilidades.id WHERE personas.superior = ? AND features.estado != "Closed" GROUP BY features.id AND features.fecha_inicio <= CURDATE() AND features.fecha_fin >= CURDATE()';
     let features_nuevos = 'SELECT * FROM features WHERE estado = "Sin asignar"'
@@ -246,7 +247,8 @@ router.get('/features', function (req,res,next){
     let usuarios = 'SELECT * FROM usuarios';
     let usuario = 'SELECT * FROM usuarios WHERE codigo = ?';
     let reglas_c = 'SELECT * FROM reglas_asociadas INNER JOIN reglas_de_oro ON reglas_asociadas.regla = reglas_de_oro.id'
-    let consultas = [personas_equipo, features_nuevos, proyectos_general, personas_general, usuarios, usuario, reglas_c];
+    let habilidades = 'SELECT * FROM porcentajes_asociados INNER JOIN habilidades ON porcentajes_asociados.tecnologia = habilidades.id';
+    let consultas = [personas_equipo, features_nuevos, proyectos_general, personas_general, usuarios, usuario, reglas_c, habilidades];
     connect.conexion.query(consultas.join(';'), [jefe, jefe, jefe, jefe], function (error, results, fields){
         let resultadoDos = JSON.parse(JSON.stringify(results[0]));
         let resultadoTres = JSON.parse(JSON.stringify(results[1]));
@@ -255,13 +257,17 @@ router.get('/features', function (req,res,next){
         let resultadoSeis = JSON.parse(JSON.stringify(results[4]));
         let usuario_login = JSON.parse(JSON.stringify(results[5]));
         let reglas = JSON.parse(JSON.stringify(results[6]));
+        let tecno = JSON.parse(JSON.stringify(results[7]));
+        for(let perso of resultadoDos){
+            perso.habilidad = funciones.habilidades(perso, tecno);
+        }
         for(let proyecto of resultadoCuatro){
             proyecto.equipo = resultadoDos;
         }
         for(let feature_new of resultadoTres){
             feature_new.equipo =  resultadoDos;
         }
-        const manipulacion = funciones.proyectosConJefe(resultadoCuatro, jefe, resultadoCinco, resultadoSeis);
+        const manipulacion = funciones.proyectosConJefe(resultadoCuatro, jefe, resultadoCinco, resultadoSeis, nombreJefe);
         res.render("personasST", {login: usuario_login, features: funciones.organizarPersonas(manipulacion, reglas), habilidades: resultadoDos, qtiles: cuartiles, backlog: funciones.cuadrarCronograma(resultadoTres)});
     });
 });
@@ -295,15 +301,17 @@ router.post('/actualizarFeature', function (req, res){
 router.post('/insertarPersonas', function (req, res){
     let personas = req.body.personas;
     let codigo = req.body.codigo;
+    let dedicacion = req.body.dedicacion;
+    let tecnologia = req.body.tecnologia;
     for(let i = 0; i<personas.length; i++){
         let features = 'SELECT proyecto FROM features WHERE codigo = ?';
         connect.conexion.query(features, [codigo], function (error, results, fields) {
-            let insPerso = 'INSERT INTO `staffing`(`sda`, `feature`, `persona`, `ocupacion`, `tecnologia`) VALUES ("'+results[0].proyecto+'","'+codigo+'","'+personas[i]+'","50","1")';
+            let insPerso = 'INSERT INTO `staffing`(`sda`, `feature`, `persona`, `ocupacion`, `tecnologia`) VALUES ("'+results[0].proyecto+'","'+codigo+'","'+personas[i]+'","'+dedicacion[i]+'","'+tecnologia[i]+'")';
             connect.conexion.query(insPerso, function (error, results, fields) {
-                res.redirect("/features");
             });
         });
     }
+    res.redirect("/features");
 });
 
 router.post('/updateFeature', function (req, res){
@@ -352,7 +360,7 @@ cron.schedule("* * * * *", function () {
     });
   });
 
-cron.schedule("40 * * * *", function (){
+cron.schedule("35 * * * *", function (){
     let tablas = ['SELECT * FROM features',
     'SELECT * FROM reglas_asociadas',
     'SELECT * FROM reglas_de_oro',

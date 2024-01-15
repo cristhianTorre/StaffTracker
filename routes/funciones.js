@@ -576,12 +576,12 @@ function cronogramaFeature(f_inicial, f_final){
 }
 
 
-function proyectosConJefe(proyectos, jefe, personas, usuarios){
+function proyectosConJefe(proyectos, jefe, personas, usuarios, nombreJefe){
     for(const persona of personas){
         if(persona['superior'] == jefe && !esJefe(usuarios, persona['codigo'])){
-            getProjects(proyectos, persona, jefe);
+            getProjects(proyectos, persona, jefe, nombreJefe);
         }else if(persona['superior'] == jefe){
-            proyectosConJefe(proyectos, persona['codigo'], personas, usuarios);
+            proyectosConJefe(proyectos, persona['codigo'], personas, usuarios, persona['nombre']);
         }
     }
     return listado_proyectos;
@@ -596,7 +596,7 @@ function esJefe(usuarios, persona){
     return false;
 }
 
-function getProjects(proyectos, persona, jefe){
+function getProjects(proyectos, persona, jefe, nombreJefe){
     for(const proyecto of proyectos){
         if(proyecto['persona_codigo'] == persona['codigo']){
             let verificar = inListadoProyectos(proyecto);
@@ -607,7 +607,7 @@ function getProjects(proyectos, persona, jefe){
             }else{
                 persona.ocupacion = proyecto['ocupacion'];
                 persona.habilidad = proyecto['habilidad_nombre'];
-                listado_proyectos.push({boss: jefe, project: proyecto, people: [persona]});
+                listado_proyectos.push({boss: jefe, bossName: nombreJefe, project: proyecto, people: [persona]});
                 //feature_codigo: proyecto['feature_codigo'], feature_nombre:proyecto['feature_nombre'], proyecto: proyecto['proyecto'], estado: proyecto['estado'], fecha_inicio:proyecto['fecha_inicio'], fecha_fin:proyecto['fecha_fin']
             }
         }
@@ -647,4 +647,14 @@ function unirReglas(reglas, proyecto){
     return arreglo;
 }
 
-module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos, getCuartilesEncabezado, organizarPersonas, proyectosConJefe, cuadrarCronograma};
+function habilidades(persona, tecnologias){
+    let habilidades = [];
+    for(const tecno of tecnologias){
+        if(tecno['codigo'] == persona['codigo']){
+            habilidades.push(tecno);
+        }
+    }
+    return habilidades;
+}
+
+module.exports = {getProyectos, getNewsProyectos, getDirecciones, getServicios, obtenerProyectos, getCuartilesEncabezado, organizarPersonas, proyectosConJefe, cuadrarCronograma, habilidades};
